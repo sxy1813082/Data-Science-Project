@@ -1,3 +1,6 @@
+import sys
+print("\n".join(sys.path))
+import os
 import torch
 
 # the filename is changed depending on which embeddings are being concatenated
