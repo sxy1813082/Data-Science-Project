@@ -1,10 +1,9 @@
-import sys
-print("\n".join(sys.path))
-import os
 import torch
 
 # the filename is changed depending on which embeddings are being concatenated
-filename = "expbert_embeddings_distilroberta-base"
+# filename = "expbert_embeddings_distilroberta-base"
+filename = "bertie_embeddings_nli-bert_all"
+# filename = ""
 
 embeddings_1 = torch.load("./embeddings/" + filename + "_subset_1.pt")
 embeddings_2 = torch.load("./embeddings/" + filename + "_subset_2.pt")

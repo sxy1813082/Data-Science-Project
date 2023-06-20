@@ -1,5 +1,5 @@
-import os
 import torch
+import os
 import numpy as np
 import argparse
 
@@ -35,6 +35,7 @@ args = parser.parse_args()
 
 def main():
     # initialises the model depending on which method is being used
+    print("main")
     if args.model == "bertie":
         model = AutoModelForSequenceClassification.from_pretrained(args.pretrained)
         tokenizer = AutoTokenizer.from_pretrained(args.pretrained)
@@ -76,7 +77,8 @@ def main():
         device = torch.device("cuda")
     else:
         device = torch.device("cpu")
-
+        
+    # optimize the model to cpu running when the work is apply to GPU
     model = model.to(device)
     torch.cuda.empty_cache()
 
@@ -124,16 +126,17 @@ def main():
     print(embeddings.shape)
 
     if args.model == "bertie":
-        embeddings = torch.reshape(embeddings, (2000, 36 * 3))
+        embeddings = torch.reshape(embeddings, (785, 36 * 3))
         print(embeddings.shape)
     elif args.model == "expbert":
-        embeddings = torch.reshape(embeddings, (2000, 36 * 768))
+        embeddings = torch.reshape(embeddings, (785, 36 * 768))
         print(embeddings.shape)
     else:
         print(embeddings.shape)
 
     # creates a filename using the passed in arguments
     # and then saves the embedding with this name
+
     save_filename = (
         "./embeddings/NEW_"
         + args.model
@@ -143,8 +146,14 @@ def main():
         + args.subset
         + ".pt"
     )
+    print(args.pretrained)
+    print(args.subset)
     print(save_filename)
-    torch.save(embeddings, save_filename)
+    save_directory = "./embeddings/NEW_bertie_embeddings_textattack"
+    # Create the directory if it doesn't exist
+    if not os.path.exists(save_directory):
+        os.makedirs(save_directory)
+    torch.save(embeddings,save_filename)
 
 
 if __name__ == "__main__":

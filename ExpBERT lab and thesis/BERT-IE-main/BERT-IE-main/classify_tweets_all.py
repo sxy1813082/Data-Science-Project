@@ -1,4 +1,3 @@
-import os
 import torch
 import torch.multiprocessing
 from torch.utils.data import DataLoader
@@ -98,13 +97,13 @@ tensorboard_filepath = (
     + args.epochs
     + "_"
     + args.lr
-    + "_wd:"
+    + "_wd_"
     + args.wd
-    + "_run:"
+    + "_run_"
     + args.run
-    + "_seed:"
+    + "_seed_"
     + args.seed
-    + "_other:"
+    + "_other_"
     + args.other
 )
 print(tensorboard_filepath)
@@ -138,7 +137,7 @@ class Dataset(torch.utils.data.Dataset):
 def get_datasets():
     with torch.no_grad():
         # loading in the embeddings
-        file_path = "./embeddings/" + args.embedding
+        file_path = "./embeddings/NEW_bertie_embeddings_textattack/" + args.embedding
 
         embeddings = torch.load(file_path)
         raw_dataset = load_from_disk("./data/")
@@ -280,7 +279,7 @@ class Trainer:
                 train_logits.append(logits.detach().cpu().numpy())
                 train_labels.append(labels.cpu().numpy())
 
-                loss = self.criterion(logits, labels)
+                loss = self.criterion(logits, labels.long())
                 total_training_loss += loss.item()
 
                 loss.backward()
@@ -356,7 +355,7 @@ class Trainer:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
                 logits = self.model(batch)
-                loss = self.criterion(logits, labels)
+                loss = self.criterion(logits, labels.long())
                 total_loss += loss.item()
                 preds = logits.argmax(dim=-1).cpu().numpy()
                 results["preds"].extend(list(preds))
@@ -384,7 +383,7 @@ class Trainer:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
                 logits = self.model(batch)
-                loss = self.criterion(logits, labels)
+                loss = self.criterion(logits, labels.long())
                 total_loss += loss.item()
                 preds = logits.argmax(dim=-1).cpu().numpy()
                 results["preds"].extend(list(preds))

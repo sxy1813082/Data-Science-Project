@@ -1,10 +1,7 @@
-import sys
-print("\n".join(sys.path))
 import os
 import pandas as pd
 import emoji
 import numpy as np
-import torch
 from datasets import load_dataset
 
 
@@ -153,8 +150,8 @@ def main():
     data_noexp = load_dataset("csv", data_files="./data/dataset_noexp.csv")
     data_noexp.save_to_disk("./data/")
 
-    """ code only for ExpBERT and BERT-IE """
-    # reads in explanations and concatenates to the tweets to form an expanded dataset
+    # """ code only for ExpBERT and BERT-IE """
+    # # reads in explanations and concatenates to the tweets to form an expanded dataset
     explanations = read_explanations("explanations.txt")
     df_exp = create_explanations_dataset(df_noexp, explanations)
 
