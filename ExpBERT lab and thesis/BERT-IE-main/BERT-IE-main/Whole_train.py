@@ -7,13 +7,15 @@ import emoji
 import numpy as np
 import torch
 import argparse
-from datasets import Dataset
+from datasets import Dataset, DatasetDict, load_dataset
+from torch.utils.data import ConcatDataset
+import shutil
+import torch.utils.data as data_utils
 
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from datasets import load_from_disk
 from torch.utils.data import DataLoader, Subset
-from datasets import load_dataset
 import torch.multiprocessing
 from torch import nn, multiprocessing
 from torch.nn import functional as F
@@ -196,7 +198,16 @@ class MyCustomDataset:
     def __getitem__(self, index):
         return self.text[index], self.labels[index], self.exp_and_td[index]
 
+class MyCustomDatasetNo:
+    def __init__(self, text, labels):
+        self.text = text
+        self.labels = labels
 
+    def __len__(self):
+        return len(self.text)
+
+    def __getitem__(self, index):
+        return self.text[index], self.labels[index]
     # def add_labeled_samples(self, indices):
     #     self.labeled_indices.extend(indices)
     #
@@ -623,7 +634,7 @@ def main():
     # saves the dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
     data_noexp = load_dataset("csv", data_files="./data/dataset_noexp.csv")
-    data_noexp.save_to_disk("./data/")
+    data_noexp.save_to_disk("./data/org/")
 
     df_noexp.to_csv("./data/dataset_noexp_no.csv", index=False)
     data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
@@ -642,23 +653,24 @@ def main():
     subset_1_dict.save_to_disk("./data/exp/subset_1")
 
 
-    # embedding process----------------------------------------------
-    # temp_path_noexp = "./data/"
-    # raw_dataset_noexp = load_from_disk(temp_path_noexp)
-    # raw_dataset_noexp_no = load_from_disk("./data/no/")
-    # temp_path = "./data/exp/" + "subset_1"
-    # raw_dataset = load_from_disk(temp_path)
-    temp_path_noexp = "./data/"
+    temp_path_noexp = "./data/org/"
     raw_dataset_noexp = load_from_disk(temp_path_noexp)
+    datanoexp_path = "./data/dataset_noexp.csv"
+    noexp_df = pd.read_csv(datanoexp_path)
+
     # human in the loop
     print(len(raw_dataset_noexp["train"]))
-    while len(raw_dataset_noexp["train"]) > 230:
-        temp_path_noexp = "./data/"
+    print(noexp_df.shape[0])
+    while noexp_df.shape[0] > 100:
+        print(noexp_df.shape[0])
+        temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
-        raw_dataset_noexp_no = load_from_disk("./data/no/")
+        datanoexp_path = "./data/dataset_noexp.csv"
+        noexp_df = pd.read_csv(datanoexp_path)
         temp_path = "./data/exp/" + "subset_1"
         raw_dataset = load_from_disk(temp_path)
 
+        # embedding process----------------------------------------------
         model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
         tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
 
@@ -772,14 +784,6 @@ def main():
             pin_memory=True,
         )
 
-        # unlabel_loader = DataLoader(
-        #     unlabelled_dataset,
-        #     shuffle=False,
-        #     batch_size=8,
-        #     num_workers=2,
-        #     pin_memory=True,
-        # )
-
         val_loader = DataLoader(
             val_dataset,
             shuffle=False,
@@ -834,35 +838,28 @@ def main():
 
         # calls train to start the training, validating and testing process
         trainer.train(
-            int("10"),
+            int("4"),
             # active_learning_epochs=[10,20,30],
             print_frequency=1,
         )
 
         writer.close()
         # write code there:
-        #calculate raw_dataset_noexp uncertainty and use chatGPT to generate 36 explanations for the selected samples
-
-        #add the explained data and add a extra colunm "exp_and_td" to examples and add the explained raw_dataset_noexp data to raw_dataset
-        #delete the explained data from raw_dataset_noexp
-        #repeat the steps until raw_dataset_noexp is null
-        # calculate raw_dataset_noexp uncertainty sampling each iteration pick 20 samples and use chatGPT to generate 36 explanations for the selected samples
-        # sampled_indices = random.sample(range(len(raw_dataset_noexp)), 50)
-        if len(raw_dataset_noexp) >= 10:
-            sampled_indices = random.sample(range(len(raw_dataset_noexp)), 10)
+        # ===========================================================================
+        if noexp_df.shape[0] >= 10:
+            sampled_indices = random.sample(range(noexp_df.shape[0]), 10)
         else:
-            sampled_indices = random.sample(range(len(raw_dataset_noexp)), len(raw_dataset_noexp))
-        print(raw_dataset_noexp.keys())
-        print(len(raw_dataset_noexp["train"]))
+            sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
 
-        # sampled_data = [raw_dataset_noexp[i.item()] for i in sampled_indices]
         sampled_data = [raw_dataset_noexp['train'][i] for i in sampled_indices]
-
         explanations = []
+        no_exp_data = []
         new_data = []
         for data in sampled_data:
             tweet = data["text"]
             label = data["labels"]
+            print(tweet)
+            no_exp_data.append({"text": tweet, "labels": label})
             for _ in range(2):
                 # Use openai model to generate an explanation for the tweet
                 explanation = generate_explanations(tweet)
@@ -880,37 +877,75 @@ def main():
         # Convert new_data to a Dataset object
         # new_dataset = Dataset.from_dict(new_data)
         new_data = {"text": [data["text"] for data in new_data],
-                                         "labels": [data["labels"] for data in new_data],
-                                         "exp_and_td": [data["exp_and_td"] for data in new_data]}
-        new_dataset = MyCustomDataset(new_data["text"], new_data["labels"], new_data["exp_and_td"])
+                    "labels": [data["labels"] for data in new_data],
+                    "exp_and_td": [data["exp_and_td"] for data in new_data]}
+        existing_data_path = "./data/dataset_exp_subset_1.csv"
+        existing_data_df = pd.read_csv(existing_data_path)
+        new_data_df = pd.DataFrame(new_data)
+        merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+        merged_data_df.to_csv(existing_data_path, index=False)
+        # Load the CSV file into a DatasetDict
+        subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
+        directory = './data/exp/subset_1'
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        subset_1_dict.save_to_disk("./data/exp/subset_1")
 
-        # Concatenate the new_dataset with the existing raw_dataset
-        raw_dataset["train"] = raw_dataset["train"].concatenate(new_dataset)
+        new_data_no = {"text": [data["text"] for data in no_exp_data],
+                       "labels": [data["labels"] for data in no_exp_data]}
+        existing_data_path = "./data/dataset_noexp_no.csv"
+        existing_data_df = pd.read_csv(existing_data_path)
+        new_data_df = pd.DataFrame(new_data_no)
+        merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
+        merged_data_df.to_csv(existing_data_path, index=False)
+        # Load the CSV file into a DatasetDict
+        subset_1_dict = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
+        directory = './data/no/'
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
 
-        # Save raw_dataset to its original path (optional, if you want to update the original dataset)
-        raw_dataset_path = "./data/exp/subset_1"
-        raw_dataset.save_to_disk(raw_dataset_path)
-
-        # model_NN's train data need to be extended
-        raw_dataset_noexp_no.extend(sampled_data)
+        # Save the DatasetDict to disk
+        subset_1_dict.save_to_disk("./data/no/")
 
         # Delete the explained data from raw_dataset_noexp
-        raw_dataset_noexp = [data for i, data in enumerate(raw_dataset_noexp) if i not in sampled_indices]
+        sampled_data_no = [data for i, data in enumerate(raw_dataset_noexp['train']) if i not in sampled_indices]
+        data_no_exp_new = []
+        for data in sampled_data_no:
+            tweet = data["text"]
+            label = data["labels"]
+            data_no_exp_new.append({"text": tweet, "labels": label})
+        new_data_no_exp = {"text": [data["text"] for data in data_no_exp_new],
+                           "labels": [data["labels"] for data in data_no_exp_new]}
+        existing_data_path = "./data/dataset_noexp.csv"
+        new_data_df = pd.DataFrame(new_data_no_exp)
+        new_data_df.to_csv(existing_data_path, index=False)
+        subset_1_dict = load_dataset("csv", data_files="./data/dataset_noexp.csv")
+        directory = './data/org/'
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        subset_1_dict.save_to_disk(directory)
+        # =============================================================
 
-        # Save raw_dataset_noexp_no to its original path
-        raw_dataset_noexp_no_path = "./data/no/"
-        updated_dataset = Dataset.from_dict(raw_dataset_noexp_no)
-        updated_dataset.save_to_disk(raw_dataset_noexp_no_path)
-
-        # Save raw_dataset_noexp to its original path (optional, if you want to update the original dataset)
-        raw_dataset_noexp_path = "./data/"
-        updated_dataset_one = Dataset.from_dict(raw_dataset_noexp)
-        updated_dataset_one.save_to_disk(raw_dataset_noexp_path)
-
-        # Save raw_dataset to its original path (optional, if you want to update the original dataset)
-        # raw_dataset_path = "./data/exp/subset_1"
-        # updated_dataset_two = Dataset.from_dict(raw_dataset)
-        # updated_dataset_two.save_to_disk(raw_dataset_path)
 
 if __name__ == "__main__":
     main()
