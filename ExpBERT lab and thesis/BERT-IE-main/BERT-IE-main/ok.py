@@ -250,7 +250,7 @@ class Trainer:
             if epoch + 1 in active_learning_epochs:
                 if num_samples >0:
                     self.active_learning_step(num_label)
-                    num_samples = num_samples - num_label
+                    # num_samples = num_samples - num_label
 
             # calls validate function every print_frequency epochs
             if ((epoch + 1) % print_frequency) == 0:

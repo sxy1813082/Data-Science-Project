@@ -1,15 +1,21 @@
 import os
+from random import random
+import random
+
 import pandas as pd
 import emoji
 import numpy as np
 import torch
 import argparse
+from datasets import Dataset
+
+from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from datasets import load_from_disk
 from torch.utils.data import DataLoader, Subset
 from datasets import load_dataset
 import torch.multiprocessing
-from torch import nn
+from torch import nn, multiprocessing
 from torch.nn import functional as F
 from torch.optim import AdamW
 from torch.optim.optimizer import Optimizer
@@ -26,6 +32,8 @@ from typing import Callable
 from math import floor
 import seaborn as sns
 import matplotlib.pyplot as plt
+import openai
+
 
 def obtain_filepaths(dir_path):
     filepaths = []
@@ -148,7 +156,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "bertie_40_5e - 5_wd_1e-2_run_1_seed_37_other_other"
+        "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -176,24 +184,37 @@ class Dataset(torch.utils.data.Dataset):
         else:
             return self.embeddings_IDs[index], self.labels[index]
 
-    def add_labeled_samples(self, indices):
-        self.labeled_indices.extend(indices)
+class MyCustomDataset:
+    def __init__(self, text, labels, exp_and_td):
+        self.text = text
+        self.labels = labels
+        self.exp_and_td = exp_and_td
 
-    def remove_samples(self, indices):
-        self.labeled_indices = [i for i in self.labeled_indices if i not in indices]
+    def __len__(self):
+        return len(self.text)
 
-    def get_labeled_dataset(self):
-        return Subset(self, self.labeled_indices)
+    def __getitem__(self, index):
+        return self.text[index], self.labels[index], self.exp_and_td[index]
+
+
+    # def add_labeled_samples(self, indices):
+    #     self.labeled_indices.extend(indices)
+    #
+    # def remove_samples(self, indices):
+    #     self.labeled_indices = [i for i in self.labeled_indices if i not in indices]
+    #
+    # def get_labeled_dataset(self):
+    #     return Subset(self, self.labeled_indices)
 
 
 # Retrieves the embeddings from the given file path and splits dataset into training, validation and test --------------------
-def get_datasets():
+def get_datasets(raw_dataset_noexp_no=None):
     with torch.no_grad():
         # loading in the embeddings
         file_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
 
         embeddings = torch.load(file_path)
-        raw_dataset = load_from_disk("./data/")
+        raw_dataset = load_from_disk("./data/no/")
         labels = np.array(raw_dataset["train"]["labels"])
 
         # shuffling embeddings and labels
@@ -251,16 +272,16 @@ def get_datasets():
         print(len(test_dataset))
         print(len(val_dataset))
         # Create a subset of unlabelled data for active learning
-        train_size_half = int(len(train_dataset) / 2)
-        unlabelled_dataset = Dataset(
-            train_dataset[train_size_half:][0],
-            train_dataset[train_size_half:][1],
-        )
-        train_dataset = Dataset(
-            train_dataset[:train_size_half][0],
-            train_dataset[:train_size_half][1],
-        )
-    return train_dataset, val_dataset, test_dataset,unlabelled_dataset, idx
+        # train_size_half = int(len(train_dataset) / 2)
+        # unlabelled_dataset = Dataset(
+        #     train_dataset[train_size_half:][0],
+        #     train_dataset[train_size_half:][1],
+        # )
+        # train_dataset = Dataset(
+        #     train_dataset[:train_size_half][0],
+        #     train_dataset[:train_size_half][1],
+        # )
+    return train_dataset, val_dataset, test_dataset, idx
 
 
 # Calculates the performance metrics using the sk-learn library, given predicted and true labels --------------------
@@ -305,7 +326,7 @@ class Trainer:
         train_loader: DataLoader,
         val_loader: DataLoader,
         test_loader: DataLoader,
-        unlabel_loader: DataLoader,
+        # unlabel_loader: DataLoader,
         criterion: nn.Module,
         optimizer: Optimizer,
         device: torch.device,
@@ -316,14 +337,16 @@ class Trainer:
         self.train_loader = train_loader
         self.val_loader = val_loader
         self.test_loader = test_loader
-        self.unlabel_loader = unlabel_loader
+        # self.unlabel_loader = unlabel_loader
         self.criterion = criterion
         self.optimizer = optimizer
         self.step = 0
         self.writer = writer
 
     # training the model
-    def train(self, epochs: int, active_learning_epochs: list, print_frequency: int = 20, start_epoch: int = 0):
+    def train(self, epochs: int,
+              # active_learning_epochs: list,
+              print_frequency: int = 20, start_epoch: int = 0):
         self.model.train()
 
         progress_bar = tqdm(range(epochs))
@@ -359,8 +382,8 @@ class Trainer:
 
             # Active learning step
             # Active learning step
-            if epoch + 1 in active_learning_epochs:
-                self.active_learning_step(len(self.unlabel_loader))
+            # if epoch + 1 in active_learning_epochs:
+            #     self.active_learning_step(len(self.unlabel_loader))
 
             # calls validate function every print_frequency epochs
             if ((epoch + 1) % print_frequency) == 0:
@@ -411,23 +434,23 @@ class Trainer:
             train_preds = np.concatenate(train_preds).ravel()
             train_labels = np.concatenate(train_labels).ravel()
 
-    def active_learning_step(self, num_samples_to_label):
-        self.model.eval()
-        uncertainties = []
-
-        with torch.no_grad():
-            for batch, _ in self.unlabel_loader:
-                batch = batch.to(self.device)
-                logits = self.model(batch)
-                probs = F.softmax(logits, dim=-1)
-                entropy = -(probs * torch.log(probs)).sum(dim=-1)
-                uncertainties.extend(entropy.cpu().numpy())
-
-        top_indices = np.argsort(uncertainties)[-num_samples_to_label:]
-
-        # Move selected samples from the unlabelled dataset to the labelled dataset
-        self.train_loader.dataset.add_labeled_samples(top_indices)
-        self.unlabel_loader.dataset.remove_samples(top_indices)
+    # def active_learning_step(self, num_samples_to_label):
+    #     self.model.eval()
+    #     uncertainties = []
+    #
+    #     with torch.no_grad():
+    #         for batch, _ in self.unlabel_loader:
+    #             batch = batch.to(self.device)
+    #             logits = self.model(batch)
+    #             probs = F.softmax(logits, dim=-1)
+    #             entropy = -(probs * torch.log(probs)).sum(dim=-1)
+    #             uncertainties.extend(entropy.cpu().numpy())
+    #
+    #     top_indices = np.argsort(uncertainties)[-num_samples_to_label:]
+    #
+    #     # Move selected samples from the unlabelled dataset to the labelled dataset
+    #     self.train_loader.dataset.add_labeled_samples(top_indices)
+    #     self.unlabel_loader.dataset.remove_samples(top_indices)
 
     # called every print_frequency epochs to evaluate the model during training
     def validate(self):
@@ -538,6 +561,43 @@ def get_weights():
     weights = weights / weights.sum()
     return weights
 
+
+def generate_explanations(param):
+    # prompt = param  # Modify the prompt as needed
+    # openai.api_key = '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'
+    # response = openai.Completion.create(
+    #     engine="text-davinci-003",  # Choose the appropriate OpenAI engine
+    #     prompt=prompt,
+    #     max_tokens=15,
+    #     n=1,
+    #     stop=None,
+    #     temperature=0.8,
+    #     top_p=1.0,
+    #     frequency_penalty=0.0,
+    #     presence_penalty=0.0
+    # )
+    # explanation = response.choices[0].text.strip()
+    explanation = "irrelevant and not relative"
+    return explanation
+
+# Process a single batch and return the embeddings
+def process_batch(batch, model, tokenizer, tokenize_exp_function):
+    with torch.no_grad():
+        tokenized_train = tokenize_exp_function(batch, tokenizer)
+        model_outputs = model(**tokenized_train)
+        embeddings = model_outputs["logits"]
+        embeddings = embeddings.cpu().detach().numpy()
+        return embeddings
+
+def tokenize_exp_function(examples,tokenizer):
+            return tokenizer(
+                examples["text"],
+                examples["exp_and_td"],
+                truncation=True,
+                padding=True,
+                return_tensors="pt",
+            )
+
 def main():
     dataframes = []
     filepaths = obtain_filepaths("./data/")
@@ -555,15 +615,20 @@ def main():
     df_concat.rename(columns={"label": "labels"}, inplace=True)
 
     # duplicate tweets are dropped
-    df_noexp = df_concat.drop_duplicates(subset=["text"], inplace=False)
+    df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
 
-    """ code only for NoExp """
+    # split noexp into two part
+    df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.4, random_state=42)
+
     # saves the dataset to a dataset directory
-    df_noexp.to_csv("./data/dataset_noexp.csv", index=False)
+    df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
     data_noexp = load_dataset("csv", data_files="./data/dataset_noexp.csv")
     data_noexp.save_to_disk("./data/")
 
-    # """ code only for ExpBERT and BERT-IE """
+    df_noexp.to_csv("./data/dataset_noexp_no.csv", index=False)
+    data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
+    data_noexp_one.save_to_disk("./data/no/")
+
     # # reads in explanations and concatenates to the tweets to form an expanded dataset
     explanations = read_explanations("explanations.txt")
     df_exp = create_explanations_dataset(df_noexp, explanations)
@@ -575,175 +640,277 @@ def main():
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
     subset_1_dict.save_to_disk("./data/exp/subset_1")
-    """ """
-    # embedding process
-    model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
-    tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
 
-    temp_path = "./data/exp/" + "subset_1"
-    raw_dataset = load_from_disk(temp_path)
 
-    if not os.path.exists("embeddings"):
-        os.makedirs("embeddings")
+    # embedding process----------------------------------------------
+    # temp_path_noexp = "./data/"
+    # raw_dataset_noexp = load_from_disk(temp_path_noexp)
+    # raw_dataset_noexp_no = load_from_disk("./data/no/")
+    # temp_path = "./data/exp/" + "subset_1"
+    # raw_dataset = load_from_disk(temp_path)
+    temp_path_noexp = "./data/"
+    raw_dataset_noexp = load_from_disk(temp_path_noexp)
+    # human in the loop
+    print(len(raw_dataset_noexp["train"]))
+    while len(raw_dataset_noexp["train"]) > 230:
+        temp_path_noexp = "./data/"
+        raw_dataset_noexp = load_from_disk(temp_path_noexp)
+        raw_dataset_noexp_no = load_from_disk("./data/no/")
+        temp_path = "./data/exp/" + "subset_1"
+        raw_dataset = load_from_disk(temp_path)
 
-    # takes in only the tweet and creates an embedding
-    def tokenize_noexp_function(examples):
-        return tokenizer(
-            examples["text"], truncation=True, padding=True, return_tensors="pt"
+        model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
+        tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
+
+        # use raw_dataset to initial the model_NN
+        if not os.path.exists("embeddings"):
+            os.makedirs("embeddings")
+
+        # takes in only the tweet and creates an embedding
+        def tokenize_noexp_function(examples):
+            return tokenizer(
+                examples["text"], truncation=True, padding=True, return_tensors="pt"
+            )
+
+        # takes in both the tweet and the explanation and creates an embedding
+        # def tokenize_exp_function(examples,tokenizer):
+        #     return tokenizer(
+        #         examples["text"],
+        #         examples["exp_and_td"],
+        #         truncation=True,
+        #         padding=True,
+        #         return_tensors="pt",
+        #     )
+
+        # optimises the runtime if running on a GPU
+        # torch.backends.cudnn.benchmark = True
+        #
+        # if torch.cuda.is_available():
+        #     device = torch.device("cuda")
+        # else:
+        #     device = torch.device("cpu")
+        #
+        # # optimize the model to cpu running when the work is apply to GPU
+        # model = model.to(device)
+        torch.cuda.empty_cache()
+
+        # splits the dataset into batches of size 10 and passes them through the tokenizer and pre-trained model.
+        print("embedding begin")
+        emb = []
+        train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
+        # if args.model == "bertie":
+        model.eval()
+        # for batch in train_dataloader:
+        #     with torch.no_grad():
+        #         tokenized_train = tokenize_exp_function(batch)
+        #         model_outputs = model(**tokenized_train)
+        #         embeddings = model_outputs["logits"]
+        #         embeddings = embeddings.cpu().detach().numpy()
+        #         emb.append(embeddings)
+        #         torch.cuda.empty_cache()
+        # def process_batch(batch):
+        #     with torch.no_grad():
+        #         tokenized_train = tokenize_exp_function(batch)
+        #         model_outputs = model(**tokenized_train)
+        #         embeddings = model_outputs["logits"]
+        #         embeddings = embeddings.cpu().detach().numpy()
+        #         return embeddings
+
+        pool = multiprocessing.Pool()
+        for batch in train_dataloader:
+            result = pool.apply_async(process_batch, (batch, model, tokenizer, tokenize_exp_function))
+            emb.append(result.get())
+        pool.close()
+        pool.join()
+
+        # Reshape each element in the emb list to have a consistent shape
+        emb = [element.reshape(-1) for element in emb]
+
+        # converts the embeddings into a tensor and reshapes them to the correct size
+        emb = np.array(emb)
+        emb = np.vstack(emb)
+
+        embeddings = torch.tensor(emb)
+        print(embeddings.shape)
+
+        # if args.model == "bertie":
+        print(embeddings.shape[0]/(36))
+        # 785
+        total_samples = int(10 * embeddings.shape[0] / (36))
+        embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
+        print(embeddings.shape)
+
+        # creates a filename using the passed in arguments
+        # and then saves the embedding with this name
+
+        save_filename = (
+                "./embeddings/NEW_"
+                + "bertie"
+                + "_embeddings_"
+                + "textattack/bert-base-uncased-MNLI"
+                + "_"
+                + "subset_1"
+                + ".pt"
+        )
+        print(save_filename)
+        save_directory = "./embeddings/NEW_bertie_embeddings_textattack"
+        # Create the directory if it doesn't exist
+        if not os.path.exists(save_directory):
+            os.makedirs(save_directory)
+        torch.save(embeddings, save_filename)
+
+        #classifiy the tweets---------------------------------------------------
+        print("classify begin")
+        train_dataset, val_dataset, test_dataset, idx = get_datasets()
+
+        # DataLoader splits the datasets into batches
+        train_loader = DataLoader(
+            train_dataset,
+            shuffle=False,
+            batch_size=8,
+            num_workers=2,
+            pin_memory=True,
         )
 
-    # takes in both the tweet and the explanation and creates an embedding
-    def tokenize_exp_function(examples):
-        return tokenizer(
-            examples["text"],
-            examples["exp_and_td"],
-            truncation=True,
-            padding=True,
-            return_tensors="pt",
+        # unlabel_loader = DataLoader(
+        #     unlabelled_dataset,
+        #     shuffle=False,
+        #     batch_size=8,
+        #     num_workers=2,
+        #     pin_memory=True,
+        # )
+
+        val_loader = DataLoader(
+            val_dataset,
+            shuffle=False,
+            batch_size=8,
+            num_workers=2,
+            pin_memory=True,
         )
 
-    # optimises the runtime if running on a GPU
-    torch.backends.cudnn.benchmark = True
+        test_loader = DataLoader(
+            test_dataset,
+            shuffle=False,
+            batch_size=8,
+            num_workers=2,
+            pin_memory=True,
+        )
 
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    else:
-        device = torch.device("cpu")
+        # optimises the training if running on a GPU
+        torch.backends.cudnn.benchmark = True
 
-    # optimize the model to cpu running when the work is apply to GPU
-    model = model.to(device)
-    torch.cuda.empty_cache()
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        else:
+            device = torch.device("cpu")
 
-    # splits the dataset into batches of size 10 and passes them through the tokenizer and pre-trained model.
-    emb = []
-    train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
-    # if args.model == "bertie":
-    model.eval()
-    for batch in train_dataloader:
-        with torch.no_grad():
-            tokenized_train = tokenize_exp_function(batch)
-            model_outputs = model(**tokenized_train)
-            embeddings = model_outputs["logits"]
-            embeddings = embeddings.cpu().detach().numpy()
-            emb.append(embeddings)
-            torch.cuda.empty_cache()
+        feature_count = train_dataset[0][0].shape[0]
+        class_count = 9
 
+        torch.manual_seed("37")
 
-    # converts the embeddings into a tensor and reshapes them to the correct size
-    emb = np.array(emb)
-    emb = np.vstack(emb)
+        # initialises the model and hyperparameters taking into account the passed in arguments
+        model_NN = MLP_1h(feature_count, int("100"), class_count)
 
-    embeddings = torch.tensor(emb)
-    print(embeddings.shape)
+        model_NN = model_NN.to(device)
+        optimizer = AdamW(
+            model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
+        )
 
-    # if args.model == "bertie":
-    embeddings = torch.reshape(embeddings, (785, 36 * 3))
-    print(embeddings.shape)
+        criterion = nn.CrossEntropyLoss()
 
-    # creates a filename using the passed in arguments
-    # and then saves the embedding with this name
+        # initalises the Trainer class
+        trainer = Trainer(
+            model_NN,
+            train_loader,
+            val_loader,
+            test_loader,
+            # unlabel_loader,
+            criterion,
+            optimizer,
+            device,
+            writer,
+        )
 
-    save_filename = (
-            "./embeddings/NEW_"
-            + "bertie"
-            + "_embeddings_"
-            + "textattack/bert-base-uncased-MNLI"
-            + "_"
-            + "subset_1"
-            + ".pt"
-    )
-    print(save_filename)
-    save_directory = "./embeddings/NEW_bertie_embeddings_textattack"
-    # Create the directory if it doesn't exist
-    if not os.path.exists(save_directory):
-        os.makedirs(save_directory)
-    torch.save(embeddings, save_filename)
+        # calls train to start the training, validating and testing process
+        trainer.train(
+            int("10"),
+            # active_learning_epochs=[10,20,30],
+            print_frequency=1,
+        )
 
-    #classifiy the tweets---------------------------------------------------
-    train_dataset, val_dataset, test_dataset, unlabelled_dataset, idx = get_datasets()
+        writer.close()
+        # write code there:
+        #calculate raw_dataset_noexp uncertainty and use chatGPT to generate 36 explanations for the selected samples
 
-    # DataLoader splits the datasets into batches
-    train_loader = DataLoader(
-        train_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
+        #add the explained data and add a extra colunm "exp_and_td" to examples and add the explained raw_dataset_noexp data to raw_dataset
+        #delete the explained data from raw_dataset_noexp
+        #repeat the steps until raw_dataset_noexp is null
+        # calculate raw_dataset_noexp uncertainty sampling each iteration pick 20 samples and use chatGPT to generate 36 explanations for the selected samples
+        # sampled_indices = random.sample(range(len(raw_dataset_noexp)), 50)
+        if len(raw_dataset_noexp) >= 10:
+            sampled_indices = random.sample(range(len(raw_dataset_noexp)), 10)
+        else:
+            sampled_indices = random.sample(range(len(raw_dataset_noexp)), len(raw_dataset_noexp))
+        print(raw_dataset_noexp.keys())
+        print(len(raw_dataset_noexp["train"]))
 
-    unlabel_loader = DataLoader(
-        unlabelled_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
+        # sampled_data = [raw_dataset_noexp[i.item()] for i in sampled_indices]
+        sampled_data = [raw_dataset_noexp['train'][i] for i in sampled_indices]
 
-    val_loader = DataLoader(
-        val_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
+        explanations = []
+        new_data = []
+        for data in sampled_data:
+            tweet = data["text"]
+            label = data["labels"]
+            for _ in range(2):
+                # Use openai model to generate an explanation for the tweet
+                explanation = generate_explanations(tweet)
+                explanations.append(explanation)
+                new_data.append({"text": tweet, "labels": label, "exp_and_td": explanation})
+                # Extract remaining 34 explanations from "GPTuseExp.txt"
+            with open("GPTuseExp.txt", "r") as file:
+                extracted_explanations = file.readlines()[:34]
+                explanations.extend(extracted_explanations)
+                for extracted_explanation in extracted_explanations:
+                    new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
 
-    test_loader = DataLoader(
-        test_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
+        # Extend raw_dataset with the new explained data
+        # raw_dataset.extend(new_data)
+        # Convert new_data to a Dataset object
+        # new_dataset = Dataset.from_dict(new_data)
+        new_data = {"text": [data["text"] for data in new_data],
+                                         "labels": [data["labels"] for data in new_data],
+                                         "exp_and_td": [data["exp_and_td"] for data in new_data]}
+        new_dataset = MyCustomDataset(new_data["text"], new_data["labels"], new_data["exp_and_td"])
 
-    # optimises the training if running on a GPU
-    torch.backends.cudnn.benchmark = True
+        # Concatenate the new_dataset with the existing raw_dataset
+        raw_dataset["train"] = raw_dataset["train"].concatenate(new_dataset)
 
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    else:
-        device = torch.device("cpu")
+        # Save raw_dataset to its original path (optional, if you want to update the original dataset)
+        raw_dataset_path = "./data/exp/subset_1"
+        raw_dataset.save_to_disk(raw_dataset_path)
 
-    feature_count = train_dataset[0][0].shape[0]
-    class_count = 9
+        # model_NN's train data need to be extended
+        raw_dataset_noexp_no.extend(sampled_data)
 
-    torch.manual_seed("37")
+        # Delete the explained data from raw_dataset_noexp
+        raw_dataset_noexp = [data for i, data in enumerate(raw_dataset_noexp) if i not in sampled_indices]
 
-    # initialises the model and hyperparameters taking into account the passed in arguments
-    model = MLP_1h(feature_count, int("100"), class_count)
+        # Save raw_dataset_noexp_no to its original path
+        raw_dataset_noexp_no_path = "./data/no/"
+        updated_dataset = Dataset.from_dict(raw_dataset_noexp_no)
+        updated_dataset.save_to_disk(raw_dataset_noexp_no_path)
 
-    model = model.to(device)
-    optimizer = AdamW(
-        model.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
-    )
+        # Save raw_dataset_noexp to its original path (optional, if you want to update the original dataset)
+        raw_dataset_noexp_path = "./data/"
+        updated_dataset_one = Dataset.from_dict(raw_dataset_noexp)
+        updated_dataset_one.save_to_disk(raw_dataset_noexp_path)
 
-    # if args.WCEL == "True":
-    #     weights = get_weights().to(device)
-    #     criterion = nn.CrossEntropyLoss(weight=weights)
-    # else:
-    criterion = nn.CrossEntropyLoss()
-
-    # initalises the Trainer class
-    trainer = Trainer(
-        model,
-        train_loader,
-        val_loader,
-        test_loader,
-        unlabel_loader,
-        criterion,
-        optimizer,
-        device,
-        writer,
-    )
-
-    # calls train to start the training, validating and testing process
-    trainer.train(
-        int("40"),
-        active_learning_epochs=[10,20,30],
-        print_frequency=1,
-    )
-
-    writer.close()
-
+        # Save raw_dataset to its original path (optional, if you want to update the original dataset)
+        # raw_dataset_path = "./data/exp/subset_1"
+        # updated_dataset_two = Dataset.from_dict(raw_dataset)
+        # updated_dataset_two.save_to_disk(raw_dataset_path)
 
 if __name__ == "__main__":
     main()
