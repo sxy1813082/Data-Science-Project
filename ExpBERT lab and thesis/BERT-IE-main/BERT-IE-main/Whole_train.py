@@ -628,24 +628,24 @@ def main():
     # duplicate tweets are dropped
     df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
 
-    # split noexp into two part
+    # split noexp into two part one part will be explained properly and one part use default explanations
     df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.4, random_state=42)
 
-    # saves the dataset to a dataset directory
+    # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
     data_noexp = load_dataset("csv", data_files="./data/dataset_noexp.csv")
     data_noexp.save_to_disk("./data/org/")
 
+    # to initial the classifier
     df_noexp.to_csv("./data/dataset_noexp_no.csv", index=False)
     data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
     data_noexp_one.save_to_disk("./data/no/")
 
-    # # reads in explanations and concatenates to the tweets to form an expanded dataset
+    # reads in explanations and concatenates to the tweets to form an expanded dataset (to initial the pretrained model)
     explanations = read_explanations("explanations.txt")
     df_exp = create_explanations_dataset(df_noexp, explanations)
 
-    # splits the expanded dataset into nine subsets
-    # so it can be passed through the pre-trained model
+    #default explained data can be passed through the pre-trained model
     # each subset is created and then saved
     subset_1 = df_exp[0:72000]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
@@ -661,15 +661,15 @@ def main():
     # human in the loop
     print(len(raw_dataset_noexp["train"]))
     print(noexp_df.shape[0])
-    while noexp_df.shape[0] > 100:
-        print(noexp_df.shape[0])
+    while noexp_df.shape[0] > 661:
         temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
         datanoexp_path = "./data/dataset_noexp.csv"
         noexp_df = pd.read_csv(datanoexp_path)
         temp_path = "./data/exp/" + "subset_1"
         raw_dataset = load_from_disk(temp_path)
-
+        print("unexplained dataset length is:")
+        print(noexp_df.shape[0])
         # embedding process----------------------------------------------
         model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
         tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
@@ -684,26 +684,7 @@ def main():
                 examples["text"], truncation=True, padding=True, return_tensors="pt"
             )
 
-        # takes in both the tweet and the explanation and creates an embedding
-        # def tokenize_exp_function(examples,tokenizer):
-        #     return tokenizer(
-        #         examples["text"],
-        #         examples["exp_and_td"],
-        #         truncation=True,
-        #         padding=True,
-        #         return_tensors="pt",
-        #     )
 
-        # optimises the runtime if running on a GPU
-        # torch.backends.cudnn.benchmark = True
-        #
-        # if torch.cuda.is_available():
-        #     device = torch.device("cuda")
-        # else:
-        #     device = torch.device("cpu")
-        #
-        # # optimize the model to cpu running when the work is apply to GPU
-        # model = model.to(device)
         torch.cuda.empty_cache()
 
         # splits the dataset into batches of size 10 and passes them through the tokenizer and pre-trained model.
@@ -712,22 +693,8 @@ def main():
         train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
         # if args.model == "bertie":
         model.eval()
-        # for batch in train_dataloader:
-        #     with torch.no_grad():
-        #         tokenized_train = tokenize_exp_function(batch)
-        #         model_outputs = model(**tokenized_train)
-        #         embeddings = model_outputs["logits"]
-        #         embeddings = embeddings.cpu().detach().numpy()
-        #         emb.append(embeddings)
-        #         torch.cuda.empty_cache()
-        # def process_batch(batch):
-        #     with torch.no_grad():
-        #         tokenized_train = tokenize_exp_function(batch)
-        #         model_outputs = model(**tokenized_train)
-        #         embeddings = model_outputs["logits"]
-        #         embeddings = embeddings.cpu().detach().numpy()
-        #         return embeddings
 
+        # use pool to embedding the instances
         pool = multiprocessing.Pool()
         for batch in train_dataloader:
             result = pool.apply_async(process_batch, (batch, model, tokenizer, tokenize_exp_function))
@@ -844,7 +811,8 @@ def main():
         )
 
         writer.close()
-        # write code there:
+        # after initialised the pre-trianed model and classifier we random select the data
+        # sampling and explanation generation:
         # ===========================================================================
         if noexp_df.shape[0] >= 10:
             sampled_indices = random.sample(range(noexp_df.shape[0]), 10)
@@ -945,6 +913,8 @@ def main():
         # Save the DatasetDict to disk
         subset_1_dict.save_to_disk(directory)
         # =============================================================
+        datanoexp_path = "./data/dataset_noexp.csv"
+        noexp_df = pd.read_csv(datanoexp_path)
 
 
 if __name__ == "__main__":
