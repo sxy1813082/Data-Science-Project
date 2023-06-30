@@ -223,3 +223,249 @@ Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 12
 Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-06b5eccc9f505ccb/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
 
 Process finished with exit code 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E:\Desktop\大三上\人工智能\venv\Scripts\python.exe "D:/Bristol course/Data Science Dissertation/ExpBERT lab and thesis/BERT-IE-main/BERT-IE-main/Whole_train.py"
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-839ed9daf237d767/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████| 1/1 [00:00<00:00, 981.58it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 125.34it/s]
+100%|██████████| 1/1 [00:00<00:00, 83.21it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-839ed9daf237d767/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+Downloading data files: 100%|██████████| 1/1 [00:00<00:00, 965.10it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 142.37it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-ac0e9d5eaab91ff1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-ac0e9d5eaab91ff1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|██████████| 1/1 [00:00<00:00, 109.76it/s]
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 151.65it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-1fa48f085dac15a9/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+100%|██████████| 1/1 [00:00<00:00, 84.54it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-1fa48f085dac15a9/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+690
+690
+unexplained dataset length is:
+690
+embedding begin
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+torch.Size([3726, 30])
+103.5
+torch.Size([1035, 108])
+./embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt
+classify begin
+724
+155
+156
+  0%|          | 0/4 [00:00<?, ?it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+60it [00:06, 13.29it/s]                      bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+149it [00:18,  9.83it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+237it [00:31,  8.98it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+337it [00:44,  9.34it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+epoch number 3
+364it [00:54,  9.34it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+364it [00:58,  6.23it/s]
+test epoch results {'accuracy': 0.7290322580645161, 'f1_weighted': 0.6299539170506913, 'f1_macro': 0.18136390358612578, 'f1': array([0.84656085, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.78571429]), 'precision': array([0.74074074, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.70212766]), 'recall': array([0.98765432, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.89189189])}
+News Update 180 dead as floods wash away homes in Nepal, India http
+Latest : Odisha flood: 45 killed; 33 lakh people affected; water levels start reducing - Daily New... http Indian News
+Asia shares up after Wall Street recovers from Ukraine-driven slide http
+sσy_ρσяиσgяαfιςσ: Monsoon: Dozens of people have been killed in flooding in northern and eastern India, while the death tol...  « Fin »
+http   We're all just kids who grew up way too fast
+Many dead in Nepal and India floods… http World News
+dem don correct that shooting nonsense for FIFA brazill sha and up through ball.. hopefully same as 15 .
+Imma quit getting my hopes up. OK hand
+Deadly monsoon hits India, Nepal: Dozens of people have been killed in flooding in northern and easte... http via
+Slow Receding Water Add to Woes of Flood- Hit People in Odisha http
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 124.99it/s]
+Generating train split: 0 examples [00:00, ? examples/s]Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-c4e2f03c16e2d2ee/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-c4e2f03c16e2d2ee/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|██████████| 1/1 [00:00<00:00, 55.48it/s]
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-ace48f79b5d5f482/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 142.86it/s]
+100%|██████████| 1/1 [00:00<00:00, 90.89it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-ace48f79b5d5f482/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 142.90it/s]
+100%|██████████| 1/1 [00:00<00:00, 111.03it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-a78d01e593d20bef/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-a78d01e593d20bef/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+unexplained dataset length is:
+680
+embedding begin
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+torch.Size([3762, 30])
+104.5
+torch.Size([1045, 108])
+./embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt
+classify begin
+731
+157
+157
+  0%|          | 0/4 [00:00<?, ?it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+59it [00:05, 14.40it/s]                      bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+92it [00:17, 14.40it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+143it [00:17,  9.75it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+185it [00:31,  5.44it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+235it [00:31, 10.10it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+361it [00:44, 13.27it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+epoch number 3
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+368it [00:58,  6.34it/s]
+test epoch results {'accuracy': 0.7006369426751592, 'f1_weighted': 0.5953914351638645, 'f1_macro': 0.1749268734808223, 'f1': array([0.83870968, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.73563218]), 'precision': array([0.72897196, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.64      ]), 'recall': array([0.98734177, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.86486486])}
+Numerous T-storms through Monday PM, flooding possible due to slow storm motion. Turn around don't drown!   htt…
+Floods wash away homes in Nepal, India, 180 dead http World
+3:03pm-Flash Flood Warning til 6pm for US95 from Indian Springs to Lee Canyon Rd.   http
+(#Luke 21:11) Floods in 9 Districts in Bihar, India http End Times World News Flood http
+An Dy_x9 Scores Killed in Flooding in Nepal and India: More than 11,000 homes have been damaged and r... http An Dy_x9
+World_news Nepal and India begin relief efforts as monsoon floods claim at least 180 lives http
+All India News- Flood situation grim in UP, Bihar, Assam - Flood situation grim in UP, Bihar, Assam http
+[#NYtimes] Scores Killed in Flooding in Nepal and India http [#Pavel_x4]
+Pakistan Dunya Floods kill 45 in eastern India: official: NEW DELHI (AFP) - Flooding in eastern India has killed 45 people and disp...
+Happy birthday  look what I got you http
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 100.00it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-30f9193e71178962/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+100%|██████████| 1/1 [00:00<00:00, 95.52it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-30f9193e71178962/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-5f08e1ca08785ae9/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 174.89it/s]
+100%|██████████| 1/1 [00:00<00:00, 97.04it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-5f08e1ca08785ae9/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+Downloading data files: 100%|██████████| 1/1 [00:00<00:00, 960.89it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-f1c892413cc35c86/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 125.28it/s]
+100%|██████████| 1/1 [00:00<00:00, 105.18it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-f1c892413cc35c86/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+unexplained dataset length is:
+670
+embedding begin
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+torch.Size([3798, 30])
+105.5
+torch.Size([1055, 108])
+./embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt
+classify begin
+738
+158
+159
+  0%|          | 0/4 [00:00<?, ?it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+50it [00:06, 11.44it/s]                      bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+93it [00:18, 11.44it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+162it [00:19, 11.96it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+242it [00:33,  8.79it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+357it [00:46, 11.07it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+epoch number 3
+372it [00:59, 11.07it/s]bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other
+372it [01:02,  5.98it/s]
+test epoch results {'accuracy': 0.7025316455696202, 'f1_weighted': 0.6009582061981238, 'f1_macro': 0.17134927470844785, 'f1': array([0.86772487, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.6744186 ]), 'precision': array([0.77358491, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.55769231]), 'recall': array([0.98795181, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.85294118])}
+Torrential rains in India and Nepal with flooding and landslides, the first toll is 184 victims http
+Center upgrades level of flood alert for eastern UP http via
+At least 160 people reported killed in Nepal &amp; India floods after days of torrential rain http http
+Floods in India’s Odisha kill 45, leave scores marooned http Ary
+ODISHA FLOODS FEILD VISIT TO AFFECTED  AREAS FROM THE CHAIRPERSON, INTER AGENCY COORDINATION: SPHERE INDIA http
+"@infonaija: Landslides, Flooding Kill 109 In Nepal, Northern India http Kurdish Push On... http
+Latest News: Scores Killed in Flooding in Nepal and India: More than 11,000 homes have been damaged and roughl... http
+lol see ya you fucked up not me!
+Latest : Flood fury in Uttarakhand, Uttar Pradesh, Bihar, Assam; lakhs displaced - Zee News: Zee N... http Indian News
+Already a follower :) Will catch up with your posts later!
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-98bae716fc4e290c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 138.23it/s]
+100%|██████████| 1/1 [00:00<00:00, 99.99it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-98bae716fc4e290c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 140.71it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-225f0cd817a2a73a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-225f0cd817a2a73a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|██████████| 1/1 [00:00<00:00, 126.16it/s]
+Downloading data files: 100%|██████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████| 1/1 [00:00<00:00, 142.67it/s]
+  0%|          | 0/1 [00:00<?, ?it/s]Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-849a5d2985b8753e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-849a5d2985b8753e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|██████████| 1/1 [00:00<00:00, 109.62it/s]
+
+Process finished with exit code 0
+

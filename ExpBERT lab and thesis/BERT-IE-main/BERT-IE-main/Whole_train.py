@@ -208,14 +208,6 @@ class MyCustomDatasetNo:
 
     def __getitem__(self, index):
         return self.text[index], self.labels[index]
-    # def add_labeled_samples(self, indices):
-    #     self.labeled_indices.extend(indices)
-    #
-    # def remove_samples(self, indices):
-    #     self.labeled_indices = [i for i in self.labeled_indices if i not in indices]
-    #
-    # def get_labeled_dataset(self):
-    #     return Subset(self, self.labeled_indices)
 
 
 # Retrieves the embeddings from the given file path and splits dataset into training, validation and test --------------------
@@ -279,19 +271,6 @@ def get_datasets(raw_dataset_noexp_no=None):
                 dataset[train_size:train_and_val_size][1],
             )
 
-        print(len(train_dataset))
-        print(len(test_dataset))
-        print(len(val_dataset))
-        # Create a subset of unlabelled data for active learning
-        # train_size_half = int(len(train_dataset) / 2)
-        # unlabelled_dataset = Dataset(
-        #     train_dataset[train_size_half:][0],
-        #     train_dataset[train_size_half:][1],
-        # )
-        # train_dataset = Dataset(
-        #     train_dataset[:train_size_half][0],
-        #     train_dataset[:train_size_half][1],
-        # )
     return train_dataset, val_dataset, test_dataset, idx
 
 
@@ -391,11 +370,6 @@ class Trainer:
 
             average_training_loss = total_training_loss / len(self.train_loader)
 
-            # Active learning step
-            # Active learning step
-            # if epoch + 1 in active_learning_epochs:
-            #     self.active_learning_step(len(self.unlabel_loader))
-
             # calls validate function every print_frequency epochs
             if ((epoch + 1) % print_frequency) == 0:
                 preds = logits.argmax(-1)
@@ -445,25 +419,7 @@ class Trainer:
             train_preds = np.concatenate(train_preds).ravel()
             train_labels = np.concatenate(train_labels).ravel()
 
-    # def active_learning_step(self, num_samples_to_label):
-    #     self.model.eval()
-    #     uncertainties = []
-    #
-    #     with torch.no_grad():
-    #         for batch, _ in self.unlabel_loader:
-    #             batch = batch.to(self.device)
-    #             logits = self.model(batch)
-    #             probs = F.softmax(logits, dim=-1)
-    #             entropy = -(probs * torch.log(probs)).sum(dim=-1)
-    #             uncertainties.extend(entropy.cpu().numpy())
-    #
-    #     top_indices = np.argsort(uncertainties)[-num_samples_to_label:]
-    #
-    #     # Move selected samples from the unlabelled dataset to the labelled dataset
-    #     self.train_loader.dataset.add_labeled_samples(top_indices)
-    #     self.unlabel_loader.dataset.remove_samples(top_indices)
 
-    # called every print_frequency epochs to evaluate the model during training
     def validate(self):
         results = {"preds": [], "labels": []}
 
@@ -574,21 +530,22 @@ def get_weights():
 
 
 def generate_explanations(param):
-    # prompt = param  # Modify the prompt as needed
-    # openai.api_key = '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'
-    # response = openai.Completion.create(
-    #     engine="text-davinci-003",  # Choose the appropriate OpenAI engine
-    #     prompt=prompt,
-    #     max_tokens=15,
-    #     n=1,
-    #     stop=None,
-    #     temperature=0.8,
-    #     top_p=1.0,
-    #     frequency_penalty=0.0,
-    #     presence_penalty=0.0
-    # )
-    # explanation = response.choices[0].text.strip()
-    explanation = "irrelevant and not relative"
+    prompt = param  # Modify the prompt as needed
+    openai.api_key = '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'
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Choose the appropriate OpenAI engine
+        prompt=prompt,
+        max_tokens=15,
+        n=1,
+        stop=None,
+        temperature=0.8,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0
+    )
+    explanation = response.choices[0].text.strip()
+    print(explanation)
+    # explanation = "irrelevant and not relative"
     return explanation
 
 # Process a single batch and return the embeddings
@@ -805,8 +762,7 @@ def main():
 
         # calls train to start the training, validating and testing process
         trainer.train(
-            int("4"),
-            # active_learning_epochs=[10,20,30],
+            int("40"),
             print_frequency=1,
         )
 
@@ -833,17 +789,15 @@ def main():
                 explanation = generate_explanations(tweet)
                 explanations.append(explanation)
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": explanation})
-                # Extract remaining 34 explanations from "GPTuseExp.txt"
+                # Extract remaining 34 explanations from "GPTuseExp.txt" this contains default explanations
             with open("GPTuseExp.txt", "r") as file:
                 extracted_explanations = file.readlines()[:34]
                 explanations.extend(extracted_explanations)
                 for extracted_explanation in extracted_explanations:
                     new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
 
-        # Extend raw_dataset with the new explained data
-        # raw_dataset.extend(new_data)
-        # Convert new_data to a Dataset object
-        # new_dataset = Dataset.from_dict(new_data)
+        # Extend the dataset that have the default explanations by adding the explained data into the origin dataset
+        # This is for the pre-trined model dataset
         new_data = {"text": [data["text"] for data in new_data],
                     "labels": [data["labels"] for data in new_data],
                     "exp_and_td": [data["exp_and_td"] for data in new_data]}
@@ -866,6 +820,8 @@ def main():
         # Save the DatasetDict to disk
         subset_1_dict.save_to_disk("./data/exp/subset_1")
 
+        # Extend the dataset that have the default labels by adding the explained data(without explanation) into the origin dataset
+        # This is for the classifier model dataset
         new_data_no = {"text": [data["text"] for data in no_exp_data],
                        "labels": [data["labels"] for data in no_exp_data]}
         existing_data_path = "./data/dataset_noexp_no.csv"
@@ -884,11 +840,11 @@ def main():
             elif os.path.isdir(file_path):
                 # Remove the subdirectory and its contents recursively
                 shutil.rmtree(file_path)
-
         # Save the DatasetDict to disk
         subset_1_dict.save_to_disk("./data/no/")
 
         # Delete the explained data from raw_dataset_noexp
+        # This is for the unexplained dataset
         sampled_data_no = [data for i, data in enumerate(raw_dataset_noexp['train']) if i not in sampled_indices]
         data_no_exp_new = []
         for data in sampled_data_no:
