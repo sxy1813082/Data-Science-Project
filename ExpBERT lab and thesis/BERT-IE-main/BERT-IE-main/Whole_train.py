@@ -1,6 +1,8 @@
+import math
 import os
 from random import random
 import random
+from sklearn.model_selection import StratifiedShuffleSplit
 
 import pandas as pd
 import emoji
@@ -36,7 +38,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import openai
 
-
+t = 0
 def obtain_filepaths(dir_path):
     filepaths = []
     for file in os.listdir(dir_path):
@@ -229,47 +231,56 @@ def get_datasets(raw_dataset_noexp_no=None):
         dataset = Dataset(embeddings, labels)
 
         # splitting up the dataset into training, validation and test
-        if (0.7 * len(dataset)) % 1 == 0:
-            train_size = int(0.7 * len(dataset))
-            test_and_val_size = len(dataset) - train_size
-            val_size = 0.5 * test_and_val_size
-            train_and_val_size = int(floor(train_size + val_size))
+        # if (0.7 * len(dataset)) % 1 == 0:
+        #     train_size = int(0.7 * len(dataset))
+        #     test_and_val_size = len(dataset) - train_size
+        #     val_size = 0.5 * test_and_val_size
+        #     train_and_val_size = int(floor(train_size + val_size))
+        #
+        #     train_dataset = Dataset(
+        #         dataset[:train_size][0],
+        #         dataset[:train_size][1],
+        #     )
+        #
+        #     val_dataset = Dataset(
+        #         dataset[train_and_val_size:][0],
+        #         dataset[train_and_val_size:][1],
+        #     )
+        #
+        #     test_dataset = Dataset(
+        #         dataset[train_size:train_and_val_size][0],
+        #         dataset[train_size:train_and_val_size][1],
+        #     )
+        #
+        # else:  # used if there is an unequal split e.g. 25.2 and 10.79
+        #     train_size = int(floor(0.7 * len(dataset)))
+        #     test_and_val_size = len(dataset) - train_size
+        #     val_size = 0.5 * test_and_val_size
+        #     train_and_val_size = int(floor(train_size + val_size))
+        #
+        #     train_dataset = Dataset(
+        #         dataset[:train_size][0],
+        #         dataset[:train_size][1],
+        #     )
+        #
+        #     val_dataset = Dataset(
+        #         dataset[train_and_val_size:][0],
+        #         dataset[train_and_val_size:][1],
+        #     )
+        #
+        #     test_dataset = Dataset(
+        #         dataset[train_size:train_and_val_size][0],
+        #         dataset[train_size:train_and_val_size][1],
+        #     )
+    # Split the dataset into train, validation, and test sets
+    train_indices, test_val_indices = train_test_split(idx, test_size=0.3, stratify=labels, random_state=42)
+    val_indices, test_indices = train_test_split(test_val_indices, test_size=0.5, stratify=labels[test_val_indices],
+                                                 random_state=42)
 
-            train_dataset = Dataset(
-                dataset[:train_size][0],
-                dataset[:train_size][1],
-            )
-
-            val_dataset = Dataset(
-                dataset[train_and_val_size:][0],
-                dataset[train_and_val_size:][1],
-            )
-
-            test_dataset = Dataset(
-                dataset[train_size:train_and_val_size][0],
-                dataset[train_size:train_and_val_size][1],
-            )
-
-        else:  # used if there is an unequal split e.g. 25.2 and 10.79
-            train_size = int(floor(0.7 * len(dataset)))
-            test_and_val_size = len(dataset) - train_size
-            val_size = 0.5 * test_and_val_size
-            train_and_val_size = int(floor(train_size + val_size))
-
-            train_dataset = Dataset(
-                dataset[:train_size][0],
-                dataset[:train_size][1],
-            )
-
-            val_dataset = Dataset(
-                dataset[train_and_val_size:][0],
-                dataset[train_and_val_size:][1],
-            )
-
-            test_dataset = Dataset(
-                dataset[train_size:train_and_val_size][0],
-                dataset[train_size:train_and_val_size][1],
-            )
+    # Create the train, validation, and test datasets
+    train_dataset = Dataset(embeddings[train_indices], labels[train_indices])
+    val_dataset = Dataset(embeddings[val_indices], labels[val_indices])
+    test_dataset = Dataset(embeddings[test_indices], labels[test_indices])
 
     return train_dataset, val_dataset, test_dataset, idx
 
@@ -277,23 +288,23 @@ def get_datasets(raw_dataset_noexp_no=None):
 # Calculates the performance metrics using the sk-learn library, given predicted and true labels --------------------
 def get_metrics(y_preds, y_true):
     accuracy = accuracy_score(y_true, y_preds)
-
+    new_list = list(range(9))
     precision = precision_score(
-        y_true, y_preds, labels=list(range(9)), average=None, zero_division=0
+        y_true, y_preds, labels=new_list, average=None, zero_division=0
     )
 
     recall = recall_score(
-        y_true, y_preds, labels=list(range(9)), average=None, zero_division=0
+        y_true, y_preds, labels=new_list, average=None, zero_division=0
     )
 
-    f1 = f1_score(y_true, y_preds, labels=list(range(9)), average=None, zero_division=0)
+    f1 = f1_score(y_true, y_preds, labels=new_list, average=None, zero_division=0)
 
     f1_weighted = f1_score(
-        y_true, y_preds, labels=list(range(9)), average="weighted", zero_division=0
+        y_true, y_preds, labels=new_list, average="weighted", zero_division=0
     )
 
     f1_macro = f1_score(
-        y_true, y_preds, labels=list(range(9)), average="macro", zero_division=0
+        y_true, y_preds, labels=new_list, average="macro", zero_division=0
     )
 
     results = {
@@ -411,6 +422,9 @@ class Trainer:
                     test_f1_weighted,
                     test_f1_macro,
                 ) = self.test()  # Run test set
+                global t
+                print("global t is :",t)
+                self.writer.add_scalars("test accuracy", {"test_acc":test_data_metrics['accuracy'],"f1":test_f1_macro}, t)
                 print("test epoch results", test_data_metrics, flush=True)
 
             self.step += 1
@@ -529,8 +543,40 @@ def get_weights():
     return weights
 
 
+# def generate_explanations(param):
+#     prompt = param  # Modify the prompt as needed
+#     openai.api_key = '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'
+#     response = openai.Completion.create(
+#         engine="text-davinci-003",  # Choose the appropriate OpenAI engine
+#         prompt=prompt,
+#         max_tokens=15,
+#         n=1,
+#         stop=None,
+#         temperature=0.8,
+#         top_p=1.0,
+#         frequency_penalty=0.0,
+#         presence_penalty=0.0
+#     )
+#     explanation = str(response.choices[0].text.strip())
+#     print("openAI explanation is:" + explanation)
+#     # explanation = "irrelevant and not relative"
+#     return explanation
 def generate_explanations(param):
-    prompt = param  # Modify the prompt as needed
+    explanations = [
+        "injured or dead people",
+        "missing trapped or found people",
+        "displaced people and evacuations",
+        "infrastructure and utilities damage",
+        "donation needs or offers or volunteering services",
+        "caution and advice",
+        "sympathy and emotional support",
+        "other useful information",
+        "not related or irrelevant",
+    ]
+
+    # Create the completion prompt
+    prompt = param + "\nOptions:\n" + "\n".join(explanations)
+
     openai.api_key = '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'
     response = openai.Completion.create(
         engine="text-davinci-003",  # Choose the appropriate OpenAI engine
@@ -543,10 +589,13 @@ def generate_explanations(param):
         frequency_penalty=0.0,
         presence_penalty=0.0
     )
-    explanation = response.choices[0].text.strip()
-    print(explanation)
-    # explanation = "irrelevant and not relative"
-    return explanation
+    explanation = str(response.choices[0].text.strip())
+
+    # Find the closest matching explanation from the list
+    closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
+    print("OpenAI explanation is: " + closest_explanation+" over")
+    return closest_explanation
+
 
 # Process a single batch and return the embeddings
 def process_batch(batch, model, tokenizer, tokenize_exp_function):
@@ -565,6 +614,125 @@ def tokenize_exp_function(examples,tokenizer):
                 padding=True,
                 return_tensors="pt",
             )
+
+# takes in only the tweet and creates an embedding
+def tokenize_noexp_function(examples,tokenizer):
+    return tokenizer(
+        examples["text"], truncation=True, padding=True, return_tensors="pt"
+    )
+
+def preprocess_samples(raw_dataset_noexp):
+    print("preprocess_samples begin ...")
+    model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
+    tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
+    if not os.path.exists("embeddings"):
+        os.makedirs("embeddings")
+    emb = []
+    train_dataloader = DataLoader(raw_dataset_noexp["train"], batch_size=10)
+    for batch in train_dataloader:
+        with torch.no_grad():
+            tokenized_train = tokenize_exp_function(batch,tokenizer)
+            model_outputs = model(**tokenized_train)
+            embeddings = model_outputs["logits"]
+            embeddings = embeddings.cpu().detach().numpy()
+            emb.append(embeddings)
+            torch.cuda.empty_cache()
+    # Reshape each element in the emb list to have a consistent shape
+    emb = [element.reshape(-1) for element in emb]
+
+    # converts the embeddings into a tensor and reshapes them to the correct size
+    emb = np.array(emb)
+    emb = np.vstack(emb)
+
+    embeddings = torch.tensor(emb)
+
+    total_samples = int(10 * embeddings.shape[0] / (18))
+    embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
+    print("uncertainty shape:", embeddings.shape[0])
+    idx = np.arange(0, len(embeddings), dtype=np.intc)
+    embeddings = embeddings[idx]
+    return embeddings
+
+
+# def uncertainty_sampling(model_NN, raw_dataset_noexp, k):
+#     # embedding the raw dataset
+#     embeddings = preprocess_samples(raw_dataset_noexp)
+#     print("uncertainty embedding",len(embeddings))
+#
+#     # interface
+#     model_NN.eval()
+#     with torch.no_grad():
+#         logits = model_NN(embeddings)  # use embedding to predict
+#
+#     # calculate prediction rate
+#     probs = torch.softmax(logits, dim=-1)
+#     max_probs, _ = torch.max(probs, dim=-1)
+#
+#     # rank least confidence
+#     _, least_confident_idx = torch.topk(1 - max_probs, k)
+#
+#     # return idxs
+#     return least_confident_idx.tolist()
+# def uncertainty_sampling(model, raw_dataset, k):
+#     # Preprocess the raw dataset
+#     # embeddings = preprocess_samples(raw_dataset)
+#     # print("uncertainty embedding", len(embeddings))
+#     # Set the model to evaluation mode
+#     model.eval()
+#     with torch.no_grad():
+#         # Make predictions using the model
+#         logits = model(raw_dataset["train"])  # Assuming the model returns logits
+#         # Calculate the prediction probabilities
+#         probs = torch.softmax(logits, dim=-1)
+#         # Calculate the maximum probabilities and corresponding class labels
+#         max_probs, _ = torch.max(probs, dim=-1)
+#         _, predicted_labels = torch.max(probs, dim=-1)
+#         # Calculate the uncertainty scores
+#         uncertainty_scores = 1 - max_probs
+#         # Rank the samples based on the uncertainty scores
+#         sorted_indices = np.argsort(uncertainty_scores)
+#         # Select the top k least confident samples
+#         least_confident_indices = sorted_indices[:k]
+#     # Return the indices of the selected samples
+#     return least_confident_indices.tolist()
+def least_confidence(prob_dist, sorted=False):
+    """
+    Keyword arguments:
+        prob_dist -- a pytorch tensor of real numbers between 0 and 1 that total to 1.0
+        sorted -- if the probability distribution is pre-sorted from largest to smallest
+    """
+    if sorted:
+        simple_least_conf = prob_dist[0]  # most confident prediction
+    else:
+        simple_least_conf = torch.max(prob_dist)  # most confident prediction
+
+    num_labels = prob_dist.numel()  # number of labels
+
+    normalized_least_conf = (1 - simple_least_conf) * (num_labels / (num_labels - 1))
+
+    return normalized_least_conf.item()
+
+
+def uncertainty_sampling(model, raw_dataset, k):
+    # Preprocess the raw dataset
+    embeddings = preprocess_samples(raw_dataset)
+    # print("uncertainty embedding", len(embeddings))
+    # Set the model to evaluation mode
+    model.eval()
+    with torch.no_grad():
+        # Make predictions using the model
+        logits = model(embeddings)  # Assuming the model returns logits
+        # Calculate the prediction probabilities
+        probs = torch.softmax(logits, dim=-1)
+        # Calculate the uncertainty scores using least confidence
+        uncertainty_scores = [least_confidence(prob_dist) for prob_dist in probs]
+        # Rank the samples based on the uncertainty scores
+        sorted_indices = np.argsort(uncertainty_scores)
+        # Select the top k least confident samples
+        least_confident_indices = sorted_indices[:k]
+    # Return the indices of the selected samples
+    return least_confident_indices.tolist()
+
 
 def main():
     dataframes = []
@@ -586,7 +754,22 @@ def main():
     df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
 
     # split noexp into two part one part will be explained properly and one part use default explanations
-    df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.4, random_state=42)
+    # df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.8, random_state=42)
+    # Split features and labels
+    X = df_noexp_all.drop('labels', axis=1)
+    y = df_noexp_all['labels']
+
+    # Use StratifiedShuffleSplit for stratified sampling
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=42)
+    train_index, test_index = next(split.split(X, y))
+
+    # Split the data into two parts based on the indices
+    df_noexp = df_noexp_all.iloc[train_index]
+    df_noexp_two = df_noexp_all.iloc[test_index]
+
+    # Print the sizes of the split datasets
+    print("df_noexp shape:", df_noexp.shape)
+    print("df_noexp_two shape:", df_noexp_two.shape)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -604,11 +787,20 @@ def main():
 
     #default explained data can be passed through the pre-trained model
     # each subset is created and then saved
-    subset_1 = df_exp[0:72000]
+    print("df_exp",len(df_exp))
+    print((len(df_exp) // 180) * 180)
+    # subset_1 = df_exp[0:72000]
+    subset_1 = df_exp[0:(len(df_exp) // 180) * 180]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
     subset_1_dict.save_to_disk("./data/exp/subset_1")
 
+    # # test dataset
+    test_raw_dataset = load_from_disk("./test_data/")
+    test_labels = test_raw_dataset["train"]["labels"]
+    print("test dataset embedding begin ",len(test_labels))
+    test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
+    test_embedding = torch.load(test_file_path)
 
     temp_path_noexp = "./data/org/"
     raw_dataset_noexp = load_from_disk(temp_path_noexp)
@@ -618,6 +810,7 @@ def main():
     # human in the loop
     print(len(raw_dataset_noexp["train"]))
     print(noexp_df.shape[0])
+    global t
     while noexp_df.shape[0] > 661:
         temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
@@ -635,20 +828,12 @@ def main():
         if not os.path.exists("embeddings"):
             os.makedirs("embeddings")
 
-        # takes in only the tweet and creates an embedding
-        def tokenize_noexp_function(examples):
-            return tokenizer(
-                examples["text"], truncation=True, padding=True, return_tensors="pt"
-            )
-
-
         torch.cuda.empty_cache()
 
         # splits the dataset into batches of size 10 and passes them through the tokenizer and pre-trained model.
         print("embedding begin")
         emb = []
         train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
-        # if args.model == "bertie":
         model.eval()
 
         # use pool to embedding the instances
@@ -670,10 +855,10 @@ def main():
         print(embeddings.shape)
 
         # if args.model == "bertie":
-        print(embeddings.shape[0]/(36))
+        print(embeddings.shape[0]/(18))
         # 785
-        total_samples = int(10 * embeddings.shape[0] / (36))
-        embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
+        total_samples = int(10 * embeddings.shape[0] / (18))
+        embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
         print(embeddings.shape)
 
         # creates a filename using the passed in arguments
@@ -753,7 +938,6 @@ def main():
             train_loader,
             val_loader,
             test_loader,
-            # unlabel_loader,
             criterion,
             optimizer,
             device,
@@ -762,18 +946,56 @@ def main():
 
         # calls train to start the training, validating and testing process
         trainer.train(
-            int("40"),
+            int("10"),
             print_frequency=1,
         )
+
+        model_NN.eval()
+        with torch.no_grad():
+            # 将测试数据集的嵌入表示转换为张量
+            test_inputs = torch.tensor(test_embedding, dtype=torch.float32)
+            # 将张量输入模型进行预测
+            predictions = model_NN(test_inputs)
+            # 计算预测的类别
+            predicted_labels = torch.argmax(predictions, dim=1)
+        f1 = f1_score(test_labels, predicted_labels, average='weighted')
+        print("test F1 score:", f1)
 
         writer.close()
         # after initialised the pre-trianed model and classifier we random select the data
         # sampling and explanation generation:
+        # this is for random function
         # ===========================================================================
-        if noexp_df.shape[0] >= 10:
-            sampled_indices = random.sample(range(noexp_df.shape[0]), 10)
-        else:
-            sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
+        # if noexp_df.shape[0] >= 10:
+        #     sampled_indices = random.sample(range(noexp_df.shape[0]), 10)
+        # else:
+        #     sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
+
+        # begin uncertainty sampling
+        # prepare for uncertainty dataset that can be used in the pre-trained model (the data set without using accurate explanations)
+        explanations = read_explanations("explanations.txt")
+        df_exp_uncertain = create_explanations_dataset(noexp_df, explanations)
+
+        # default explained data can be passed through the pre-trained model
+        # each subset is created and then saved
+        print("len df_exp_uncertain",len(df_exp_uncertain))
+        print("after standarlise:",(len(df_exp_uncertain) // 180) * 180)
+        uncertainset = df_exp_uncertain[0:(len(df_exp_uncertain) // 180) * 180]
+        uncertainset.to_csv("./data/uncertainset.csv", index=False)
+        uncertainset_dict = load_dataset("csv", data_files="./data/uncertainset.csv")
+        directory = './data/exp/uncertainset'
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        uncertainset_dict.save_to_disk("./data/exp/uncertainset")
+        uncertain_raw_dataset = load_from_disk("./data/exp/uncertainset")
+        sampled_indices = uncertainty_sampling(model_NN, uncertain_raw_dataset, k=50)  # 根据您的实际情况进行修改
 
         sampled_data = [raw_dataset_noexp['train'][i] for i in sampled_indices]
         explanations = []
@@ -784,14 +1006,14 @@ def main():
             label = data["labels"]
             print(tweet)
             no_exp_data.append({"text": tweet, "labels": label})
-            for _ in range(2):
+            for _ in range(5):
                 # Use openai model to generate an explanation for the tweet
                 explanation = generate_explanations(tweet)
                 explanations.append(explanation)
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": explanation})
                 # Extract remaining 34 explanations from "GPTuseExp.txt" this contains default explanations
             with open("GPTuseExp.txt", "r") as file:
-                extracted_explanations = file.readlines()[:34]
+                extracted_explanations = file.readlines()[:13]
                 explanations.extend(extracted_explanations)
                 for extracted_explanation in extracted_explanations:
                     new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
@@ -871,6 +1093,9 @@ def main():
         # =============================================================
         datanoexp_path = "./data/dataset_noexp.csv"
         noexp_df = pd.read_csv(datanoexp_path)
+
+        t = t+1
+        print("t is :",t)
 
 
 if __name__ == "__main__":
