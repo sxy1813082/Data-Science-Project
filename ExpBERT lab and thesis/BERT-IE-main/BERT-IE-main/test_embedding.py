@@ -213,42 +213,6 @@ def preprocess_samples_unxep(raw_dataset_noexp):
     return embeddings
 
 def main():
-    # unexplained dataset embedding
-    datanoexp_path = "./data/dataset_noexp.csv"
-    noexp_df = pd.read_csv(datanoexp_path)
-    # prepare for uncertainty dataset that can be used in the pre-trained model (the data set without using accurate explanations)
-    explanations = read_explanations("explanations.txt")
-    df_exp_uncertain = create_explanations_dataset(noexp_df, explanations)
-
-    # default explained data can be passed through the pre-trained model
-    # each subset is created and then saved
-    print("len df_exp_uncertain", len(df_exp_uncertain))
-    print("after standarlise:", (len(df_exp_uncertain) // 180) * 180)
-    uncertainset = df_exp_uncertain[0:(len(df_exp_uncertain) // 180) * 180]
-    uncertainset.to_csv("./data/uncertainset.csv", index=False)
-    uncertainset_dict = load_dataset("csv", data_files="./data/uncertainset.csv")
-    directory = './data/exp/uncertainset'
-    for filename in os.listdir(directory):
-        file_path = os.path.join(directory, filename)
-        if os.path.isfile(file_path):
-            # Remove the file
-            os.remove(file_path)
-        elif os.path.isdir(file_path):
-            # Remove the subdirectory and its contents recursively
-            shutil.rmtree(file_path)
-    # Save the DatasetDict to disk
-    uncertainset_dict.save_to_disk("./data/exp/uncertainset")
-    uncertain_raw_dataset = load_from_disk("./data/exp/uncertainset")
-    unexpembedding = preprocess_samples_unxep(uncertain_raw_dataset)
-    save_filename = (
-        "./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
-    )
-    print(save_filename)
-    save_directory = "./unexp_embeddings/NEW_bertie_embeddings_textattack"
-    # Create the directory if it doesn't exist
-    if not os.path.exists(save_directory):
-        os.makedirs(save_directory)
-    torch.save(unexpembedding, save_filename)
     # # test dataset
 
     # test_raw_dataset = load_from_disk("./test_data/")

@@ -411,7 +411,7 @@ class Trainer:
                 ) = self.test()  # Run test set
                 global t
                 print("global t is :",t)
-                self.writer.add_scalars("test accuracy", {"test_acc":test_data_metrics['accuracy'],"f1":test_f1_macro}, t)
+                self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1":test_f1_macro}, t)
                 print("test epoch results", test_data_metrics, flush=True)
 
             self.step += 1
@@ -530,39 +530,58 @@ def get_weights():
     return weights
 
 def generate_explanations(param):
-    # explanations = [
-    #     "injured or dead people",
-    #     "missing trapped or found people",
-    #     "displaced people and evacuations",
-    #     "infrastructure and utilities damage",
-    #     "donation needs or offers or volunteering services",
-    #     "caution and advice",
-    #     "sympathy and emotional support",
-    #     "other useful information",
-    #     "not related or irrelevant",
-    # ]
-    #
-    # # Create the completion prompt
-    # prompt = param + "\nOptions:\n" + "\n".join(explanations)
-    #
-    # openai.api_key = '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'
-    # response = openai.Completion.create(
-    #     engine="text-davinci-003",  # Choose the appropriate OpenAI engine
-    #     prompt=prompt,
-    #     max_tokens=15,
-    #     n=1,
-    #     stop=None,
-    #     temperature=0.8,
-    #     top_p=1.0,
-    #     frequency_penalty=0.0,
-    #     presence_penalty=0.0
-    # )
-    # explanation = str(response.choices[0].text.strip())
-    #
-    # # Find the closest matching explanation from the list
-    # closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
-    # print("OpenAI explanation is: " + closest_explanation+" over")
-    return "information"
+    explanations = [
+        "someone is dead",
+"someone is injured",
+"there are casualties",
+"someone is missing",
+"someone is trapped",
+"someone was found or rescued",
+"people were displaced",
+"people were sent to shelters",
+"people were evacuated and relocated",
+"there is significant damage",
+"there is no electricity",
+"water has been restored",
+"people are asking for donations",
+"people are offering to help",
+"people are volunteering",
+"people are being warned",
+"people are asked to be careful",
+"there are tips and guidance",
+"people are praying",
+"people are providing emotional support",
+"people are keeping others in their thoughts",
+"contains useful information",
+"helps to understand the situation",
+"is important",
+"no useful information",
+"irrelevant",
+"not related"
+    ]
+
+    # Create the completion prompt
+    prompt = "give a explanation for this tweet:"+param + "\nOptions:\n" + "\n".join(explanations)
+
+    openai.api_key = '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'
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Choose the appropriate OpenAI engine
+        prompt=prompt,
+        max_tokens=15,
+        n=1,
+        stop=None,
+        temperature=0.8,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0
+    )
+    explanation = str(response.choices[0].text.strip())
+
+    # Find the closest matching explanation from the list
+    closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
+    print("OpenAI explanation is: " + closest_explanation+" over")
+    # return "information"
+    return closest_explanation
 
 # add or delete explained data
 def addOrDelete(sampled_indices,raw_dataset_noexp):
@@ -800,19 +819,194 @@ def uncertainty_sampling(model, k):
     # Return the indices of the selected samples
     return least_confident_indices.tolist()
 
+def get_dataset_withoutloop():
+    with torch.no_grad():
+        noloop_embeddings = torch.load("./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt")
+        noloop = load_from_disk("./data/org/")
+        labels_noloop = np.array(noloop["train"]["labels"])
+        orgfile_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
+        orgembeddings = torch.load(orgfile_path)
+        raw_dataset = load_from_disk("./data/no/")
+        labels_org = np.array(raw_dataset["train"]["labels"])
+        embeddings = torch.cat([noloop_embeddings,orgembeddings],dim=0)
+        labels = np.concatenate((labels_noloop, labels_org))
+        idx = np.arange(0, len(embeddings), dtype=np.intc)
+        print("get_dataset_withoutloop len embedding ",len(embeddings))
+        embeddings = embeddings[idx]
+        labels = labels[idx]
+
+        # load test dataset
+        test_raw_dataset = load_from_disk("./test_data/")
+        test_labels = test_raw_dataset["train"]["labels"]
+        print("test dataset embedding begin ", len(test_labels))
+        test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
+        test_embedding = torch.load(test_file_path)
+        dataset = Dataset(test_embedding, test_labels)
+        test_dataset = Dataset(
+            dataset[:][0],
+            dataset[:][1]
+        )
+
+    train_indices, val_indices = train_test_split(idx, test_size=0.3, stratify=labels, random_state=42)
+
+    # Create the train, validation, and test datasets
+    train_dataset = Dataset(embeddings[train_indices], labels[train_indices])
+    val_dataset = Dataset(embeddings[val_indices], labels[val_indices])
+    # test_dataset = Dataset(embeddings[test_indices], labels[test_indices])
+
+    return train_dataset, val_dataset, test_dataset
+
+def without_loop():
+    # without human in the loop
+    train_dataset, val_dataset, test_dataset = get_dataset_withoutloop()
+
+    # DataLoader splits the datasets into batches
+    train_loader = DataLoader(
+        train_dataset,
+        shuffle=False,
+        batch_size=8,
+        num_workers=2,
+        pin_memory=True,
+    )
+
+    val_loader = DataLoader(
+        val_dataset,
+        shuffle=False,
+        batch_size=8,
+        num_workers=2,
+        pin_memory=True,
+    )
+
+    test_loader = DataLoader(
+        test_dataset,
+        shuffle=False,
+        batch_size=8,
+        num_workers=2,
+        pin_memory=True,
+    )
+
+    # optimises the training if running on a GPU
+    torch.backends.cudnn.benchmark = True
+
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        device = torch.device("cpu")
+
+    feature_count = train_dataset[0][0].shape[0]
+    class_count = 9
+
+    torch.manual_seed("37")
+
+    # initialises the model and hyperparameters taking into account the passed in arguments
+    model_NN = MLP_1h(feature_count, int("100"), class_count)
+
+    model_NN = model_NN.to(device)
+    optimizer = AdamW(
+        model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
+    )
+
+    criterion = nn.CrossEntropyLoss()
+
+    # initalises the Trainer class
+    trainer = Trainer(
+        model_NN,
+        train_loader,
+        val_loader,
+        test_loader,
+        criterion,
+        optimizer,
+        device,
+        writer,
+    )
+
+    # calls train to start the training, validating and testing process
+    trainer.train(
+        int("10"),
+        print_frequency=1,
+    )
+
+    writer.close()
+    return 1
+
 
 def main():
+    # prepare dataset and train and validation embedding
+    dataframes = []
+    filepaths = obtain_filepaths("./data/")
+
+    # cleans the data from each disaster individually
+    for file in filepaths:
+        df = clean_individual_dataset(file)
+        dataframes.append(df)
+
+    # concatenates the tweets from each disaster to form one dataset
+    df_concat = pd.concat(dataframes)
+
+    # renames the columns
+    df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
+    df_concat.rename(columns={"label": "labels"}, inplace=True)
+
+    # duplicate tweets are dropped
+    df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
+
+    # split noexp into two part one part will be explained properly and one part use default explanations
+    # df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.8, random_state=42)
+    # Split features and labels
+    X = df_noexp_all.drop('labels', axis=1)
+    y = df_noexp_all['labels']
+
+    # Use StratifiedShuffleSplit for stratified sampling
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=42)
+    train_index, test_index = next(split.split(X, y))
+
+    # Split the data into two parts based on the indices
+    df_noexp = df_noexp_all.iloc[train_index]
+    df_noexp_two = df_noexp_all.iloc[test_index]
+
+    # Print the sizes of the split datasets
+    print("df_noexp shape:", df_noexp.shape)
+    print("df_noexp_two shape:", df_noexp_two.shape)
+
+    # saves the unexplained dataset to a dataset directory
+    df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
+    data_noexp = load_dataset("csv", data_files="./data/dataset_noexp.csv")
+    data_noexp.save_to_disk("./data/org/")
+
+    # to initial the classifier
+    df_noexp.to_csv("./data/dataset_noexp_no.csv", index=False)
+    data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
+    data_noexp_one.save_to_disk("./data/no/")
+    originlen = len(data_noexp_one["train"]["labels"])
+    print("originlen: ", originlen)
+
+    # reads in explanations and concatenates to the tweets to form an expanded dataset (to initial the pretrained model)
+    explanations = read_explanations("explanations.txt")
+    df_exp = create_explanations_dataset(df_noexp, explanations)
+
+    # default explained data can be passed through the pre-trained model
+    # each subset is created and then saved
+    print("df_exp", len(df_exp))
+    print((len(df_exp) // 180) * 180)
+    # subset_1 = df_exp[0:72000]
+    subset_1 = df_exp[0:(len(df_exp) // 180) * 180]
+    subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
+    subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
+    subset_1_dict.save_to_disk("./data/exp/subset_1")
     temp_path_noexp = "./data/org/"
     raw_dataset_noexp = load_from_disk(temp_path_noexp)
     datanoexp_path = "./data/dataset_noexp.csv"
     noexp_df = pd.read_csv(datanoexp_path)
+    # without loop
+    # x = without_loop()
+
 
     # human in the loop
     print(len(raw_dataset_noexp["train"]))
-    print(noexp_df.shape[0])
+    print("noexp_df.shape[0]",noexp_df.shape[0])
     global t
     addlen = 0
-    while noexp_df.shape[0] > 661:
+    while noexp_df.shape[0] > 0:
         temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
         datanoexp_path = "./data/dataset_noexp.csv"
@@ -890,7 +1084,7 @@ def main():
 
         # calls train to start the training, validating and testing process
         trainer.train(
-            int("10"),
+            int("30"),
             print_frequency=1,
         )
 
@@ -899,8 +1093,8 @@ def main():
         # sampling and explanation generation:
         # this is for random function
         # ===========================================================================
-        # if noexp_df.shape[0] >= 10:
-        #     sampled_indices = random.sample(range(noexp_df.shape[0]), 10)
+        # if noexp_df.shape[0] >= 50:
+        #     sampled_indices = random.sample(range(noexp_df.shape[0]), 50)
         # else:
         #     sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
 

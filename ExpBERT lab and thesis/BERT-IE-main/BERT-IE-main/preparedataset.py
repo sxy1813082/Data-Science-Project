@@ -9,32 +9,7 @@ import numpy as np
 import torch
 import argparse
 from datasets import Dataset, DatasetDict, load_dataset
-from torch.utils.data import ConcatDataset
-import shutil
-import torch.utils.data as data_utils
 
-from sklearn.model_selection import train_test_split
-from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
-from datasets import load_from_disk
-from torch.utils.data import DataLoader, Subset
-import torch.multiprocessing
-from torch import nn, multiprocessing
-from torch.nn import functional as F
-from torch.optim import AdamW
-from torch.optim.optimizer import Optimizer
-from torch.utils.tensorboard import SummaryWriter
-from tqdm.auto import tqdm
-from sklearn.metrics import (
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    confusion_matrix,
-)
-from typing import Callable
-from math import floor
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 def obtain_filepaths(dir_path):
     filepaths = []
