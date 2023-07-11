@@ -157,7 +157,7 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=42)
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
     train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
@@ -187,9 +187,9 @@ def main():
     # default explained data can be passed through the pre-trained model
     # each subset is created and then saved
     print("df_exp", len(df_exp))
-    print((len(df_exp) // 180) * 180)
+    print((len(df_exp) // 360) * 360)
     # subset_1 = df_exp[0:72000]
-    subset_1 = df_exp[0:(len(df_exp) // 180) * 180]
+    subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
     subset_1_dict.save_to_disk("./data/exp/subset_1")

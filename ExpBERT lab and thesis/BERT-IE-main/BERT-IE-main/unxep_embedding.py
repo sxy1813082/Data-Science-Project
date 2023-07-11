@@ -93,12 +93,12 @@ def preprocess_samples_unxep(raw_dataset_noexp):
 
     embeddings = torch.tensor(emb)
 
-    total_samples = int(10 * embeddings.shape[0] / (18))
-    embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
+    total_samples = int(10 * embeddings.shape[0] / (36))
+    embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
     print("uncertainty shape:", embeddings.shape[0])
-    idx = np.arange(0, len(embeddings), dtype=np.intc)
+
     print(len(embeddings))
-    embeddings = embeddings[idx]
+
     return embeddings
 
 def main():
@@ -112,8 +112,8 @@ def main():
     # default explained data can be passed through the pre-trained model
     # each subset is created and then saved
     print("len df_exp_uncertain", len(df_exp_uncertain))
-    print("after standarlise:", (len(df_exp_uncertain) // 180) * 180)
-    uncertainset = df_exp_uncertain[0:(len(df_exp_uncertain) // 180) * 180]
+    print("after standarlise:", (len(df_exp_uncertain) // 360) * 360)
+    uncertainset = df_exp_uncertain[0:(len(df_exp_uncertain) // 360) * 360]
     uncertainset.to_csv("./data/uncertainset.csv", index=False)
     uncertainset_dict = load_dataset("csv", data_files="./data/uncertainset.csv")
     directory = './data/exp/uncertainset'
@@ -132,7 +132,6 @@ def main():
     save_filename = (
         "./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
     )
-    print(save_filename)
     save_directory = "./unexp_embeddings/NEW_bertie_embeddings_textattack"
     # Create the directory if it doesn't exist
     if not os.path.exists(save_directory):

@@ -63,10 +63,10 @@ def main():
     print(embeddings.shape)
 
     # if args.model == "bertie":
-    print(embeddings.shape[0] / (18))
+    print(embeddings.shape[0] / (36))
     # 785
-    total_samples = int(10 * embeddings.shape[0] / (18))
-    embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
+    total_samples = int(10 * embeddings.shape[0] / (36))
+    embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
     print(embeddings.shape)
 
     # creates a filename using the passed in arguments

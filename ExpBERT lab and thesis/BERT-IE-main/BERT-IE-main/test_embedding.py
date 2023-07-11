@@ -168,49 +168,13 @@ def preprocess_samples(raw_dataset_noexp):
     # converts the embeddings into a tensor and reshapes them to the correct size
     emb = np.array(emb)
     emb = np.vstack(emb)
-
     embeddings = torch.tensor(emb)
-
-    total_samples = int(10 * embeddings.shape[0] / (18))
-    embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
+    total_samples = int(10 * embeddings.shape[0] / (36))
+    embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
     print("uncertainty shape:", embeddings.shape[0])
-    idx = np.arange(0, len(embeddings), dtype=np.intc)
-    embeddings = embeddings[idx]
     return embeddings
 
-def preprocess_samples_unxep(raw_dataset_noexp):
-    # orgfile_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
-    # orgembeddings = torch.load(orgfile_path)
-    model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
-    tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
-    if not os.path.exists("unexp_embeddings"):
-        os.makedirs("unexp_embeddings")
-    emb = []
-    train_dataloader = DataLoader(raw_dataset_noexp["train"], batch_size=10)
-    for batch in train_dataloader:
-        with torch.no_grad():
-            tokenized_train = tokenize_exp_function(batch,tokenizer)
-            model_outputs = model(**tokenized_train)
-            embeddings = model_outputs["logits"]
-            embeddings = embeddings.cpu().detach().numpy()
-            emb.append(embeddings)
-            torch.cuda.empty_cache()
-    # Reshape each element in the emb list to have a consistent shape
-    emb = [element.reshape(-1) for element in emb]
 
-    # converts the embeddings into a tensor and reshapes them to the correct size
-    emb = np.array(emb)
-    emb = np.vstack(emb)
-
-    embeddings = torch.tensor(emb)
-
-    total_samples = int(10 * embeddings.shape[0] / (18))
-    embeddings = torch.reshape(embeddings, (total_samples, 18 * 3))
-    print("uncertainty shape:", embeddings.shape[0])
-    idx = np.arange(0, len(embeddings), dtype=np.intc)
-    print(len(embeddings))
-    embeddings = embeddings[idx]
-    return embeddings
 
 def main():
     # # test dataset
@@ -246,7 +210,7 @@ def main():
 
     test_exp = create_explanations_dataset(test_noexp_all, explanations)
     print("test len", len(test_exp))
-    subset_test = test_exp[0:(len(test_exp) // 180) * 180]
+    subset_test = test_exp[0:(len(test_exp) // 360) * 360]
     subset_test.to_csv("./data/dataset_exp_subset_test.csv", index=False)
     subset_test_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_test.csv")
     subset_test_dict.save_to_disk("./data/exp/subset_test")
