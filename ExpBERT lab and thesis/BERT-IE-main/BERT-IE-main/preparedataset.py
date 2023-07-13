@@ -108,7 +108,10 @@ def create_explanations_dataset(df, explanations):
     ]
 
     # concatenates the labels to the end of the explanations
-    ex_td = explanations + textual_descriptions
+    if len(explanations) == 0:
+        ex_td = textual_descriptions
+    else:
+        ex_td = explanations + textual_descriptions
     len_df = len(df.index)
 
     # creates N copies of 'ex_td' where N is the number of tweets
@@ -118,7 +121,7 @@ def create_explanations_dataset(df, explanations):
     # adds each explanation and textual description to each tweet
     df.insert(1, "exp_and_td", ex_td, allow_duplicates=True)
 
-    return df
+    return df, len(textual_descriptions)
 
 
 # helper function - reads the explanations from a text file
@@ -157,7 +160,7 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.6, random_state=42) # 0.4 for explained data 0.6 for unexplained data
     train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
@@ -182,14 +185,15 @@ def main():
 
     # reads in explanations and concatenates to the tweets to form an expanded dataset (to initial the pretrained model)
     explanations = read_explanations("explanations.txt")
-    df_exp = create_explanations_dataset(df_noexp, explanations)
+    print(len(explanations))
+    df_exp, num_des= create_explanations_dataset(df_noexp, explanations)
 
     # default explained data can be passed through the pre-trained model
     # each subset is created and then saved
-    print("df_exp", len(df_exp))
-    print((len(df_exp) // 360) * 360)
-    # subset_1 = df_exp[0:72000]
-    subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
+
+    num = len(explanations)+num_des
+    num = num * 10
+    subset_1 = df_exp[0:(len(df_exp) // num) * num]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
     subset_1_dict.save_to_disk("./data/exp/subset_1")

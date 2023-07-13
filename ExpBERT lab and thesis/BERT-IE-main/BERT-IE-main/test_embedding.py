@@ -110,7 +110,10 @@ def create_explanations_dataset(df, explanations):
     ]
 
     # concatenates the labels to the end of the explanations
-    ex_td = explanations + textual_descriptions
+    if len(explanations) == 0:
+        ex_td = textual_descriptions
+    else:
+        ex_td = explanations + textual_descriptions
     len_df = len(df.index)
 
     # creates N copies of 'ex_td' where N is the number of tweets
@@ -210,7 +213,8 @@ def main():
 
     test_exp = create_explanations_dataset(test_noexp_all, explanations)
     print("test len", len(test_exp))
-    subset_test = test_exp[0:(len(test_exp) // 360) * 360]
+    # subset_test = test_exp[0:(len(test_exp) // 360) * 360]
+    subset_test = test_exp[:]
     subset_test.to_csv("./data/dataset_exp_subset_test.csv", index=False)
     subset_test_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_test.csv")
     subset_test_dict.save_to_disk("./data/exp/subset_test")
