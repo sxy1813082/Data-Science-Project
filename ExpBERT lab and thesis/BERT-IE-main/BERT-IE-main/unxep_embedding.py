@@ -102,7 +102,8 @@ def preprocess_samples_unxep(raw_dataset_noexp):
     print(embeddings.shape)
     # total_samples = int(embeddings.shape[0] / (1))
     # embeddings = torch.reshape(embeddings, (total_samples, num * 3))
-    target_shape = (6147, 27)
+    target_shape = (len(embeddings), 27)
+    print(len(embeddings))
 
     # 计算需要填充的数量
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)

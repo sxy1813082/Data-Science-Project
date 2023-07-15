@@ -243,7 +243,7 @@ def get_datasets(originlen,addlen):
         # dataset = Dataset(embeddings, labels)
 
         # load test dataset
-        test_raw_dataset = load_from_disk("./test_data/")
+        test_raw_dataset = load_from_disk("./testdata/")
         test_labels = test_raw_dataset["train"]["labels"]
         # print("test dataset embedding begin ", len(test_labels))
         test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
@@ -622,7 +622,7 @@ def generate_explanations(sampled_data):
 
     # Get the top three most frequent labels
     top_labels = label_counts.most_common(3)
-    print("top three most frequent labels are",labels)
+    print("top three most frequent labels are: ",labels)
     # Iterate over the top labels
     for label, count in top_labels:
         print(f"Label: {label}")
@@ -642,7 +642,7 @@ def generate_explanations(sampled_data):
                     break
     # print("5 explanation is given：", strings)
     for i in range(3):
-        user_input = input("give the 3 key explanations about common words in each label")
+        user_input = input("give the 3 key explanations about common words in each label: ")
         strings.append(user_input)
     return strings
     # return explanation
@@ -912,7 +912,7 @@ def least_confidence(prob_dist, sorted=False):
     normalized_least_conf = (1 - simple_least_conf) * (num_labels / (num_labels - 1))
     return normalized_least_conf.item()
 
-def uncertainty_sampling(model, k):
+def uncertainty_sampling(model, k,num):
     # Preprocess the raw dataset
     if t==0:
         orgfile_path = "./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
@@ -921,7 +921,7 @@ def uncertainty_sampling(model, k):
         orgfile_path = "./new_unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
         embeddings = torch.load(orgfile_path)
         print("uncertainty new embedding",len(embeddings))
-    target_shape = (len(embeddings), 27)
+    target_shape = (len(embeddings), num*3)
 
     # 计算需要填充的数量
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
@@ -967,7 +967,7 @@ def get_dataset_withoutloop():
         print("labels length:", len(labels))
 
         # load test dataset
-        test_raw_dataset = load_from_disk("./test_data/")
+        test_raw_dataset = load_from_disk("./testdata/")
         test_labels = np.array(test_raw_dataset["train"]["labels"])
         test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
         test_embedding = torch.load(test_file_path)
@@ -1122,7 +1122,7 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.6, random_state=42)
     train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
@@ -1176,6 +1176,13 @@ def main():
         noexp_df = pd.read_csv(datanoexp_path)
         temp_path = "./data/exp/" + "subset_1"
         raw_dataset = load_from_disk(temp_path)
+        explanations = read_explanations("explanations.txt")
+
+
+        # default explained data can be passed through the pre-trained model
+        # each subset is created and then saved
+        # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
+        num = len(explanations) + 9
         print("unexplained dataset length is:")
         print(noexp_df.shape[0])
 
@@ -1258,7 +1265,17 @@ def main():
         test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
         test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
         data_noexp = load_dataset("csv", data_files="./test_data/dataset_noexp.csv")
-        data_noexp.save_to_disk("./test_data/")
+        directory = "./testdata/"
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        data_noexp.save_to_disk("./testdata/")
 
         test_exp, num_texdes = create_explanations_dataset(test_noexp_all, explanations)
         print("test len", len(test_exp))
@@ -1266,6 +1283,16 @@ def main():
         subset_test = test_exp[:]
         subset_test.to_csv("./data/dataset_exp_subset_test.csv", index=False)
         subset_test_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_test.csv")
+        directory = "./data/exp/subset_test"
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
         subset_test_dict.save_to_disk("./data/exp/subset_test")
         test_raw_dataset = load_from_disk("./data/exp/subset_test")
         test_embedding = preprocess_samples(test_raw_dataset,num)
@@ -1370,9 +1397,9 @@ def main():
 
         # begin uncertainty sampling
         if noexp_df.shape[0]>200:
-            sampled_indices = uncertainty_sampling(model_NN, k=200)
+            sampled_indices = uncertainty_sampling(model_NN, 200,num)
         else:
-            sampled_indices = uncertainty_sampling(model_NN, noexp_df.shape[0])
+            sampled_indices = uncertainty_sampling(model_NN, noexp_df.shape[0],num)
 
 
         # add data and delete data  from default explanation dataset and explained dataset
