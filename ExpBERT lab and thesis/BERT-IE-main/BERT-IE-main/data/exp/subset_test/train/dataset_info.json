@@ -2,15 +2,15 @@
   "builder_name": "csv",
   "citation": "",
   "config_name": "default",
-  "dataset_size": 4080600,
+  "dataset_size": 4165020,
   "description": "",
   "download_checksums": {
     "D:\\Bristol course\\Data Science Dissertation\\ExpBERT lab and thesis\\BERT-IE-main\\BERT-IE-main\\data\\dataset_exp_subset_test.csv": {
-      "num_bytes": 3775449,
+      "num_bytes": 3859869,
       "checksum": null
     }
   },
-  "download_size": 3775449,
+  "download_size": 3859869,
   "features": {
     "text": {
       "dtype": "string",
@@ -27,11 +27,11 @@
   },
   "homepage": "",
   "license": "",
-  "size_in_bytes": 7856049,
+  "size_in_bytes": 8024889,
   "splits": {
     "train": {
       "name": "train",
-      "num_bytes": 4080600,
+      "num_bytes": 4165020,
       "num_examples": 30150,
       "dataset_name": "csv"
     }

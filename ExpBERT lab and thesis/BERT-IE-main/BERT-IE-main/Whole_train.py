@@ -685,7 +685,11 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     for data in sampled_data:
         tweet = data["text"]
         label = data["labels"]
-        # print(tweet)
+        if tweet == "" or label == "":
+            continue
+        tweet = placeholders([tweet])
+        tweet = tweet[0]
+        print(tweet)
         no_exp_data.append({"text": tweet, "labels": label})
         explanation = exp_list
         with open("explanations.txt", "r") as file:
@@ -1325,6 +1329,7 @@ def main():
         emb = []
         temp_path = "./data/exp/" + "subset_1"
         raw_dataset = load_from_disk(temp_path)
+        print("trian and val dataset length: ",len(raw_dataset["train"]["labels"]))
         train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
         model.eval()
 
@@ -1338,14 +1343,29 @@ def main():
 
         # Reshape each element in the emb list to have a consistent shape
         emb = [element.reshape(-1) for element in emb]
+
+        # Initialize a list to store the padded arrays
+        padded_emb = []
+
+        # Desired size after padding
+        desired_size = 30
+
+        # Loop through each element in emb
+        for element in emb:
+            current_size = element.shape[0]
+            if current_size < desired_size:
+                # Calculate the amount of padding needed
+                pad_amount = desired_size - current_size
+                # Pad the array with zeros at the end (you can use any other value for padding as needed)
+                padded_array = np.pad(element, (0, pad_amount), mode='constant')
+                padded_emb.append(padded_array)
+            else:
+                # If the array is already of the desired size, no padding is needed
+                padded_emb.append(element)
+        # converts the embeddings into a tensor and reshapes them to the correct size
         # Check the size of each element in the emb list
         for i, element in enumerate(emb):
             print(f"Element at index {i} has size: {element.shape[0]}")
-
-        # Then, ensure that all elements have the same size along dimension 1
-        # You can either resize the arrays to have the same size or handle them differently based on your requirements
-
-        # converts the embeddings into a tensor and reshapes them to the correct size
         # emb = np.array(emb)
         emb = np.vstack(emb)
 
