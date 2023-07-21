@@ -165,7 +165,8 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
+        # "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
+    "random_sampling"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -222,28 +223,13 @@ def get_datasets(originlen,addlen):
     with torch.no_grad():
         orgfile_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
         embeddings = torch.load(orgfile_path)
-        # global t
-        # if(t == 0):
-        #     embeddings = orgembeddings
-        # else:
-        #     newembeddings = torch.load(
-        #         "./new_embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt")
-        #     # print("newembeddings", len(newembeddings))
-        #     embeddings = torch.cat([orgembeddings, newembeddings], dim=0)
-        # print(len(embeddings))
         raw_dataset = load_from_disk("./data/no/")
         labels = np.array(raw_dataset["train"]["labels"])
 
         # give the index of train and validation dataset
         idx = np.arange(0, len(embeddings), dtype=np.intc)
-        # print(len(embeddings))
-        # origin = np.arange(0,originlen-2, dtype=np.intc)
-        # np.random.seed(int("37"))
-        # np.random.shuffle(idx)
         embeddings = embeddings[idx]
         labels = labels[idx]
-        # labels_orin = labels[origin]
-        # dataset = Dataset(embeddings, labels)
 
         # load test dataset
         test_raw_dataset = load_from_disk("./testdata/")
@@ -259,19 +245,11 @@ def get_datasets(originlen,addlen):
 
     # Split the dataset into train, validation, and test sets
     train_indices, val_indices = train_test_split(idx, test_size=0.1, stratify=labels, random_state=42)
-    # print("without explanation add len for train and val:",len(train_indices)+len(val_indices))
-    # additional_indices = [int(i) for i, value in enumerate(idx) if value > originlen-2]
-    # print("additional_indices", len(additional_indices))
-    # additional_indices = np.array(additional_indices, dtype=np.int32)
-    # train_indices = np.append(train_indices, additional_indices)
-
     # Create the train, validation, and test datasets
     train_dataset = Dataset(embeddings[train_indices], labels[train_indices])
     val_dataset = Dataset(embeddings[val_indices], labels[val_indices])
 
-
     return train_dataset, val_dataset, test_dataset
-
 
 # Calculates the performance metrics using the sk-learn library, given predicted and true labels --------------------
 def get_metrics(y_preds, y_true):
@@ -354,18 +332,6 @@ class Trainer:
 
                 train_logits.append(logits.detach().cpu().numpy())
                 train_labels.append(labels.cpu().numpy())
-                # # Use negative log likelihood as the loss function for Bayesian neural networks
-                # loss = -self.model.criterion(logits, labels.long())  # Negate the loss for maximization
-                # total_training_loss += loss.item()
-                #
-                # loss.backward()
-                # self.optimizer.step()
-                # self.optimizer.zero_grad()
-                #
-                # progress_bar.update(1)
-                #
-                # preds = logits.argmax(-1)
-                # train_preds.append(preds.cpu().numpy())
 
                 loss = self.criterion(logits, labels.long())
                 total_training_loss += loss.item()
@@ -548,6 +514,19 @@ def get_weights():
     return weights
 
 def generate_explanations(sampled_data):
+
+    strings = []  # 用于存储输入字符串的列表
+    global t
+    with open("annator.txt", 'r') as file:
+        lines = file.readlines()
+    start_line = t * 3
+    end_line = (t + 1) * 3
+    strings = lines[start_line:end_line]
+    print(strings)
+    string_array = [string.strip() for string in strings]
+    return string_array
+
+def generate_explanations_chat(sampled_data):
     # explanations = [
     # "dead",
     # "injured",
@@ -611,25 +590,6 @@ def generate_explanations(sampled_data):
     # for i in range(5):
     #     user_input = input("give the key words about this tweet:")
     #     strings.append(user_input)
-    # if label == 0:
-    #     strings = ['kill','dead','death','die','injure']
-    # elif label == 1:
-    #     strings = ['missing','trapped','found missing','was were found','missing found']
-    # elif label == 3:
-    #     strings = ['damage infrastructure','infrastructure utilities damage','broke infrastructure damage','down broke damage off','homes been damage lost home']
-    # elif label == 3:
-    #     strings = ['displaced evacuat','shelter provid','shelter set up evacuated','shelter','displaced']
-    # elif label == 4:
-    #     strings = ['donate','please donation','government give rise money $ generously contribute','vulnerable','volunteer']
-    # elif label == 5:
-    #     strings = ['warning','take care','caution suggest recommend propose rule','advice give','attention note look out']
-    # elif label == 6:
-    #     strings = ['pray','lord prayers folded hands god bless','deep condolence','God','keep safe pray go out fine ok']
-    # elif label == 8:
-    #     strings = ['no content', 'no relavent', 'not related', 'irrelevant', 'not related']
-    # else:
-    #     strings = ['ready to help other useful information', 'useful information', 'help usedful information', 'information useful help and by', 'useful information to help']
-
     labels = [data["labels"] for data in sampled_data]
 
     # Count the occurrences of each label
@@ -701,26 +661,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             extracted_explanations = file.readlines()[:]
             for extracted_explanation in extracted_explanations:
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
-    # for data in sampled_data:
-    #     tweet = data["text"]
-    #     label = data["labels"]
-    #     # print(tweet)
-    #     no_exp_data.append({"text": tweet, "labels": label})
-    #     explanation = generate_explanations(tweet,label)
-    #     # explanations.append(explanation)
-    #     # new_data.append({"text": tweet, "labels": label, "exp_and_td": explanation})
-    #     for exp in explanation:
-    #         explanations.append(exp)
-    #         new_data.append({"text": tweet, "labels": label, "exp_and_td": exp})
-    #         # Use openai model to generate an explanation for the tweet
-    #         # Extract remaining 34 explanations from "GPTuseExp.txt" this contains default explanations
-    #     with open("GPTuseExp.txt", "r") as file:
-    #         extracted_explanations = file.readlines()[:31]
-    #         explanations.extend(extracted_explanations)
-    #         for extracted_explanation in extracted_explanations:
-    #             new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
-
-
 
     # Extend the dataset that have the default explanations by adding the explained data into the origin dataset
     # This is for the pre-trined model dataset
@@ -742,50 +682,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             shutil.rmtree(file_path)
     # Save the DatasetDict to disk
     new_dict.save_to_disk("./data/new_exp/new")
-    # new_raw_dataset = load_from_disk("./data/new_exp/new")
-    # embedding the new data into file
-    # model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
-    # tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
-    # if not os.path.exists("new_embeddings"):
-    #     os.makedirs("new_embeddings")
-    # emb = []
-    # train_dataloader = DataLoader(new_raw_dataset["train"], batch_size=10)
-    # for batch in train_dataloader:
-    #     with torch.no_grad():
-    #         tokenized_train = tokenize_exp_function(batch, tokenizer)
-    #         model_outputs = model(**tokenized_train)
-    #         embeddings = model_outputs["logits"]
-    #         embeddings = embeddings.cpu().detach().numpy()
-    #         emb.append(embeddings)
-    #         torch.cuda.empty_cache()
-    # # Reshape each element in the emb list to have a consistent shape
-    # emb = [element.reshape(-1) for element in emb]
-    #
-    # # converts the embeddings into a tensor and reshapes them to the correct size
-    # emb = np.array(emb)
-    # emb = np.vstack(emb)
-    #
-    # embeddings = torch.tensor(emb)
-    #
-    # total_samples = int(10 * embeddings.shape[0] / (36))
-    # embeddings = torch.reshape(embeddings, (total_samples, 36 * 3))
-    # save_filename = (
-    #         "./new_embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt"
-    # )
-    #
-    # global t
-    # if(t == 0):
-    #     save_directory = "./new_embeddings/NEW_bertie_embeddings_textattack"
-    #     # Create the directory if it doesn't exist
-    #     if not os.path.exists(save_directory):
-    #         os.makedirs(save_directory)
-    #     torch.save(embeddings, save_filename)
-    # else:
-    #     newembeddings = torch.load(
-    #         "./new_embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt")
-    #     # print("newembeddings", len(newembeddings))
-    #     embeddings = torch.cat([embeddings, newembeddings], dim=0)
-    #     torch.save(embeddings, save_filename)
 
     #================================
     df_noexp = pd.read_csv("./data/dataset_noexp_no.csv")
@@ -796,14 +692,15 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     # each subset is created and then saved
     # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
     num = len(explanations) + num_des
-    nums = num * 10
-    subset_1 = df_exp[0:(len(df_exp) // nums) * nums]
+    nums = num * 30*3
+    subset_1 = df_exp[:]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     existing_data_path = "./data/dataset_exp_subset_1.csv"
     existing_data_df = pd.read_csv(existing_data_path)
     new_data_df = pd.DataFrame(new_data)
     merged_data_df = pd.concat([existing_data_df, new_data_df], ignore_index=True)
-    merged_data_df.to_csv(existing_data_path, index=False)
+    merged_data_sub = merged_data_df[0:(len(merged_data_df) // nums) * nums]
+    merged_data_sub.to_csv(existing_data_path, index=False)
     # Load the CSV file into a DatasetDict
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
     directory = './data/exp/subset_1'
@@ -865,13 +762,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
         torch.save(filtered_embeddings, new_path)
 
     # Find the indices that are not in sampled_indices
-    # indices_to_keep = [i for i in range(len(unexp_embeddings)) if i not in sampled_indices]
-    #
-    # # Select the embeddings that correspond to the indices to keep
-    # filtered_embeddings = unexp_embeddings[indices_to_keep]
-
-    # Save the filtered embeddings to orgfile_path
-    # torch.save(filtered_embeddings, orgfile_path)
     sampled_data_no = [data for i, data in enumerate(raw_dataset_noexp['train']) if i not in sampled_indices]
     data_no_exp_new = []
     for data in sampled_data_no:
@@ -896,7 +786,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     # Save the DatasetDict to disk
     subset_1_dict.save_to_disk(directory)
     # =============================================================
-
 
 # Process a single batch and return the embeddings
 def process_batch(batch, model, tokenizer, tokenize_exp_function):
@@ -1205,7 +1094,9 @@ def preprocess_samples(raw_dataset_noexp,num):
     emb = np.array(emb)
     emb = np.vstack(emb)
     embeddings = torch.tensor(emb)
-    total_samples = int(10 * embeddings.shape[0] / (num))
+    # total_samples = int(10 * embeddings.shape[0] / (num))
+    # embeddings = torch.reshape(embeddings, (total_samples, num * 3))
+    total_samples = int(embeddings.shape[0] * embeddings.shape[1] / (num * 3))
     embeddings = torch.reshape(embeddings, (total_samples, num * 3))
     print("uncertainty shape:", embeddings.shape[0])
     return embeddings
@@ -1233,23 +1124,17 @@ def main():
     # duplicate tweets are dropped
     df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
 
-    # split noexp into two part one part will be explained properly and one part use default explanations
-    # df_noexp, df_noexp_two = train_test_split(df_noexp_all, test_size=0.8, random_state=42)
     # Split features and labels
     X = df_noexp_all.drop('labels', axis=1)
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.6, random_state=42)
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
     train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
     df_noexp = df_noexp_all.iloc[train_index]
     df_noexp_two = df_noexp_all.iloc[test_index]
-
-    # Print the sizes of the split datasets
-    # print("df_noexp shape:", df_noexp.shape)
-    # print("df_noexp_two shape:", df_noexp_two.shape)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -1272,17 +1157,14 @@ def main():
     data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
     data_noexp_one.save_to_disk("./data/no/")
     originlen = len(data_noexp_one["train"]["labels"])
-    # print("originlen: ", originlen)
 
     # reads in explanations and concatenates to the tweets to form an expanded dataset (to initial the pretrained model)
     explanations = read_explanations("explanations.txt")
     df_exp, num_des= create_explanations_dataset(df_noexp, explanations)
 
     # default explained data can be passed through the pre-trained model
-    # each subset is created and then saved
-    # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
     num = len(explanations) + num_des
-    nums = num * 10
+    nums = num * 30*3
     subset_1 = df_exp[0:(len(df_exp) // nums) * nums]
     subset_1.to_csv("./data/dataset_exp_subset_1.csv", index=False)
     subset_1_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_1.csv")
@@ -1297,7 +1179,7 @@ def main():
     # human in the loop
     global t
     addlen = 0
-    while noexp_df.shape[0] > 50 and t<6:
+    while noexp_df.shape[0] > 0 and t<10:
         print("noexp_df.shape[0] last", noexp_df.shape[0])
         temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
@@ -1311,6 +1193,7 @@ def main():
         # each subset is created and then saved
         # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
         num = len(explanations) + 9
+        nums = num * 30 * 3
         print("unexplained dataset length is:")
         print(noexp_df.shape[0])
 
@@ -1322,6 +1205,17 @@ def main():
         if not os.path.exists("embeddings"):
             os.makedirs("embeddings")
 
+        # torch.cuda.empty_cache()
+        # optimises the runtime if running on a GPU
+        torch.backends.cudnn.benchmark = True
+
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        else:
+            device = torch.device("cpu")
+
+        # optimize the model to cpu running when the work is apply to GPU
+        model = model.to(device)
         torch.cuda.empty_cache()
 
         # splits the dataset into batches of size 10 and passes them through the tokenizer and pre-trained model.
@@ -1346,10 +1240,8 @@ def main():
 
         # Initialize a list to store the padded arrays
         padded_emb = []
-
         # Desired size after padding
         desired_size = 30
-
         # Loop through each element in emb
         for element in emb:
             current_size = element.shape[0]
@@ -1362,20 +1254,16 @@ def main():
             else:
                 # If the array is already of the desired size, no padding is needed
                 padded_emb.append(element)
-        # converts the embeddings into a tensor and reshapes them to the correct size
-        # Check the size of each element in the emb list
-        for i, element in enumerate(emb):
-            print(f"Element at index {i} has size: {element.shape[0]}")
-        # emb = np.array(emb)
+
+        emb = np.array(padded_emb)
         emb = np.vstack(emb)
 
         embeddings = torch.tensor(emb)
-        # print(embeddings.shape)
-        #
-        # # if args.model == "bertie":
+
         print(embeddings.shape[0] / (num))
-        # 785
-        total_samples = int(10 * embeddings.shape[0] / (num))
+        # total_samples = int(10 * embeddings.shape[0] / (num))
+        # embeddings = torch.reshape(embeddings, (total_samples, num * 3))
+        total_samples = int(embeddings.shape[0] * embeddings.shape[1] / (num * 3))
         embeddings = torch.reshape(embeddings, (total_samples, num * 3))
         # print(embeddings.shape)
 
@@ -1429,8 +1317,8 @@ def main():
 
         test_exp, num_texdes = create_explanations_dataset(test_noexp_all, explanations)
         print("test len", len(test_exp))
-        # subset_test = test_exp[0:(len(test_exp) // 360) * 360]
-        subset_test = test_exp[:]
+
+        subset_test = test_exp[0:(len(test_exp) // nums) * nums]
         subset_test.to_csv("./data/dataset_exp_subset_test.csv", index=False)
         subset_test_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_test.csv")
         directory = "./data/exp/subset_test"
@@ -1540,10 +1428,10 @@ def main():
         # sampling and explanation generation:
         # this is for random function
         # ===========================================================================
-        # if noexp_df.shape[0] >= 50:
-        #     sampled_indices = random.sample(range(noexp_df.shape[0]), 50)
-        # else:
-        #     sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
+        if noexp_df.shape[0] >= 500:
+            sampled_indices = random.sample(range(noexp_df.shape[0]), 500)
+        else:
+            sampled_indices = random.sample(range(noexp_df.shape[0]), noexp_df.shape[0])
 
         # begin uncertainty sampling
         # if noexp_df.shape[0]>250:
@@ -1551,10 +1439,10 @@ def main():
         # else:
         #     sampled_indices = uncertainty_sampling(model_NN, noexp_df.shape[0],num)
         # begin diversity sampling
-        if noexp_df.shape[0] > 250:
-            sampled_indices = semantic_diversity_sampling(model_NN, 250, num)
-        else:
-            sampled_indices = semantic_diversity_sampling(model_NN, noexp_df.shape[0], num)
+        # if noexp_df.shape[0] > 250:
+        #     sampled_indices = semantic_diversity_sampling(model_NN, 250, num)
+        # else:
+        #     sampled_indices = semantic_diversity_sampling(model_NN, noexp_df.shape[0], num)
 
 
         # add data and delete data  from default explanation dataset and explained dataset
@@ -1564,7 +1452,7 @@ def main():
 
         t = t+1
         print("t is :",t)
-        addlen = addlen + 250
+        addlen = addlen + 500
         print("addlen is: ",addlen)
 
 
