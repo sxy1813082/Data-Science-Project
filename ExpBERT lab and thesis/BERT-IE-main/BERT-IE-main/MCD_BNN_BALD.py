@@ -566,7 +566,7 @@ def generate_explanations(sampled_data):
     start_line = t * 1
     end_line = (t + 1) * 1
     strings = lines[start_line:end_line]
-    print(strings)
+
     string_array = [string.strip() for string in strings]
 
     # labels = [data["labels"] for data in sampled_data]
@@ -616,7 +616,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             continue
         tweet = placeholders([tweet])
         tweet = tweet[0]
-        print(tweet)
         no_exp_data.append({"text": tweet, "labels": label})
         explanation = exp_list
         with open("explanations.txt", "r") as file:
