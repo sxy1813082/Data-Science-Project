@@ -166,7 +166,7 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
         # "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
-    "random_sampling"
+    "diversity_sampling"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)

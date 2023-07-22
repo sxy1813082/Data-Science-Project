@@ -167,7 +167,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "BNN_BALD_sampling"
+        "MCD_BALD_sampling"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -326,10 +326,6 @@ class Trainer:
             train_labels = []
             total_training_loss = 0
 
-            # Turn on the MCD dropout mode
-            pyro.set_rng_seed(0)
-            pyro.poutine.set_mask(True)
-
             for batch, labels in self.train_loader:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
@@ -338,8 +334,6 @@ class Trainer:
                 # with pyro.plate("data"):
                 #     sampled_model = pyro.module("model", self.model)
                 #     logits = sampled_model(batch)
-                # Clear parameter values from the previous iteration
-                pyro.clear_param_store()
 
                 # Sample from the posterior distribution of the model
                 logits = self.model.forward(batch)
@@ -409,7 +403,7 @@ class Trainer:
                 global t
                 print("global t is :",t)
                 self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1_marco":test_f1_macro}, t)
-                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro}, t)
+                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*10}, t)
                 print("test epoch results", test_data_metrics, flush=True)
                 print("val epoch results", metric_results, flush=True)
 
@@ -569,8 +563,8 @@ def generate_explanations(sampled_data):
     global t
     with open("annator.txt", 'r') as file:
         lines = file.readlines()
-    start_line = t * 3
-    end_line = (t + 1) * 3
+    start_line = t * 1
+    end_line = (t + 1) * 1
     strings = lines[start_line:end_line]
     print(strings)
     string_array = [string.strip() for string in strings]
@@ -856,7 +850,7 @@ def bald_sampling(model, k, num):
 
     embeddings = F.pad(embeddings, (0, pad_amount))
 
-    print("diversity len embedding", len(embeddings))
+    print("len embedding", len(embeddings))
 
     # Set the model to evaluation mode
     model.eval()
