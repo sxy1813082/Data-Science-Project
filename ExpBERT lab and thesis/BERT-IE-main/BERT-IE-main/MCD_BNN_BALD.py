@@ -541,21 +541,21 @@ class BayesianMLP_1h(nn.Module):
 
         pyro.sample("obs", dist.Categorical(logits=logits), obs=labels)
 
-# Manipulates weights to be passed into WCEL --------------------
-def get_weights():
-    # Use distribution of labels for weights
-    weights = torch.tensor(
-        [13.0864, 2.1791, 3.1197, 7.9103, 14.1146, 5.8246, 11.0066, 29.8417, 12.917],
-        dtype=torch.float32,
-    )
-    # class size is inversely proportional to weight of class
-    # Convert percentages into correct fractional form e.g. 10% => 0.1
-    weights = weights / weights.sum()
-    # Make weights inversely proportional to class size
-    weights = 1.0 / weights
-    # Scale weights so they sum to 1
-    weights = weights / weights.sum()
-    return weights
+# # Manipulates weights to be passed into WCEL --------------------
+# def get_weights():
+#     # Use distribution of labels for weights
+#     weights = torch.tensor(
+#         [13.0864, 2.1791, 3.1197, 7.9103, 14.1146, 5.8246, 11.0066, 29.8417, 12.917],
+#         dtype=torch.float32,
+#     )
+#     # class size is inversely proportional to weight of class
+#     # Convert percentages into correct fractional form e.g. 10% => 0.1
+#     weights = weights / weights.sum()
+#     # Make weights inversely proportional to class size
+#     weights = 1.0 / weights
+#     # Scale weights so they sum to 1
+#     weights = weights / weights.sum()
+#     return weights
 
 def generate_explanations(sampled_data):
 

@@ -394,7 +394,7 @@ class Trainer:
                 global t
                 print("global t is :",t)
                 self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1_marco":test_f1_macro}, t)
-                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro}, t)
+                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*10}, t)
                 print("test epoch results", test_data_metrics, flush=True)
                 print("val epoch results", metric_results, flush=True)
 
@@ -519,8 +519,8 @@ def generate_explanations(sampled_data):
     global t
     with open("annator.txt", 'r') as file:
         lines = file.readlines()
-    start_line = t * 3
-    end_line = (t + 1) * 3
+    start_line = t * 1
+    end_line = (t + 1) * 1
     strings = lines[start_line:end_line]
     print(strings)
     string_array = [string.strip() for string in strings]
