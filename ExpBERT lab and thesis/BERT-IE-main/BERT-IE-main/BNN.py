@@ -2,6 +2,9 @@ import math
 import os
 from random import random
 import random
+from pyro.optim import ClippedAdam
+from pyro.distributions import Normal
+from pyro.distributions import Categorical
 from pyro.infer import SVI, Trace_ELBO
 import pyro
 from pyro.optim import PyroOptim
@@ -299,12 +302,20 @@ def sample_predictive_model(model, guide, num_samples, inputs, labels=None):
     samples = predictive(inputs, labels)
     # Extract logits and then convert to probabilities
     logits = samples['obs']
+    print("Logits shape:", logits.shape)
+    logits = logits.float()
     # Turn logits into probabilities.
-    # (This assumes that your model is for a classification task.)
-    probabilities = torch.nn.functional.softmax(logits, dim=-1)
-    # Use the probabilities to generate a prediction
-    preds = torch.argmax(probabilities, dim=-1).detach().cpu().numpy()
-    return preds
+    # probabilities = torch.nn.functional.softmax(logits, dim=-1)
+    # Do not use argmax to generate hard predictions.
+    # Instead, return the logits directly.
+    # preds = torch.argmax(probabilities, dim=-1).detach().cpu().numpy()
+    return logits
+def predict(model,guide,n_samples,x,lables=None):
+    sampled_models = [guide(None, None) for _ in range(n_samples)]
+    yhats = [model(x).data for model in sampled_models]
+    mean = torch.mean(torch.stack(yhats), 0)
+    return np.argmax(mean.numpy(), axis=1)
+
 # Trainer class, the main part of classifying tweets --------------------
 class Trainer:
     def __init__(
@@ -318,6 +329,7 @@ class Trainer:
         optimizer: Optimizer,
         device: torch.device,
         writer: SummaryWriter,
+        feature_count: int,
     ):
         self.model = model.to(device)
         self.device = device
@@ -329,6 +341,7 @@ class Trainer:
         self.optimizer = optimizer
         self.step = 0
         self.writer = writer
+        self.feature_count = feature_count
 
     # training the model
     def train(self, epochs: int, print_frequency: int = 20, start_epoch: int = 0):
@@ -392,11 +405,19 @@ class Trainer:
             for batch, labels in self.val_loader:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
-                preds = sample_predictive_model(self.model.model, self.model.guide, 50, batch, labels)
+                preds = predict(self.model.model, self.model.guide, 9, batch.view(-1,self.feature_count), labels)
+                preds_mean = torch.mean(torch.from_numpy(preds).float(), dim=0)
+                preds_probs = torch.nn.functional.softmax(preds_mean, dim=-1)
+                loss = torch.nn.functional.nll_loss(torch.tensor(preds_probs, dtype=torch.float), labels.long())
+                print(labels[0].long())
+                print(preds_probs)
+                # loss = self.criterion(torch.tensor(preds_mean, dtype=torch.float), labels.long())
                 # logits = sampled_model(batch)
-                loss = self.criterion(torch.tensor(preds), labels.long())
+                # loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
+
+                # loss = self.criterion(torch.tensor(preds), labels.long())
                 total_loss += loss.item()
-                results["preds"].extend(list(preds))
+                results["preds"].extend(list(preds_mean.cpu().numpy()))
                 results["labels"].extend(list(labels.cpu().numpy()))
 
         average_loss = total_loss / len(self.val_loader)
@@ -422,7 +443,10 @@ class Trainer:
                 labels = labels.to(self.device)
 
                 preds = sample_predictive_model(self.model.model, self.model.guide, 50, batch, labels)
-                loss = self.criterion(torch.tensor(preds), labels.long())
+                loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
+
+                # loss = self.criterion(torch.tensor(preds), labels.long())
+
                 total_loss += loss.item()
 
                 results["preds"].extend(list(preds))
@@ -459,8 +483,9 @@ class BayesianMLP_1h(nn.Module):
         input_size: int,
         hidden_layer_size: int,
         output_size: int,
-        activation_fn: Callable[[torch.Tensor], torch.Tensor] = F.relu,
         dropout_prob: float = 0.1,  # Add a dropout probability argument
+        activation_fn: Callable[[torch.Tensor], torch.Tensor] = F.relu
+
     ):
         super().__init__()
         self.l1 = nn.Linear(input_size, hidden_layer_size)
@@ -475,76 +500,147 @@ class BayesianMLP_1h(nn.Module):
         x = self.l2(x)
         return x
 
-    def model(self, inputs, labels=None):
-        dropout_prior = dist.StudentT(3, 0.1)
-        # Priors for the weights and biases
-        w1_prior = dist.Normal(0, 1)
-        b1_prior = dist.Normal(0, 1)
-        w2_prior = dist.Normal(0, 1)
-        b2_prior = dist.Normal(loc=torch.zeros_like(self.l2.bias), scale=torch.ones_like(self.l2.bias))  # adjust here
+    # def model(self, inputs, labels=None):
+    #     dropout_prior = dist.StudentT(3, 0.1)
+    #     # Priors for the weights and biases
+    #     w1_prior = dist.Normal(loc=torch.zeros_like(self.l1.weight), scale=torch.ones_like(self.l1.weight)).to_event(
+    #         2)  # adjust here
+    #     b1_prior = dist.Normal(loc=torch.zeros_like(self.l1.bias), scale=torch.ones_like(self.l1.bias)).to_event(
+    #         1)  # adjust here
+    #     w2_prior = dist.Normal(loc=torch.zeros_like(self.l2.weight), scale=torch.ones_like(self.l2.weight)).to_event(
+    #         2)  # adjust here
+    #     b2_prior = dist.Normal(loc=torch.zeros_like(self.l2.bias), scale=torch.ones_like(self.l2.bias)).to_event(
+    #         1)  # adjust here
+    #     dp_prior = dropout_prior
+    #
+    #     priors = {
+    #         "l1.weight": w1_prior,
+    #         "l1.bias": b1_prior,
+    #         "l2.weight": w2_prior,
+    #         "l2.bias": b2_prior,
+    #         "dropout_prob": dp_prior,
+    #     }
+    #
+    #     lifted_module = pyro.random_module("module", self, priors)
+    #     lifted_model = lifted_module()
+    #
+    #     with pyro.plate("data"):
+    #         logits = lifted_model(inputs)
+    #         # logits = logits.squeeze(-1)  # make sure logits are of right shape
+    #     # print("Logits shape: ", logits.shape)
+    #     # print("Labels shape: ", labels.shape)
+    #     #
+    #     # pyro.sample("obs", dist.Categorical(logits=logits), obs=labels)
+    #     pyro.sample("obs", dist.Categorical(logits=logits).to_event(1), obs=labels)
+    def model(self, x_data, y_data):
+        # First layer weight distribution priors
+        w1_prior = dist.Normal(loc=torch.zeros_like(self.l1.weight), scale=torch.ones_like(self.l1.weight)).to_event(2)
+        # First layer bias distribution priors
+        b1_prior = dist.Normal(loc=torch.zeros_like(self.l1.bias), scale=torch.ones_like(self.l1.bias)).to_event(1)
+
+        w2_prior = dist.Normal(loc=torch.zeros_like(self.l2.weight), scale=torch.ones_like(self.l2.weight)).to_event(2)
+        b2_prior = dist.Normal(loc=torch.zeros_like(self.l2.bias), scale=torch.ones_like(self.l2.bias)).to_event(1)
 
         priors = {
             "l1.weight": w1_prior,
             "l1.bias": b1_prior,
             "l2.weight": w2_prior,
-            "l2.bias": b2_prior,
-            "dropout_prob": dropout_prior,
+            "l2.bias": b2_prior
         }
 
         lifted_module = pyro.random_module("module", self, priors)
-        lifted_model = lifted_module()
+        lifted_reg_model = lifted_module()
+        lhat = F.log_softmax(lifted_reg_model(x_data))
+        with pyro.plate("data", len(x_data)):
+            pyro.sample("obs", dist.Categorical(logits=lhat), obs=y_data)
+        # pyro.sample("obs", dist.Categorical(logits=lhat), obs=y_data)
 
-        with pyro.plate("data"):
-            logits = lifted_model(inputs)
-            # logits = logits.squeeze(-1)  # make sure logits are of right shape
+    def guide(self, x_data, y_data):
+        # First layer weight distribution priors
+        fc1w_mu = torch.randn_like(self.l1.weight)
+        fc1w_sigma = torch.randn_like(self.l1.weight)
+        fc1w_mu_param = pyro.param("fc1w_mu", fc1w_mu)
+        fc1w_sigma_param = F.softplus(pyro.param("fc1w_sigma", fc1w_sigma))
+        fc1w_prior = dist.Normal(loc=fc1w_mu_param, scale=fc1w_sigma_param).to_event(2)
 
-        pyro.sample("obs", dist.Categorical(logits=logits), obs=labels)
+        # First layer bias distribution priors
+        fc1b_mu = torch.randn_like(self.l1.bias)
+        fc1b_sigma = torch.randn_like(self.l1.bias)
+        fc1b_mu_param = pyro.param("fc1b_mu", fc1b_mu)
+        fc1b_sigma_param = F.softplus(pyro.param("fc1b_sigma", fc1b_sigma))
+        fc1b_prior = dist.Normal(loc=fc1b_mu_param, scale=fc1b_sigma_param).to_event(1)
 
-    def guide(self, inputs, labels=None):
-        # Get the shape of the weights and biases
-        w1_shape = self.l1.weight.shape
-        b1_shape = self.l1.bias.shape
-        w2_shape = self.l2.weight.shape
-        b2_shape = self.l2.bias.shape
+        # Output layer weight distribution priors
+        outw_mu = torch.randn_like(self.l2.weight)
+        outw_sigma = torch.randn_like(self.l2.weight)
+        outw_mu_param = pyro.param("outw_mu", outw_mu)
+        outw_sigma_param = F.softplus(pyro.param("outw_sigma", outw_sigma))
+        outw_prior = dist.Normal(loc=outw_mu_param, scale=outw_sigma_param).to_event(2)
 
-        # Define our variational parameters
-        w1_mu = torch.randn_like(self.l1.weight)
-        w1_sigma = torch.ones_like(self.l1.weight)
-        b1_mu = torch.zeros_like(self.l1.bias)
-        b1_sigma = torch.ones_like(self.l1.bias)
-        w2_mu = torch.randn_like(self.l2.weight)
-        w2_sigma = torch.ones_like(self.l2.weight)
-        b2_mu = torch.zeros_like(self.l2.bias)
-        b2_sigma = torch.ones_like(self.l2.bias)
+        # Output layer bias distribution priors
+        outb_mu = torch.randn_like(self.l2.bias)
+        outb_sigma = torch.randn_like(self.l2.bias)
+        outb_mu_param = pyro.param("outb_mu", outb_mu)
+        outb_sigma_param = F.softplus(pyro.param("outb_sigma", outb_sigma))
+        outb_prior = dist.Normal(loc=outb_mu_param, scale=outb_sigma_param).to_event(1)
 
-        # Register learnable params in the param store
-        mw_param = pyro.param("guide_mean_weight_l1", w1_mu)
-        sw_param = pyro.param("guide_scale_weight_l1", w1_sigma)
-        mb_param = pyro.param("guide_mean_bias_l1", b1_mu)
-        sb_param = pyro.param("guide_scale_bias_l1", b1_sigma)
-        mw_param2 = pyro.param("guide_mean_weight_l2", w2_mu)
-        sw_param2 = pyro.param("guide_scale_weight_l2", w2_sigma)
-        mb_param2 = pyro.param("guide_mean_bias_l2", b2_mu)
-        sb_param2 = pyro.param("guide_scale_bias_l2", b2_sigma)
-
-        # Guide distributions for w and b
-        w1_dist = dist.Normal(mw_param, torch.abs(sw_param))
-        b1_dist = dist.Normal(mb_param, torch.abs(sb_param))
-        w2_dist = dist.Normal(mw_param2, torch.abs(sw_param2))
-        b2_dist = dist.Normal(mb_param2, torch.abs(sb_param2))
-
-        dists = {
-            "l1.weight": w1_dist,
-            "l1.bias": b1_dist,
-            "l2.weight": w2_dist,
-            "l2.bias": b2_dist,
+        priors = {
+            'l1.weight': fc1w_prior,
+            'l1.bias': fc1b_prior,
+            'l2.weight': outw_prior,
+            'l2.bias': outb_prior
         }
 
-        # Overwrite the values of parameters with samples from the guide distributions
-        lifted_module = pyro.random_module("module", self, dists)
+        lifted_module = pyro.random_module("module", self, priors)
 
-        # sample a regressor (which also samples w and b)
         return lifted_module()
+
+    # def guide(self, inputs, labels=None):
+    #     # Get the shape of the weights and biases
+    #     w1_shape = self.l1.weight.shape
+    #     b1_shape = self.l1.bias.shape
+    #     w2_shape = self.l2.weight.shape
+    #     b2_shape = self.l2.bias.shape
+    #
+    #     # Define our variational parameters
+    #     w1_mu = torch.randn_like(self.l1.weight)
+    #     w1_sigma = torch.ones_like(self.l1.weight)
+    #     b1_mu = torch.zeros_like(self.l1.bias)
+    #     b1_sigma = torch.ones_like(self.l1.bias)
+    #     w2_mu = torch.randn_like(self.l2.weight)
+    #     w2_sigma = torch.ones_like(self.l2.weight)
+    #     b2_mu = torch.zeros_like(self.l2.bias)
+    #     b2_sigma = torch.ones_like(self.l2.bias)
+    #
+    #     # Register learnable params in the param store
+    #     mw_param = pyro.param("guide_mean_weight_l1", w1_mu)
+    #     sw_param = pyro.param("guide_scale_weight_l1", w1_sigma)
+    #     mb_param = pyro.param("guide_mean_bias_l1", b1_mu)
+    #     sb_param = pyro.param("guide_scale_bias_l1", b1_sigma)
+    #     mw_param2 = pyro.param("guide_mean_weight_l2", w2_mu)
+    #     sw_param2 = pyro.param("guide_scale_weight_l2", w2_sigma)
+    #     mb_param2 = pyro.param("guide_mean_bias_l2", b2_mu)
+    #     sb_param2 = pyro.param("guide_scale_bias_l2", b2_sigma)
+    #
+    #     # Guide distributions for w and b
+    #     # Guide distributions for w and b
+    #     w1_dist = dist.Normal(mw_param, torch.abs(sw_param)).to_event(2)
+    #     b1_dist = dist.Normal(mb_param, torch.abs(sb_param)).to_event(1)
+    #     w2_dist = dist.Normal(mw_param2, torch.abs(sw_param2)).to_event(2)
+    #     b2_dist = dist.Normal(mb_param2, torch.abs(sb_param2)).to_event(1)
+    #
+    #     dists = {
+    #         "l1.weight": w1_dist,
+    #         "l1.bias": b1_dist,
+    #         "l2.weight": w2_dist,
+    #         "l2.bias": b2_dist,
+    #     }
+    #
+    #     # Overwrite the values of parameters with samples from the guide distributions
+    #     lifted_module = pyro.random_module("module", self, dists)
+    #
+    #     # sample a regressor (which also samples w and b)
+    #     return lifted_module()
 
 
 def generate_explanations(sampled_data):
@@ -1278,7 +1374,7 @@ def main():
         # DataLoader splits the datasets into batches
         train_loader = DataLoader(
             train_dataset,
-            shuffle=False,
+            shuffle=True,
             batch_size=8,
             num_workers=2,
             pin_memory=True,
@@ -1314,13 +1410,14 @@ def main():
         torch.manual_seed("37")
 
         # initialises the model and hyperparameters taking into account the passed in arguments
-        model_NN = BayesianMLP_1h(feature_count, int("100"), class_count)
+        model_NN = BayesianMLP_1h(feature_count, int("100"), class_count,0.1)
 
         model_NN = model_NN.to(device)
-        optimizer_unchange = AdamW(
-            model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
-        )
-        optimizer = PyroOptim(lambda: optimizer_unchange, optim_args={})
+        # optimizer_unchange = AdamW(
+        #     model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
+        # )
+        # optimizer = PyroOptim(lambda: optimizer_unchange, optim_args={})
+        optimizer = ClippedAdam({"lr": 0.01, "clip_norm": 10.0})
         criterion = nn.CrossEntropyLoss()
 
         # initalises the Trainer class
@@ -1333,6 +1430,7 @@ def main():
             optimizer,
             device,
             writer,
+            feature_count,
         )
 
         # calls train to start the training, validating and testing process
