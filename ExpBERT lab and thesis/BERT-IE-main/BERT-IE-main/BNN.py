@@ -8,6 +8,7 @@ from pyro.distributions import Categorical
 from pyro.infer import SVI, Trace_ELBO
 import pyro
 from pyro.optim import PyroOptim
+from pyro import clear_param_store
 import pyro.distributions as dist
 from pyro.infer import Predictive
 # from torchbnn.layers import BayesianLinear
@@ -366,7 +367,7 @@ class Trainer:
 
             # calls validate function every print_frequency epochs
             if ((epoch + 1) % print_frequency) == 0:
-                val_epoch_metrics, average_loss, val_accuracy, f1_weighted, f1_macro = self.validate()
+                val_epoch_metrics, val_accuracy, f1_weighted, f1_macro = self.validate()
 
                 # adds values to tensorboard
                 self.writer.add_scalars(
@@ -380,8 +381,8 @@ class Trainer:
             # calls test function in the final epoch
             if epoch == (epochs - 1):
                 print("epoch number", epoch)
-                test_data_metrics, average_loss, test_data_accuracy, test_f1_weighted, test_f1_macro = self.test()
-                metric_results, average_loss, val_accuracy, f1_weighted, f1_macro = self.validate()
+                test_data_metrics, test_data_accuracy, test_f1_weighted, test_f1_macro = self.test()
+                metric_results, val_accuracy, f1_weighted, f1_macro = self.validate()
 
                 global t
                 print("global t is :", t)
@@ -406,28 +407,28 @@ class Trainer:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
                 preds = predict(self.model.model, self.model.guide, 9, batch.view(-1,self.feature_count), labels)
-                preds_mean = torch.mean(torch.from_numpy(preds).float(), dim=0)
-                preds_probs = torch.nn.functional.softmax(preds_mean, dim=-1)
-                loss = torch.nn.functional.nll_loss(torch.tensor(preds_probs, dtype=torch.float), labels.long())
-                print(labels[0].long())
-                print(preds_probs)
+
+                # preds_mean = torch.mean(torch.from_numpy(preds).float(), dim=0)
+                # preds_probs = torch.nn.functional.softmax(preds_mean, dim=-1)
+
+
                 # loss = self.criterion(torch.tensor(preds_mean, dtype=torch.float), labels.long())
                 # logits = sampled_model(batch)
                 # loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
 
                 # loss = self.criterion(torch.tensor(preds), labels.long())
-                total_loss += loss.item()
-                results["preds"].extend(list(preds_mean.cpu().numpy()))
+                # total_loss += loss.item()
+                results["preds"].extend(list(preds))
                 results["labels"].extend(list(labels.cpu().numpy()))
 
-        average_loss = total_loss / len(self.val_loader)
+        # average_loss = total_loss / len(self.val_loader)
         val_accuracy = accuracy_score(results["labels"], results["preds"]) * 100
 
         metric_results, f1_weighted, f1_macro = get_metrics(
             results["preds"], results["labels"]
         )
 
-        return metric_results, average_loss, val_accuracy, f1_weighted, f1_macro
+        return metric_results, val_accuracy, f1_weighted, f1_macro
 
     # called in the final epoch to evaluate the trained model
     def test(self):
@@ -442,17 +443,17 @@ class Trainer:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
 
-                preds = sample_predictive_model(self.model.model, self.model.guide, 50, batch, labels)
-                loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
-
+                # preds = sample_predictive_model(self.model.model, self.model.guide, 50, batch, labels)
+                # loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
+                preds = predict(self.model.model, self.model.guide, 9, batch.view(-1, self.feature_count), labels)
                 # loss = self.criterion(torch.tensor(preds), labels.long())
 
-                total_loss += loss.item()
+                # total_loss += loss.item()
 
                 results["preds"].extend(list(preds))
                 results["labels"].extend(list(labels.cpu().numpy()))
 
-        average_loss = total_loss / len(self.test_loader)
+        # average_loss = total_loss / len(self.test_loader)
         test_accuracy = accuracy_score(results["labels"], results["preds"]) * 100
 
         metric_results, f1_weighted, f1_macro = get_metrics(
@@ -474,7 +475,7 @@ class Trainer:
         fig.savefig("conf_mat.png")
         self.writer.add_figure("Confusion Matrix", conf_heatmap.get_figure())
 
-        return metric_results, average_loss, test_accuracy, f1_weighted, f1_macro
+        return metric_results, test_accuracy, f1_weighted, f1_macro
 
 # Bayesian neural network using Pyro
 class BayesianMLP_1h(nn.Module):
@@ -962,8 +963,9 @@ def mc_dropout_sampling(model, k, num):
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
 
     embeddings = F.pad(embeddings, (0, pad_amount))
+    dropout = torch.nn.Dropout(p=0.1)
     model.train()  # Set the model to training mode
-    num_samples = 50
+    num_samples = 5
     # Initialize a list to store the selected indices
     selected_indices = []
 
@@ -978,8 +980,8 @@ def mc_dropout_sampling(model, k, num):
 
             # Calculate average prediction probabilities
             avg_probabilities = torch.mean(torch.stack(predictions), dim=0)
-            entropy = -torch.sum(avg_probabilities * torch.log(avg_probabilities), dim=1)
-            bald_score = entropy.item()
+            # entropy = -torch.sum(avg_probabilities * torch.log(avg_probabilities), dim=1)
+            bald_score = -torch.max(avg_probabilities, dim=1).values.item()
 
             # Add the (index, BALD score) pair to the list
             selected_indices.append((i, bald_score))
@@ -1408,7 +1410,7 @@ def main():
         class_count = 9
 
         torch.manual_seed("37")
-
+        pyro.clear_param_store()
         # initialises the model and hyperparameters taking into account the passed in arguments
         model_NN = BayesianMLP_1h(feature_count, int("100"), class_count,0.1)
 
@@ -1417,7 +1419,7 @@ def main():
         #     model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
         # )
         # optimizer = PyroOptim(lambda: optimizer_unchange, optim_args={})
-        optimizer = ClippedAdam({"lr": 0.01, "clip_norm": 10.0})
+        optimizer = ClippedAdam({"lr": 5e-5, "clip_norm": 10.0})
         criterion = nn.CrossEntropyLoss()
 
         # initalises the Trainer class
