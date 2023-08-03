@@ -1,5 +1,6 @@
 import math
 import os
+# os.chdir("/user/home/yl22361/BERT-IE-main/")
 from random import random
 import random
 from pyro.optim import ClippedAdam
@@ -389,7 +390,7 @@ class Trainer:
                 self.writer.add_scalars("test performance",
                                         {"test_acc": test_data_metrics['accuracy'], "f1_marco": test_f1_macro}, t)
                 self.writer.add_scalars("validation dataset performance",
-                                        {"val_acc": val_accuracy, "f1_marco": f1_macro * 10}, t)
+                                        {"val_acc": val_accuracy, "f1_marco": f1_macro * 100}, t)
                 print("test epoch results", test_data_metrics, flush=True)
                 print("val epoch results", metric_results, flush=True)
 
@@ -397,8 +398,7 @@ class Trainer:
 
     def validate(self):
         results = {"preds": [], "labels": []}
-        svi = SVI(self.model.model, self.model.guide, self.optimizer, loss=Trace_ELBO())
-        total_loss = 0
+
         self.model.eval()
 
         # No need to track gradients for validation, we're not optimizing.
@@ -406,7 +406,7 @@ class Trainer:
             for batch, labels in self.val_loader:
                 batch = batch.to(self.device)
                 labels = labels.to(self.device)
-                preds = predict(self.model.model, self.model.guide, 9, batch.view(-1,self.feature_count), labels)
+                preds = predict(self.model.model, self.model.guide, 12, batch.view(-1,self.feature_count), labels)
 
                 # preds_mean = torch.mean(torch.from_numpy(preds).float(), dim=0)
                 # preds_probs = torch.nn.functional.softmax(preds_mean, dim=-1)
@@ -445,7 +445,7 @@ class Trainer:
 
                 # preds = sample_predictive_model(self.model.model, self.model.guide, 50, batch, labels)
                 # loss = self.criterion(torch.tensor(preds, dtype=torch.float), labels.long())
-                preds = predict(self.model.model, self.model.guide, 9, batch.view(-1, self.feature_count), labels)
+                preds = predict(self.model.model, self.model.guide, 12, batch.view(-1, self.feature_count), labels)
                 # loss = self.criterion(torch.tensor(preds), labels.long())
 
                 # total_loss += loss.item()
@@ -501,38 +501,6 @@ class BayesianMLP_1h(nn.Module):
         x = self.l2(x)
         return x
 
-    # def model(self, inputs, labels=None):
-    #     dropout_prior = dist.StudentT(3, 0.1)
-    #     # Priors for the weights and biases
-    #     w1_prior = dist.Normal(loc=torch.zeros_like(self.l1.weight), scale=torch.ones_like(self.l1.weight)).to_event(
-    #         2)  # adjust here
-    #     b1_prior = dist.Normal(loc=torch.zeros_like(self.l1.bias), scale=torch.ones_like(self.l1.bias)).to_event(
-    #         1)  # adjust here
-    #     w2_prior = dist.Normal(loc=torch.zeros_like(self.l2.weight), scale=torch.ones_like(self.l2.weight)).to_event(
-    #         2)  # adjust here
-    #     b2_prior = dist.Normal(loc=torch.zeros_like(self.l2.bias), scale=torch.ones_like(self.l2.bias)).to_event(
-    #         1)  # adjust here
-    #     dp_prior = dropout_prior
-    #
-    #     priors = {
-    #         "l1.weight": w1_prior,
-    #         "l1.bias": b1_prior,
-    #         "l2.weight": w2_prior,
-    #         "l2.bias": b2_prior,
-    #         "dropout_prob": dp_prior,
-    #     }
-    #
-    #     lifted_module = pyro.random_module("module", self, priors)
-    #     lifted_model = lifted_module()
-    #
-    #     with pyro.plate("data"):
-    #         logits = lifted_model(inputs)
-    #         # logits = logits.squeeze(-1)  # make sure logits are of right shape
-    #     # print("Logits shape: ", logits.shape)
-    #     # print("Labels shape: ", labels.shape)
-    #     #
-    #     # pyro.sample("obs", dist.Categorical(logits=logits), obs=labels)
-    #     pyro.sample("obs", dist.Categorical(logits=logits).to_event(1), obs=labels)
     def model(self, x_data, y_data):
         # First layer weight distribution priors
         w1_prior = dist.Normal(loc=torch.zeros_like(self.l1.weight), scale=torch.ones_like(self.l1.weight)).to_event(2)
@@ -596,54 +564,6 @@ class BayesianMLP_1h(nn.Module):
 
         return lifted_module()
 
-    # def guide(self, inputs, labels=None):
-    #     # Get the shape of the weights and biases
-    #     w1_shape = self.l1.weight.shape
-    #     b1_shape = self.l1.bias.shape
-    #     w2_shape = self.l2.weight.shape
-    #     b2_shape = self.l2.bias.shape
-    #
-    #     # Define our variational parameters
-    #     w1_mu = torch.randn_like(self.l1.weight)
-    #     w1_sigma = torch.ones_like(self.l1.weight)
-    #     b1_mu = torch.zeros_like(self.l1.bias)
-    #     b1_sigma = torch.ones_like(self.l1.bias)
-    #     w2_mu = torch.randn_like(self.l2.weight)
-    #     w2_sigma = torch.ones_like(self.l2.weight)
-    #     b2_mu = torch.zeros_like(self.l2.bias)
-    #     b2_sigma = torch.ones_like(self.l2.bias)
-    #
-    #     # Register learnable params in the param store
-    #     mw_param = pyro.param("guide_mean_weight_l1", w1_mu)
-    #     sw_param = pyro.param("guide_scale_weight_l1", w1_sigma)
-    #     mb_param = pyro.param("guide_mean_bias_l1", b1_mu)
-    #     sb_param = pyro.param("guide_scale_bias_l1", b1_sigma)
-    #     mw_param2 = pyro.param("guide_mean_weight_l2", w2_mu)
-    #     sw_param2 = pyro.param("guide_scale_weight_l2", w2_sigma)
-    #     mb_param2 = pyro.param("guide_mean_bias_l2", b2_mu)
-    #     sb_param2 = pyro.param("guide_scale_bias_l2", b2_sigma)
-    #
-    #     # Guide distributions for w and b
-    #     # Guide distributions for w and b
-    #     w1_dist = dist.Normal(mw_param, torch.abs(sw_param)).to_event(2)
-    #     b1_dist = dist.Normal(mb_param, torch.abs(sb_param)).to_event(1)
-    #     w2_dist = dist.Normal(mw_param2, torch.abs(sw_param2)).to_event(2)
-    #     b2_dist = dist.Normal(mb_param2, torch.abs(sb_param2)).to_event(1)
-    #
-    #     dists = {
-    #         "l1.weight": w1_dist,
-    #         "l1.bias": b1_dist,
-    #         "l2.weight": w2_dist,
-    #         "l2.bias": b2_dist,
-    #     }
-    #
-    #     # Overwrite the values of parameters with samples from the guide distributions
-    #     lifted_module = pyro.random_module("module", self, dists)
-    #
-    #     # sample a regressor (which also samples w and b)
-    #     return lifted_module()
-
-
 def generate_explanations(sampled_data):
 
     strings = []
@@ -653,7 +573,6 @@ def generate_explanations(sampled_data):
     start_line = t * 1
     end_line = (t + 1) * 1
     strings = lines[start_line:end_line]
-
     string_array = [string.strip() for string in strings]
     return string_array
 
@@ -982,7 +901,7 @@ def mc_dropout_sampling(model, k, num):
             avg_probabilities = torch.mean(torch.stack(predictions), dim=0)
             # entropy = -torch.sum(avg_probabilities * torch.log(avg_probabilities), dim=1)
             bald_score = -torch.max(avg_probabilities, dim=1).values.item()
-
+            # calculate bald score ues least confidence
             # Add the (index, BALD score) pair to the list
             selected_indices.append((i, bald_score))
 
@@ -1144,12 +1063,20 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
-    train_index, test_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.8, random_state=42)
+    train_index, other_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.875, random_state=42)
+    val_index, test_index = next(split.split(X.iloc[other_index], y.iloc[other_index]))
+    val_index = other_index[val_index]
+    test_index = other_index[test_index]
+    # split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
+    # train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
     df_noexp = df_noexp_all.iloc[train_index]
     df_noexp_two = df_noexp_all.iloc[test_index]
+    test_noexp_all = df_noexp_all.iloc[val_index]
+    test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -1305,19 +1232,6 @@ def main():
         # pre train  test dataset----------------------------------------------------
         test_dataframes = []
         explanations = read_explanations("explanations.txt")
-        filepaths = obtain_filepaths("./test_data/")
-        # cleans the data from each disaster individually
-        for file in filepaths:
-            df = clean_individual_dataset(file)
-            test_dataframes.append(df)
-        # concatenates the tweets from each disaster to form one dataset
-        test_df_concat = pd.concat(test_dataframes)
-        # renames the columns
-        test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
-        test_df_concat.rename(columns={"label": "labels"}, inplace=True)
-        # duplicate tweets are dropped
-        test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
-        test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
         data_noexp = load_dataset("csv", data_files="./test_data/dataset_noexp.csv")
         directory = "./testdata/"
         for filename in os.listdir(directory):
@@ -1410,38 +1324,41 @@ def main():
         class_count = 9
 
         torch.manual_seed("37")
-        pyro.clear_param_store()
-        # initialises the model and hyperparameters taking into account the passed in arguments
-        model_NN = BayesianMLP_1h(feature_count, int("100"), class_count,0.1)
+        learning_rates = [1e-4, 5e-5, 1e-5]
 
-        model_NN = model_NN.to(device)
-        # optimizer_unchange = AdamW(
-        #     model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
-        # )
-        # optimizer = PyroOptim(lambda: optimizer_unchange, optim_args={})
-        optimizer = ClippedAdam({"lr": 5e-5, "clip_norm": 10.0})
-        criterion = nn.CrossEntropyLoss()
+        for lr in learning_rates:
+            pyro.clear_param_store()
+            # initialises the model and hyperparameters taking into account the passed in arguments
+            model_NN = BayesianMLP_1h(feature_count, int("150"), class_count,0.1)
 
-        # initalises the Trainer class
-        trainer = Trainer(
-            model_NN,
-            train_loader,
-            val_loader,
-            test_loader,
-            criterion,
-            optimizer,
-            device,
-            writer,
-            feature_count,
-        )
+            model_NN = model_NN.to(device)
+            # optimizer_unchange = AdamW(
+            #     model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
+            # )
+            # optimizer = PyroOptim(lambda: optimizer_unchange, optim_args={})
+            optimizer = ClippedAdam({"lr": lr, "clip_norm": 10.0})
+            criterion = nn.CrossEntropyLoss()
 
-        # calls train to start the training, validating and testing process
-        trainer.train(
-            int("20"),
-            print_frequency=1,
-        )
+            # initalises the Trainer class
+            trainer = Trainer(
+                model_NN,
+                train_loader,
+                val_loader,
+                test_loader,
+                criterion,
+                optimizer,
+                device,
+                writer,
+                feature_count,
+            )
 
-        writer.close()
+            # calls train to start the training, validating and testing process
+            trainer.train(
+                int("30"),
+                print_frequency=1,
+            )
+
+            writer.close()
 
         if noexp_df.shape[0] > 500:
             sampled_indices = mc_dropout_sampling(model_NN, 500, num)

@@ -165,8 +165,9 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        # "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
-    "random_sampling"
+    # "exp_9_all_data_1"
+    # "exp_9_rs_no_add_1"
+    "exp_rs_add_1"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -394,7 +395,7 @@ class Trainer:
                 global t
                 print("global t is :",t)
                 self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1_marco":test_f1_macro}, t)
-                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*10}, t)
+                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*100}, t)
                 print("test epoch results", test_data_metrics, flush=True)
                 print("val epoch results", metric_results, flush=True)
 
@@ -649,7 +650,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             continue
         tweet = placeholders([tweet])
         tweet = tweet[0]
-        print(tweet)
         no_exp_data.append({"text": tweet, "labels": label})
         explanation = exp_list
         with open("explanations.txt", "r") as file:
@@ -925,123 +925,7 @@ def semantic_diversity_sampling(model, k, num):
         # Return the indices of the selected samples
         return selected_indices
 
-def get_dataset_withoutloop():
-    with torch.no_grad():
-        noloop_embeddings = torch.load("./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt")
-        print("len noloop_embeddings",len(noloop_embeddings))
-        noloop = load_from_disk("./data/org/")
-        labels_noloop = np.array(noloop["train"]["labels"])
-        orgfile_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
-        orgembeddings = torch.load(orgfile_path)
-        print("origembeddings len",len(orgembeddings))
-        raw_dataset = load_from_disk("./data/no/")
-        labels_org = np.array(raw_dataset["train"]["labels"])
-        embeddings = torch.cat([orgembeddings,noloop_embeddings],dim=0)
-        print("get_dataset_withoutloop len embedding ", len(embeddings))
-        labels = np.concatenate((labels_org,labels_noloop))
-        print("labels length:", len(labels))
-        idx = np.arange(0, len(embeddings), dtype=np.intc)
-        embeddings = embeddings[idx]
-        labels = labels[idx]
-        print("labels length:", len(labels))
 
-        # load test dataset
-        test_raw_dataset = load_from_disk("./testdata/")
-        test_labels = np.array(test_raw_dataset["train"]["labels"])
-        test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
-        test_embedding = torch.load(test_file_path)
-        test_idx = np.arange(0, len(test_embedding), dtype=np.intc)
-        test_embedding = test_embedding[test_idx]
-        test_labels = test_labels[test_idx]
-        dataset = Dataset(test_embedding, test_labels)
-        test_dataset = Dataset(
-            dataset[:][0],
-            dataset[:][1]
-        )
-
-    train_indices, val_indices = train_test_split(idx, test_size=0.44, stratify=labels, random_state=42)
-
-    # Create the train, validation, and test datasets
-    train_dataset = Dataset(embeddings[train_indices], labels[train_indices])
-    print(len(train_indices))
-    val_dataset = Dataset(embeddings[val_indices], labels[val_indices])
-    print(len(val_indices))
-    # test_dataset = Dataset(embeddings[test_indices], labels[test_indices])
-
-    return train_dataset, val_dataset, test_dataset
-
-def without_loop():
-    # without human in the loop
-    train_dataset, val_dataset, test_dataset = get_dataset_withoutloop()
-
-    # DataLoader splits the datasets into batches
-    train_loader = DataLoader(
-        train_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
-
-    val_loader = DataLoader(
-        val_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
-
-    test_loader = DataLoader(
-        test_dataset,
-        shuffle=False,
-        batch_size=8,
-        num_workers=2,
-        pin_memory=True,
-    )
-
-    # optimises the training if running on a GPU
-    torch.backends.cudnn.benchmark = True
-
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    else:
-        device = torch.device("cpu")
-
-    feature_count = train_dataset[0][0].shape[0]
-    class_count = 9
-
-    torch.manual_seed("37")
-
-    # initialises the model and hyperparameters taking into account the passed in arguments
-    model_NN = MLP_1h(feature_count, int("100"), class_count)
-
-    model_NN = model_NN.to(device)
-    optimizer = AdamW(
-        model_NN.parameters(), lr=float("5e-5"), weight_decay=float("1e-2")
-    )
-
-    criterion = nn.CrossEntropyLoss()
-
-    # initalises the Trainer class
-    trainer = Trainer(
-        model_NN,
-        train_loader,
-        val_loader,
-        test_loader,
-        criterion,
-        optimizer,
-        device,
-        writer,
-    )
-
-    # calls train to start the training, validating and testing process
-    trainer.train(
-        int("20"),
-        print_frequency=1,
-    )
-
-    writer.close()
-    return 1
 def preprocess_samples_unxep(raw_dataset_noexp):
     model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
     tokenizer = AutoTokenizer.from_pretrained("textattack/bert-base-uncased-MNLI")
@@ -1129,12 +1013,33 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
-    train_index, test_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.8, random_state=42)
+    train_index, other_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.875, random_state=42)
+    val_index, test_index = next(split.split(X.iloc[other_index], y.iloc[other_index]))
+    val_index = other_index[val_index]
+    test_index = other_index[test_index]
 
-    # Split the data into two parts based on the indices
+    # full dataset
+    # split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+    # train_index, other_index = next(split.split(X, y))
+    # split = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
+    # test_index, val_index = next(split.split(X.iloc[other_index], y.iloc[other_index]))
+    # test_index = other_index[test_index]
+    # val_index = other_index[val_index]
+
+    print("len test:",len(val_index))
+    print("len train*val",len(train_index))
+    print("len unxep",len(test_index))
+
+
+
+    # Split the data into three parts based on the indices
     df_noexp = df_noexp_all.iloc[train_index]
     df_noexp_two = df_noexp_all.iloc[test_index]
+    test_noexp_all = df_noexp_all.iloc[val_index]
+
+    test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -1289,19 +1194,19 @@ def main():
         # pre train  test dataset----------------------------------------------------
         test_dataframes = []
         explanations = read_explanations("explanations.txt")
-        filepaths = obtain_filepaths("./test_data/")
-        # cleans the data from each disaster individually
-        for file in filepaths:
-            df = clean_individual_dataset(file)
-            test_dataframes.append(df)
-        # concatenates the tweets from each disaster to form one dataset
-        test_df_concat = pd.concat(test_dataframes)
-        # renames the columns
-        test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
-        test_df_concat.rename(columns={"label": "labels"}, inplace=True)
-        # duplicate tweets are dropped
-        test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
-        test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
+        # filepaths = obtain_filepaths("./test_data/")
+        # # cleans the data from each disaster individually
+        # for file in filepaths:
+        #     df = clean_individual_dataset(file)
+        #     test_dataframes.append(df)
+        # # concatenates the tweets from each disaster to form one dataset
+        # test_df_concat = pd.concat(test_dataframes)
+        # # renames the columns
+        # test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
+        # test_df_concat.rename(columns={"label": "labels"}, inplace=True)
+        # # duplicate tweets are dropped
+        # test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
+
         data_noexp = load_dataset("csv", data_files="./test_data/dataset_noexp.csv")
         directory = "./testdata/"
         for filename in os.listdir(directory):

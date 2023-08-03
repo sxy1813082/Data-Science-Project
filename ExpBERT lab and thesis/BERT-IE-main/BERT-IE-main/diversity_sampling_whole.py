@@ -2,12 +2,14 @@ import math
 import os
 from random import random
 import random
-
 from scipy.spatial.distance import euclidean
 from sklearn.cluster import KMeans
 from sklearn.model_selection import StratifiedShuffleSplit
 from collections import Counter
 import pandas as pd
+# from django.conf import settings
+# settings.configure()
+
 import emoji
 import numpy as np
 import torch
@@ -394,7 +396,7 @@ class Trainer:
                 global t
                 print("global t is :",t)
                 self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1_marco":test_f1_macro}, t)
-                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*10}, t)
+                self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*100}, t)
                 print("test epoch results", test_data_metrics, flush=True)
                 print("val epoch results", metric_results, flush=True)
 
@@ -649,7 +651,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             continue
         tweet = placeholders([tweet])
         tweet = tweet[0]
-        print(tweet)
         no_exp_data.append({"text": tweet, "labels": label})
         explanation = exp_list
         with open("explanations.txt", "r") as file:
@@ -1127,12 +1128,21 @@ def main():
     y = df_noexp_all['labels']
 
     # Use StratifiedShuffleSplit for stratified sampling
-    split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
-    train_index, test_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.8, random_state=42)
+    train_index, other_index = next(split.split(X, y))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.875, random_state=42)
+    val_index, test_index = next(split.split(X.iloc[other_index], y.iloc[other_index]))
+    val_index = other_index[val_index]
+    test_index = other_index[test_index]
+    # split = StratifiedShuffleSplit(n_splits=1, test_size=0.7, random_state=42)
+    # train_index, test_index = next(split.split(X, y))
 
     # Split the data into two parts based on the indices
     df_noexp = df_noexp_all.iloc[train_index]
     df_noexp_two = df_noexp_all.iloc[test_index]
+    test_noexp_all = df_noexp_all.iloc[val_index]
+    #
+    test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -1285,19 +1295,19 @@ def main():
         # pre train  test dataset----------------------------------------------------
         test_dataframes = []
         explanations = read_explanations("explanations.txt")
-        filepaths = obtain_filepaths("./test_data/")
-        # cleans the data from each disaster individually
-        for file in filepaths:
-            df = clean_individual_dataset(file)
-            test_dataframes.append(df)
-        # concatenates the tweets from each disaster to form one dataset
-        test_df_concat = pd.concat(test_dataframes)
-        # renames the columns
-        test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
-        test_df_concat.rename(columns={"label": "labels"}, inplace=True)
-        # duplicate tweets are dropped
-        test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
-        test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
+        # filepaths = obtain_filepaths("./test_data/")
+        # # cleans the data from each disaster individually
+        # for file in filepaths:
+        #     df = clean_individual_dataset(file)
+        #     test_dataframes.append(df)
+        # # concatenates the tweets from each disaster to form one dataset
+        # test_df_concat = pd.concat(test_dataframes)
+        # # renames the columns
+        # test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
+        # test_df_concat.rename(columns={"label": "labels"}, inplace=True)
+        # # duplicate tweets are dropped
+        # test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
+        # test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
         data_noexp = load_dataset("csv", data_files="./test_data/dataset_noexp.csv")
         directory = "./testdata/"
         for filename in os.listdir(directory):
