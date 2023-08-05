@@ -382,7 +382,14 @@ class Trainer:
 
             # calls test function in the final epoch
             if epoch == (epochs - 1):
+                global t
                 print("epoch number", epoch)
+                preds = logits.argmax(-1)
+                accuracy = accuracy_score(
+                    labels.detach().cpu().numpy(), preds.detach().cpu().numpy()
+                )
+                self.writer.add_scalars("train dataset performance",
+                                        {"acc": accuracy * 100}, t)
                 (
                     test_data_metrics,
                     average_test_data_loss,
@@ -393,7 +400,7 @@ class Trainer:
                 (
                     metric_results, average_loss, val_accuracy, f1_weighted, f1_macro,
                 ) = self.validate()
-                global t
+
                 print("global t is :",t)
                 self.writer.add_scalars("test performance", {"test_acc":test_data_metrics['accuracy'],"f1_marco":test_f1_macro}, t)
                 self.writer.add_scalars("validation dataset performance",{"val_acc":val_accuracy,"f1_marco":f1_macro*100}, t)

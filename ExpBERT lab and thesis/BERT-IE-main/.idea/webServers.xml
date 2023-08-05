@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="cdec56fe-a089-471f-97ef-89679ea27e97" name="bp1-login.acrc.bris.ac.uk.">
-        <fileTransfer rootFolder="/user/home/yl22361" accessType="SFTP" host="bp1-login.acrc.bris.ac.uk." port="22" sshConfigId="2a4402f5-1242-471c-a840-d4f19908a804" sshConfig="yl22361@bp1-login.acrc.bris.ac.uk.:22 password">
+        <fileTransfer rootFolder="/user/home/yl22361/BERT-IE-main" accessType="SFTP" host="bp1-login.acrc.bris.ac.uk." port="22" sshConfigId="2a4402f5-1242-471c-a840-d4f19908a804" sshConfig="yl22361@bp1-login.acrc.bris.ac.uk.:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

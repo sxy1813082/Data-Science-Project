@@ -541,21 +541,6 @@ class BayesianMLP_1h(nn.Module):
 
         pyro.sample("obs", dist.Categorical(logits=logits), obs=labels)
 
-# # Manipulates weights to be passed into WCEL --------------------
-# def get_weights():
-#     # Use distribution of labels for weights
-#     weights = torch.tensor(
-#         [13.0864, 2.1791, 3.1197, 7.9103, 14.1146, 5.8246, 11.0066, 29.8417, 12.917],
-#         dtype=torch.float32,
-#     )
-#     # class size is inversely proportional to weight of class
-#     # Convert percentages into correct fractional form e.g. 10% => 0.1
-#     weights = weights / weights.sum()
-#     # Make weights inversely proportional to class size
-#     weights = 1.0 / weights
-#     # Scale weights so they sum to 1
-#     weights = weights / weights.sum()
-#     return weights
 
 def generate_explanations(sampled_data):
 
@@ -569,25 +554,6 @@ def generate_explanations(sampled_data):
 
     string_array = [string.strip() for string in strings]
 
-    # labels = [data["labels"] for data in sampled_data]
-    #
-    # # Count the occurrences of each label
-    # label_counts = Counter(labels)
-    #
-    # top_labels = label_counts.most_common(6)
-    # for label, count in top_labels:
-    #     print(f"Label: {label}")
-    #     print("Sampled Texts:")
-    #     texts_counter = 0
-    #     for data in sampled_data:
-    #         if data["labels"] == label:
-    #             print(data["text"])
-    #             texts_counter += 1
-    #             if texts_counter == 5:
-    #                 break
-    # for i in range(3):
-    #     user_input = input("give the 3 key explanations about common words in these labels: ")
-    #     strings.append(user_input)
     return string_array
 
 # add or delete explained data
