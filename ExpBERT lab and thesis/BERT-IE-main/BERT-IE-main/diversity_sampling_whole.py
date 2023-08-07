@@ -9,7 +9,8 @@ from collections import Counter
 import pandas as pd
 # from django.conf import settings
 # settings.configure()
-
+# import nltk
+# from nltk.tokenize import sent_tokenize
 import emoji
 import numpy as np
 import torch
@@ -42,7 +43,8 @@ from math import floor
 import seaborn as sns
 import matplotlib.pyplot as plt
 import openai
-
+# nltk.download('punkt')
+# nltk.download('stopwords')
 t = 0
 def obtain_filepaths(dir_path):
     filepaths = []
@@ -168,7 +170,7 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
         # "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
-    "diversity_sampling"
+    "diversity_sampling_openai"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -534,103 +536,71 @@ def generate_explanations(sampled_data):
     print(strings)
     string_array = [string.strip() for string in strings]
     return string_array
+def generate_explanations_human(sampled_data):
+    strings = []
+    global t
+    print(t)
+    target_texts = [data["text"] for data in sampled_data if data["labels"] == t]
 
-def generate_explanations_chat(sampled_data):
-    # explanations = [
-    # "dead",
-    # "injured",
-    # "casualties",
-    # "missing",
-    # "trapped",
-    # "found or rescued",
-    # "displaced",
-    # "shelters",
-    # "evacuated and relocated",
-    # "damage",
-    # "no electricity",
-    # "water restored",
-    # "donations",
-    # "offering to help",
-    # "volunteering",
-    # "be warned",
-    # "asked to be careful",
-    # "tips and guidance",
-    # "praying",
-    # "emotional support",
-    # "not related"
-    # ]
-    # labels = {
-    #     "injured_or_dead_people": 0,
-    #     "missing_trapped_or_found_people": 1,
-    #     "displaced_people_and_evacuations": 2,
-    #     "infrastructure_and_utilities_damage": 3,
-    #     "donation_needs_or_offers_or_volunteering_services": 4,
-    #     "caution_and_advice": 5,
-    #     "sympathy_and_emotional_support": 6,
-    #     "other_useful_information": 7,
-    #     "not_related_or_irrelevant": 8,
-    # }
+    if len(target_texts) > 10:
+        target_texts = target_texts[:10]
 
-    # Create the completion prompt
-    # prompt = "give the key words for this tweet that will be used in ExpBERT model use feature importance: "+param \
-    #          + "\n and the options are:\n" + "\n".join(explanations)+"\nkey words:"
-    #
-    # openai.api_key = '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'
-    # response = openai.Completion.create(
-    #     engine="text-ada-001",  # Choose the appropriate OpenAI engine
-    #     prompt=prompt,
-    #     max_tokens=10,
-    #     n=1,
-    #     stop=None,
-    #     temperature=0.5,
-    #     top_p=1.0,
-    #     frequency_penalty=0.5,
-    #     # presence_penalty=0.0
-    # )
-    # explanation = str(response.choices[0].text.strip())
-    # print("explanation:",explanation)
+    print(f"Label: {t}")
+    print("Sampled Texts:")
 
-    # Find the closest matching explanation from the list
-    # closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
-    # print("OpenAI explanation is: " + closest_explanation+" over")
-    strings = []  # 用于存储输入字符串的列表
-    # print("tweet is: ", param)
-    # print("label is ",label)
-    # for i in range(5):
-    #     user_input = input("give the key words about this tweet:")
-    #     strings.append(user_input)
-    labels = [data["labels"] for data in sampled_data]
+    for text in target_texts:
+        print(text)
 
-    # Count the occurrences of each label
-    label_counts = Counter(labels)
+    user_input = input("please input a key explanation for the texts")
+    strings.append(str(user_input))
 
-    # Get the top three most frequent labels
-    #top_labels = label_counts.most_common(3)
-    top_labels = label_counts.most_common(6)
-    # print("top three most frequent labels are: ",labels)
-    # Iterate over the top labels
-    for label, count in top_labels:
-        print(f"Label: {label}")
-        print("Sampled Texts:")
-
-        # Counter for texts per label
-        texts_counter = 0
-
-        # Iterate over each data item
-        for data in sampled_data:
-            if data["labels"] == label:
-                print(data["text"])
-                texts_counter += 1
-
-                # Break the loop after printing 5 texts per label
-                if texts_counter == 5:
-                    break
-    # print("5 explanation is given：", strings)
-    for i in range(3):
-        user_input = input("give the 3 key explanations about common words in these labels: ")
-        strings.append(user_input)
     return strings
-    # return explanation
+def generate_explanations_AI(sampled_data):
+    strings = []
+    global t
+    textual_descriptions = [
+        "hurt or dead",
+        "missing or trapped or found",
+        "displaced and evacuations",
+        "infrastructure or utilities damage",
+        "donation or offers or volunteering",
+        "caution and advice",
+        "sympathy and emotional support",
+        "other useful information",
+        "not related or irrelevant",
+    ]
+    # Getting texts with the target label
+    target_texts = [data["text"] for data in sampled_data if data["labels"] == t]
+
+    # Limit to 10 texts if there are more
+    if len(target_texts) > 5:
+        target_texts = target_texts[:5]
+
+    print(f"Label: {t}")
+
+    # Generate one long text from the samples
+    x = "generate a string that only contains the words in the text that are only semantically equal to "+textual_descriptions[t]+": "+"\n\n"
+    long_text = x + " ".join(target_texts)+"."+"\n\n"
+
+    print(long_text)
+
+    # Ask GPT-4 for an explanation
+    openai.api_key = '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'
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Use the Ada engine
+        prompt=long_text,
+        temperature=1,
+        max_tokens=25,
+        top_p=1,
+        n=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    explanation = str(response.choices[0].text.strip())
+    print("AI Explanation:", explanation)
+    strings.append(explanation)
+    return strings
 
 # add or delete explained data
 def addOrDelete(sampled_indices,raw_dataset_noexp):
@@ -639,7 +609,7 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     no_exp_data = []
     exp_list = []
     new_data = []
-    exp_list = generate_explanations(sampled_data)
+    exp_list = generate_explanations_AI(sampled_data)
     # exp list store in txt file
     file_path = "explanations.txt"
 

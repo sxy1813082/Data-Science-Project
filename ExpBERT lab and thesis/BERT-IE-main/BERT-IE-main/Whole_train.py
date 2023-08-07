@@ -505,20 +505,6 @@ class MLP_1h(nn.Module):
 
 
 # Manipulates weights to be passed into WCEL --------------------
-def get_weights():
-    # Use distribution of labels for weights
-    weights = torch.tensor(
-        [13.0864, 2.1791, 3.1197, 7.9103, 14.1146, 5.8246, 11.0066, 29.8417, 12.917],
-        dtype=torch.float32,
-    )
-    # class size is inversely proportional to weight of class
-    # Convert percentages into correct fractional form e.g. 10% => 0.1
-    weights = weights / weights.sum()
-    # Make weights inversely proportional to class size
-    weights = 1.0 / weights
-    # Scale weights so they sum to 1
-    weights = weights / weights.sum()
-    return weights
 
 def generate_explanations(sampled_data):
 
@@ -533,41 +519,9 @@ def generate_explanations(sampled_data):
     string_array = [string.strip() for string in strings]
     return string_array
 
-def generate_explanations_chat(sampled_data):
-    # explanations = [
-    # "dead",
-    # "injured",
-    # "casualties",
-    # "missing",
-    # "trapped",
-    # "found or rescued",
-    # "displaced",
-    # "shelters",
-    # "evacuated and relocated",
-    # "damage",
-    # "no electricity",
-    # "water restored",
-    # "donations",
-    # "offering to help",
-    # "volunteering",
-    # "be warned",
-    # "asked to be careful",
-    # "tips and guidance",
-    # "praying",
-    # "emotional support",
-    # "not related"
-    # ]
-    # labels = {
-    #     "injured_or_dead_people": 0,
-    #     "missing_trapped_or_found_people": 1,
-    #     "displaced_people_and_evacuations": 2,
-    #     "infrastructure_and_utilities_damage": 3,
-    #     "donation_needs_or_offers_or_volunteering_services": 4,
-    #     "caution_and_advice": 5,
-    #     "sympathy_and_emotional_support": 6,
-    #     "other_useful_information": 7,
-    #     "not_related_or_irrelevant": 8,
-    # }
+
+# def generate_explanations_chat(sampled_data):
+
 
     # Create the completion prompt
     # prompt = "give the key words for this tweet that will be used in ExpBERT model use feature importance: "+param \
@@ -591,43 +545,7 @@ def generate_explanations_chat(sampled_data):
     # Find the closest matching explanation from the list
     # closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
     # print("OpenAI explanation is: " + closest_explanation+" over")
-    strings = []  # 用于存储输入字符串的列表
-    # print("tweet is: ", param)
-    # print("label is ",label)
-    # for i in range(5):
-    #     user_input = input("give the key words about this tweet:")
-    #     strings.append(user_input)
-    labels = [data["labels"] for data in sampled_data]
 
-    # Count the occurrences of each label
-    label_counts = Counter(labels)
-
-    # Get the top three most frequent labels
-    #top_labels = label_counts.most_common(3)
-    top_labels = label_counts.most_common(6)
-    # print("top three most frequent labels are: ",labels)
-    # Iterate over the top labels
-    for label, count in top_labels:
-        print(f"Label: {label}")
-        print("Sampled Texts:")
-
-        # Counter for texts per label
-        texts_counter = 0
-
-        # Iterate over each data item
-        for data in sampled_data:
-            if data["labels"] == label:
-                print(data["text"])
-                texts_counter += 1
-
-                # Break the loop after printing 5 texts per label
-                if texts_counter == 5:
-                    break
-    # print("5 explanation is given：", strings)
-    for i in range(3):
-        user_input = input("give the 3 key explanations about common words in these labels: ")
-        strings.append(user_input)
-    return strings
     # return explanation
 
 # add or delete explained data
