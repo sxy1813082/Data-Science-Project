@@ -170,7 +170,7 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
         # "bertie_40_5e-5_wd_1e-2_run_1_seed_37_other_other"
-    "diversity_sampling_openai"
+    "diversity_sampling_exp_add2"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -526,12 +526,12 @@ def get_weights():
 
 def generate_explanations(sampled_data):
 
-    strings = []  # 用于存储输入字符串的列表
+    strings = []
     global t
     with open("annator.txt", 'r') as file:
         lines = file.readlines()
-    start_line = t * 1
-    end_line = (t + 1) * 1
+    start_line = t * 2
+    end_line = (t + 1) * 2
     strings = lines[start_line:end_line]
     print(strings)
     string_array = [string.strip() for string in strings]
@@ -609,7 +609,7 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     no_exp_data = []
     exp_list = []
     new_data = []
-    exp_list = generate_explanations_AI(sampled_data)
+    exp_list = generate_explanations(sampled_data)
     # exp list store in txt file
     file_path = "explanations.txt"
 
