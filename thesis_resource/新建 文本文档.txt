@@ -1,0 +1,698 @@
+% The document class supplies options to control rendering of some standard
+% features in the result.  The goal is for uniform style, so some attention 
+% to detail is *vital* with all fields.  Each field (i.e., text inside the
+% curly braces below, so the MEng text inside {MEng} for instance) should 
+% take into account the following:
+%
+% - author name       should be formatted as "FirstName LastName"
+%   (not "Initial LastName" for example),
+% - supervisor name   should be formatted as "Title FirstName LastName"
+%   (where Title is "Dr." or "Prof." for example),
+% - degree programme  should be "BSc", "MEng", "MSci", "MSc" or "PhD",
+% - dissertation title should be correctly capitalised (plus you can have
+%   an optional sub-title if appropriate, or leave this field blank),
+% - dissertation type should be formatted as one of the following:
+%   * for the MEng degree programme either "enterprise" or "research" to
+%     reflect the stream,
+%   * for the MSc  degree programme "$X/Y/Z$" for a project deemed to be
+%     X%, Y% and Z% of type I, II and III.
+% - year              should be formatted as a 4-digit year of submission
+%   (so 2014 rather than the academic year, say 2013/14 say).
+
+\documentclass[ % the name of the author
+                    author={Xinyang Song},
+                % the name of the supervisor
+                supervisor={Dr. Edwin Simpson},
+                % the degree programme
+                    degree={MSc},
+                % the dissertation    title (which cannot be blank)
+                     title={Improving Text Classifier Performance through Human-in-the-Loop: Enhancing Learning from Explanations},
+                % the dissertation subtitle (which can    be blank)
+                  % subtitle={And those including an optional subtitle too, for good measure},
+                % the dissertation     type
+                      type={},
+                % the year of submission
+                      year={2022}]{dissertation}
+
+\begin{document}
+
+% =============================================================================
+
+% This section simply introduces the structural guidelines.  It can clearly
+% be deleted (or commented out) if you use the file as a template for your
+% own dissertation: everything following it is in the correct order to use 
+% as is.
+% =============================================================================
+
+% This macro creates the standard UoB title page by using information drawn
+% from the document class (meaning it is vital you select the correct degree 
+% title and so on).
+
+
+\maketitle
+
+% After the title page (which is a special case in that it is not numbered)
+% comes the front matter or preliminaries; this macro signals the start of
+% such content, meaning the pages are numbered with Roman numerals.
+
+\frontmatter
+
+% This macro creates the standard UoB declaration; on the printed hard-copy,
+% this must be physically signed by the author in the space indicated.
+
+\makedecl
+
+% LaTeX automatically generates a table of contents, plus associated lists 
+% of figures, tables and algorithms.  The former is a compulsory part of the
+% dissertation, but if you do not require the latter they can be suppressed
+% by simply commenting out the associated macro.
+
+\tableofcontents
+\listoffigures
+\listoftables
+\listofalgorithms
+
+% The following sections are part of the front matter, but are not generated
+% automatically by LaTeX; the use of \chapter* means they are not numbered.
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Abstract}
+
+\noindent
+Text classification utilises Natural Language Processing (NLP) techniques to analyse pre-trained texts and assign them appropriate labels. Especially in crisis situations like floods, earthquakes, etc., text classifiers are crucial in identifying key information and effectively forwarding it to relevant agencies. However, the efficacy of text classification largely depends on abundant rich training data, which may be difficult to obtain in many scenarios \cite{mccreadie2019trec}. Relying on a vast amount of non-representative annotated data can lead to delays in project commencement and may impact the model's accuracy. Specifically, in emergencies, identifying action-related information (such as casualties or missing persons) becomes particularly challenging.\\
+
+To address these issues, this paper introduces a Human-in-the-Loop (HITL) system integrated into the classifier's training process. Coupled with the representational engineering technique of natural language explanations—ExpBERT, a BERT fine-tuned on the MultiNLI natural language inference dataset is utilised to learn from explanations \cite{murty2020expbert}. This optimised embedding representation is used as input to the neural network classifier, further enhancing performance. The core task of the paper revolves around improving the performance of the text classifier based on ExpBERT by combining a limited but representative set of samples with labels and explanations provided by either humans or OpenAI \cite{baram2004online}.\\
+
+This paper delves deeply into the application of active learning in text classification tasks based on ExpBERT. During the iterative process, acquisition functions based on uncertainty and diversity are used to select representative unlabeled instances for annotators to process. The original small sample and newly annotated data are used for model retraining. The results indicate that this method can achieve performance similar to models trained on vast datasets within a few iterations. To substantiate this, the model's performance using different active learning strategies is compared on the CrisisNLP dataset, and the effects of an active learning system combined with Monte Carlo Dropout (MCD) are also evaluated.\\
+
+\noindent
+The main conclusions of this paper are:
+\begin{quote}
+\noindent
+\begin{itemize}
+\item The Human-in-the-loop framework combined with a text classifier enables the model to achieve, or even surpass, the performance of models trained with the full dataset, using only a small amount of annotated data and undergoing a limited number of iterations.
+\item Compared to merely annotating labels, low-quality explanations, or a limited number of explanations, annotating a certain amount of high-quality explanations can significantly boost the model's performance.
+\item In terms of acquisition functions, semantic diversity-based sampling and Bayesian Active Learning by Disagreement (BALD) strategies combined with Monte Carlo Dropout (MCD) can allow the model to achieve higher average performance post-training.
+\end{itemize}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+\chapter*{Supporting Technologies}
+
+\begin{quote}
+\noindent
+\begin{itemize}
+
+\item I used Python as the development language.
+
+\item I used the {\em Transformers} library to introduce pre-trained models and {\em Pytorch} for implementing neural networks.
+
+\item I used OpenAI models as one of the annotation methods.
+
+\item I used \LaTeX\ to format my thesis, via the online service {\em Overleaf}. 
+\end{itemize}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Notation and Acronyms}
+
+\begin{quote}
+\noindent
+\begin{tabular}{lcl}
+NLP                 &:     &  Natural Language Processing\\
+BERT                 &:     & Bidirectional Encoder 
+Representations from Transformers\\
+ExpBERT              &:      &Representation Engineering with Natural Language Explanations\\
+NLI                  &:      & Natural Language Inference\\
+HITL                 &:      & Human-in-the-loop\\
+AL                   &:      & Active Learning\\
+BALD                 &:      &Bayesian Active Learning by Disagreement\\
+MCD                  &:      &Monte Carlo Dropout\\
+GPT                  &:      & Generative Pre-trained Transformer\\
+NN                   &:      &Neural networks\\              
+\end{tabular}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Acknowledgements}
+
+\noindent
+Xinyang Song would like to extend her profound gratitude to her supervisor, Dr. Edwin Simpson, for sharing literature and implementation examples related to ExpBERT and active learning, offering countless invaluable assistance. His professional guidance and enthusiastic support helped me overcome numerous challenges, complete my dissertation, and achieve meaningful insights.\\
+
+Additionally, I'd like to thank the University of Bristol and my peers for their resources and emotional support during this time. My gratitude goes out to all of you.
+
+% =============================================================================
+
+% After the front matter comes a number of chapters; under each chapter,
+% sections, subsections and even subsubsections are permissible.  The
+% pages in this part are numbered with Arabic numerals.  Note that:
+%
+% - A reference point can be marked using \label{XXX}, and then later
+%   referred to via \ref{XXX}; for example Chapter\ref{chap:context}.
+% - The chapters are presented here in one file; this can become hard
+%   to manage.  An alternative is to save the content in seprate files
+%   the use \input{XXX} to import it, which acts like the #include
+%   directive in C.
+
+\mainmatter
+
+% -----------------------------------------------------------------------------
+
+\chapter{Introduction}
+\label{chap:introduction}
+
+
+% putting a \noindent before the first para in each chapter looks nicer.
+\noindent
+This chapter begins by introducing the research background of the text classifier based on ExpBERT integrated with Human-in-the-loop (Section \ref{section background}). Based on this background, the motivation for the experiment was formed in Section \ref{section motivation}, emphasising the significance of this research. Furthermore, a general overview of the work will be provided, contrasting with the limitations of traditional methods. Finally, the primary objectives and challenges are briefly summarised (Section \ref{section EM}).\\
+
+\section{Background}
+\label{section background}
+\noindent
+Emergency response systems for social platforms mainly focus on developing better text classification algorithms to learn from limited data. However, obtaining valuable annotated datasets can prove to be challenging \cite{prabhu2021multi}. The text classifier based on ExpBERT receives classification labels and corresponding explanations. These explanations detail which keywords led to a particular classification. ExpBERT incorporates this information into the model's training, allowing it to learn from deeper semantic insights to enhance its generalisation capabilities. Therefore, annotating with representative data and understanding the key phrases is vital for guiding the model towards accurate classification.\\
+
+However, the data throughput of typical social platforms does not permit the annotation of tens of thousands of entries. Consequently, various forms of active learning that can sample high-information-value data at low costs have found extensive application in classification projects \cite{prest2011weakly, tuia2011survey}. Active learning emerges as an effective solution to these challenges, selecting a limited number of highly informative unannotated samples for human experts in the loop to annotate \cite{settles2009active, fu2013survey}. The newly data, once effectively annotated, dictates the performance of the model in the next iteration. Thus, employing different acquisition functions to query the most information-rich new instances is perhaps the most popular approach in active learning. Acquisition functions have naturally become the focal point of research in the domain of active learning.\\
+
+Additionally, neural network-based text classifiers are often ill-suited for early uncertainty sampling \cite{schroder2020survey, ren2021survey}. This is because the weight parameters of the neural network are fixed values, causing the model to be overly confident in its predictions, both correct and incorrect. However, by employing dropout, it's possible to introduce a degree of uncertainty into the model. During training, the dropout layer randomly    ``turns off" a subset of input units. This randomness ensures that network weights are no longer fixed values, thus simulating weight uncertainty.\\
+
+\section{Motivation}
+\label{section motivation}
+In light of the aforementioned background, this section emphasises the research motivation from three aspects: accuracy, representativeness, and robustness.\\
+
+\subsection{Accuracy}
+A unified feature of social networks, exemplified by Twitter, is the vast amount of data combined with internet-specific language syntax. The ultimate goal is to precisely classify urgent messages when capturing emergent needs and to dispatch relevant departments to address those needs. However, traditional text classification systems that achieve performance improvements are primarily done through extensive supervised learning, which is costly and slow to respond. Texts with varying amounts of information are randomly distributed, and the difference in information content can significantly impact model accuracy. Consequently, the results of capturing and identifying crucial emergency information are often subpar. Therefore, employing active learning models to utilise a small amount of data and enhance accuracy is urgently needed.\\
+
+\subsection{Representativeness}
+The ability to query rich feature representations from a large pool of unannotated data can mitigate much of the bias in multi-class active learning problems for emergency scenarios. By actively selecting samples for annotation, the model can choose the most valuable and representative samples in each iteration to enhance its performance. Therefore, selecting an effective acquisition function to seek out representative data has the most profound impact on performance and offers the most significant room for improvement.\\
+
+\subsection{Robustness}
+Original models often exhibit an overconfidence bias when handling text classification tasks. When encountering unfamiliar content, they make incorrect and unreliable predictions. In many practical applications, such as disaster response and medical diagnostics, erroneous predictions can have severe consequences. Thus, introducing a certain level of uncertainty to the model to curb its overconfidence has become an essential research topic. On the other hand, we can enhance the robustness of the model without introducing excessive computational overhead. This holds significant value for neural networks in scenarios that demand highly accurate and reliable predictions.\\
+
+\section{Experimental Methodology}
+\label{section EM}
+Considering the background and motivations, this paper eventually designs a pool-based Human-in-the-loop active learning system for text classification. Unlike traditional text classification models, we train with a small amount of annotated data and then use the trained model in combination with various acquisition functions to select instances. Subsequently, preset annotations or human or OpenAI annotators observe and analyse the key features of the extracted instances in the loop, providing corresponding labels and adding a certain amount of explanations. These newly annotated instances are incorporated into the original data, and the above cycle is repeated until the performance reaches that of the full data (with the training set ratio close to 1, annotated with labels and default explanations).\\
+
+The implementation will utilise uncertainty sampling based on Least Confidence, sentiment diversity sampling, and random sampling as a baseline to examine the performance under various active learning strategies. Detailed explanations of the acquisition functions will be provided in Chapter \ref{chap:background}. Furthermore, in every iteration, the concatenated explanatory texts will be processed using a pre-trained model based on ExpBERT to generate deep semantic representations. This embedded vector will then be input into the neural network text classifier.\\
+
+Lastly, structural modifications will be made to traditional neural network(NN) models. Using the dropout mechanism, the model becomes more robust to minor variations in input, thereby enhancing its generalisation performance. Additionally, dropout can address the model's overconfidence issue by introducing noise and randomness, ensuring that model predictions aren't overly deterministic. While dropout doesn't directly quantify uncertainty, the introduced randomness and noise can bolster the model's resilience and, to some extent, alleviate its overconfidence. Given the high computational cost of entropy calculations in the original Bayesian Active Learning by Disagreement (BALD) algorithm, we've refined the BALD algorithm. Utilising Monte Carlo Dropout (MCD), we employ Least Confidence to select samples where the model's predictive probability is most uniform (i.e., without a particularly high predictive probability for any category).\\
+
+\subsection{Objectives}
+Based on the above experimental descriptions, the objectives of this paper can be summarised as follows:\\
+
+\noindent
+\begin{itemize}
+
+\item Develop a pool-based Human-in-the-loop framework applied to the ExpBERT-based text classifier and investigate its effectiveness.
+
+\item Construct an annotator simulation process and design stopping criteria (e.g., terminate when reaching the performance of the full data model).
+
+\item Establish a baseline (performance of the full-data model without active learning or random sampling) and study whether active learning can enhance the performance of the text classification model. Compare the effects of different acquisition functions.
+
+\item Explore the impact of the quality and quantity of explanations on this system. For instance, providing explanations with noise or increasing the number of explanations added in each iteration. 
+\end{itemize}
+
+\subsection{Challenges}
+The main challenges of this project lie in the significant differences that may exist between various active learning strategies and how to improve the original initialisation framework of the multi-classifier based on ExpBERT and the annotation process to reduce computational costs.\\
+
+\begin{itemize}
+\item It's worth noting that there are multiple acquisition functions in active learning text classification systems. The application of different algorithms in active learning strategies significantly affects the performance of the active learning framework. The choice of strategy needs to consider both time complexity and representativeness.
+
+\item Secondly, neural networks with dropout mechanisms might increase computational costs during training algorithm execution and when using MCD for active learning. Thus, how to reduce computational costs in each iteration to improve response efficiency poses a challenge.
+\item Finally, regarding the framework design, determining the appropriate sampling ratio, the number of iterations, and the number of explanations provided in each iteration requires further study to achieve satisfactory performance.
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+
+\chapter{Background}
+\label{chap:background}
+
+\noindent
+Chapter \ref{chap:background} introduces the relevant techniques centred around enhancing the performance of the text classifier based on ExpBERT through active learning. The ExpBERT mechanism used in the experiment is introduced (Section \ref{section 2.1}). ExpBERT will be applied during dataset pre-training. The active learning-based ``Human-in-the-loop" (Section \ref{section 2.2}) and its main acquisition functions (Sections \ref{section 2.3} and \ref{section 2.4}) are the focal implementation parts of this experiment, which can rapidly boost performance through this technique. Section \ref{section 2.5} describes the multi-model integration method, while Section \ref{section 2.6} discusses using OpenAI models to simulate the annotator role within the Human-in-the-loop. Lastly, the feasibility of applying Bayesian theory to active learning is concerned.\\
+
+\section{ExpBERT}
+\label{section 2.1}
+\noindent
+Representation Engineering with Natural Language Explanations (ExpBERT) proposes a method to enhance the control over the inductive biases of a model and maintains the expressive power of the representation \cite{murty2020expbert}. It combines fixed explanations provided by humans or, in this experiment, annotators with tweets to learn from these explanations and improve the model's performance. Figure \ref{fig1} intuitively shows how to combine samples with explanations with BERT fine-tuned on MultiNLI \cite{williams2017broad}. Explanations play a key role here. The quality of the explanations has a significant impact on the performance of ExpBERT. By using high-quality explanations, the model's learning can be guided.\\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figure/BERT.png}
+    \caption{ExpBERT to produce representations that form the input to the
+classifier}
+    \label{fig1}
+\end{figure}
+
+First, each tweet is fully connected with a set of pre-written explanations to generate a 3$\times$3 set. These explanations are unrelated to specific tweets; each tweet will be connected with the same number of explanations. The preprocessed text and explanations are input into BERT to generate features that ``interpret" each explanation \cite{devlin2018bert}. The classifier can be trained to classify the representations of the tweets and explanations.\\
+
+After being fine-tuned on the MultiNLI dataset, the BERT model will generate a feature vector for each input sample, representing the entire input of a length of 768. The feature vectors of tweets and explanations are then connected to form an embedding with a size of 768$\ast$E, where E is the number of explanations. This will be used as the input data for training and predicting in the classifier model. This paper will use this model as the basic pre-trained model. At the same time, Natural Language Inference (NLI) technique can be used to reduce the number of embeddings (the size will be 768 + (3$\ast$E)) and integrate and initialise them into the HITL system \cite{maccartney2009natural}. Because this model can handle instance vectors with explanations, the optimised embedding representation as input to the classification model can improve the performance of the model.\\
+
+\section{HITL}
+\label{section 2.2}
+Traditional natural language processing workflows are not designed to fully leverage human feedback. In contrast, Human-in-the-Loop (HITL) serves as an essential component of interactive systems, revealing potential model flaws through simulating human roles within the loop. These flaws might not be readily apparent before real-world testing \cite{tomaszewski2021overview}. Godbole et al. (2004) \cite{godbole2004document} expanded a text classifier employing Support Vector Machine (SVM) active learning. Ingeniously, they integrated human input on aspects such as feature engineering, terminology selection, and document labelling into the model, allowing statistically sound judgments to be made. This innovative mode of interaction between humans and machine learning algorithms is termed ``Human-in-the-Loop (HITL) machine learning" \cite{monarch2021human}. In this approach, various HITL machine-learning schemes can be determined based on different needs and contexts, driven by different types of collaborations between humans and machines \cite{mosqueira2023human}.
+
+\paragraph {Active Learning (AL)} \cite{settles2009active}: The essence of active learning lies in the system's control over the model's learning process. Although humans serve as intermediaries to annotate unlabeled data, they cannot choose unlabeled data based on preference. AL will be applied as an optimisation framework in this paper, with a detailed exploration of its application in Section \ref{section 2.3}.
+
+\paragraph{Interactive Machine Learning (IML)} \cite{amershi2014power} is a method where humans maintain close interaction with the system. Within this context, there are notable distinctions between Active Learning (AL) and Interactive Machine Learning (IML). Dudley and Kristensson (2018) \cite{dudley2018review} highlighted that although both AL and IML prioritise the user's selection of new data points for labelling, they are driven by different motivations. Specifically, in AL, the selection is propelled by the model itself, while in IML, the choice is driven by the user. Given that IML has evolved from the foundations of AL, they share several common drawbacks. However, IML also faces unique challenges, especially those related to Human-Computer Interaction (HCI) complexities. These distinct challenges necessitate more specialised research to address, as indicated by Michael et al. (2020) \cite{michael2020interactive}.
+
+\paragraph{Machine Teaching (MT)} \cite{ramos2020interactive} is an approach where machine learning models are trained under the guidance of human educators. More precisely, human teachers define the knowledge they aim to convey to the model, underscoring their active involvement and direction throughout the learning process. Devidze et al. (2020) \cite{devidze2020understanding} pointed out that, compared to active learning, MT heavily leans on the teacher's expertise and offers less flexibility in sample selection and handling intricate tasks. Hence, selecting the right learning method becomes paramount based on the specific requirements.\\
+
+\section{Active Learning}
+\label{section 2.3}
+Within the context of HITL, active learning systems, as one of the most popular learning approaches, aim to overcome the labelling bottleneck by posing questions to unlabeled instances and having them labelled by experts, such as human annotators \cite{aggarwal2014active, settles2009active}. In essence, active learning seeks to identify the most informative unlabeled raw data and present it to annotators for labelling. This process closely mirrors real-world scenarios of extracting information from source data. Annotators label this source data, and the labelled instances are incorporated into the model's training process. In this way, active learning manages to achieve performance comparable to using the full dataset but with fewer labelled data, thereby addressing the labelling bottleneck. The active learning approach proves especially pertinent given this project's vast number of instances, coupled with significant noise, cumbersome full-scale training tasks, and suboptimal accuracy. Thus, active learning is apt for this project, focusing on instances that might enhance accuracy, minimise irrelevant instances, and boost the learning efficiency and precision of the emergency response system.\\
+
+\subsection{The AL Process and Scenarios}
+\label{section AL Process}
+\noindent
+The active learning process is illustrated in Figure \ref{fig2}, which depicts the process of pool-based active learning. The machine learning model is initially trained using the labelled instance set $L$. Afterwards, the model gives the score to the unlabeled dataset and selects representative unlabeled samples based on the acquisition function, presenting them to human annotators. These annotators label the chosen samples, which are then removed from the unlabeled sample set $U$ and added to the labelled set $L$. Through iterative execution of the steps above, the quantity of labelled samples grows incrementally, enhancing the model's performance. The active learning process will conclude once the stopping criterion is met, such as achieving performance metrics on the entirety of the data set.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figure/AL.png}
+    \caption{Pool-based active learning process}
+    \label{fig2}
+\end{figure}
+\\
+
+Based on the classification by Settles (2009) \cite{settles2009active}, active learning primarily encompasses three scenario settings: Membership Query Synthesis \cite{angluin1988queries, king2004functional}, Stream-based Selective Sampling \cite{dagan1995committee}, and Pool-based active learning \cite{lewis1995sequential}.
+
+\paragraph{Membership Query Synthesis:} In this active learning scenario, the strategy is generated by the model itself. The machine learning model can request labels for any unlabeled instance that hasn't been sampled from the underlying natural distribution \cite{settles2009active}. This query approach is typically effective for more deterministic problem domains, such as tasks involving regression predictions on absolute coordinates. It can interpret straightforward data distributions and construct viable data for human annotation. However, as evidenced in the study by Baum and Lang (1992) \cite{lang1992query}, in complex tasks like natural language processing, the model might produce text strings that are hard to comprehend, rendering human judgment on these jumbled texts challenging. Within the context of deep active learning, one can address the scenarios of Membership Query Synthesis through Generative Adversarial Networks (GANs) for data augmentation, as GANs are capable of generating instances with a high degree of plausibility \cite{goodfellow2020generative}.
+
+\paragraph{Stream-based Selective Sampling:} The distinction of this setup in comparison to Membership Query Synthesis lies in its ability to operate irrespective of the input distribution. Stream-based Selective Sampling entails drawing a single unlabeled instance from the actual distribution at a time. The model then determines whether to request the label of the instance through ``information measures" or ``query strategies", essentially acting as a kind of biased random sampling \cite{dagan1995committee}.
+
+\paragraph{Pool-based active learning:}
+As a commonly employed setting in active learning, the difference between pool-based active learning and stream-based Selective Sampling is that the former employs a greedy mechanism before selecting the best query, comparing the entire dataset. In contrast, stream-based sampling assesses data as it comes in on an individual basis. However, dealing with vast datasets could result in lengthy computational times due to the need to evaluate all the data. Nonetheless, this method is particularly suitable for scenarios similar to this project where manual annotation costs are significant. By choosing the most valuable data for annotation, it aims to maximise the return on the annotation investment.\\
+
+\subsection{Acquisition Functions}
+This section considers various acquisition functions in active learning. In the design of the paper (Chapter \ref{chap:design}), we will utilise a text multi-classification model based on ExpBERT combined with different acquisition functions to enhance performance.\\
+
+\paragraph{Random Sampling}~{}
+\\
+\noindent
+Random sampling involves selecting instances independent of predictions, data, or model considerations. It's commonly used as a task benchmark since it might overlook potential informative instances, reducing learning efficiency. In this context, random sampling will serve as a baseline to contrast with the more sophisticated strategies discussed below, especially when the annotation pool becomes overly extensive \cite{sener2017active}.\\
+
+\paragraph{Prediction Uncertainty Sampling}~{}
+\\
+\noindent
+Uncertainty sampling is a specific active learning strategy that queries instances most difficult for the model to classify. By annotating these challenging instances, the model's accuracy is enhanced. In probabilistic models for binary classification, such instances have posterior positive probabilities close to 0.5 \cite{lewis1995sequential}. However, for more complex multi-label classification tasks, entropy-based methods are used. The more uniform the probability distribution, the greater the entropy. As entropy increases, the uncertainty or informational content of the random variable becomes higher. Conversely, when probabilities are concentrated on a few data points, the uncertainty is lower and the informational content is smaller.\\
+\begin{equation}
+    x_{\mathrm{ENT}}^*={\arg \max _x} - \sum_i P\left(y_i \mid x ; \theta\right) \log P\left(y_i \mid x ; \theta\right) 
+    \label{equation 2.1}
+\end{equation}
+$P\left(y_i\right)$ denotes the probability distribution at classification $i$.\\
+
+In the domain of text classification, an alternative method often used to measure uncertainty is the ``Least Confidence(LC)" \cite{hu2016active}:\\
+\begin{equation}
+    x_{L C}^*={\arg \min _x} P\left(y^* \mid x ; \theta\right), y^*=\arg \max _y P(y \mid x ; \theta) 
+    \label{equation 2.2}
+\end{equation}
+$y^*$ represents the label of the class with the highest likelihood. This method is equivalent to the effectiveness of entropy-based algorithms for binary text classification. It focuses on samples for which the model predicts the highest probability but with low confidence. Specifically, the method involves annotating the samples with the smallest maximum probability. This more comprehensive consideration will be adopted in this paper.\\
+
+In addition to the two commonly used measurement methods mentioned above, Munro \cite{monarch2021human} introduced the margin of confidence and ratio of confidence. The former refers to the difference between the two most confident predictions, while the latter is the ratio between these two predictions.\\
+\begin{equation}
+    \mathrm{margin\_conf} = 1-\left(P\left(y_1^* \mid x\right)-P\left(y_2^* \mid x\right)\right), \quad \mathrm{ration\_conf} = \frac{P\left(y_2^* \mid x\right)}{P\left(y_1^* \mid x\right)} 
+    \label{3}
+\end{equation}
+$y_1^*$ is the most confident, $y_2^*$ is the second most confident.\\
+
+\paragraph{Query-By-Committee}~{}
+\\
+\noindent
+Compared to uncertainty sampling, which evaluates the judgement of a single model, the Query-By-Committee (QBC) approach employs multiple models to act as ``members" of a committee \cite{seung1992query}. These members are trained on the available labelled data using the Gibbs algorithm. The committee then randomly selects a hypothesis consistent with the current labelled data. The subsequent query is picked based on the instance where the committee members exhibit the most significant disagreement \cite{burbidge2007active}. Hence, while uncertainty sampling assesses the discernment of an individual member (model), QBC often incorporates strategies such as using vote entropy to select instances that are challenging for models to agree upon \cite{dagan1995committee}. And choosing samples with a high average Kullback-Leibler (KL) divergence \cite{mccallum1998employing}.\\
+
+\textbf{Vote entropy:} For text classification tasks, each committee member (text classifiers) can vote on unlabeled samples. 
+\begin{equation}
+    H(V) = -\sum_{i=1}^{n}\frac{Vote(y_{i})}{C}\text{log}\frac{Vote(y_{i})}{C}
+\end{equation}\\
+$Vote(y_{i})$ represents the votes received for class $y_{i}$, and the total number of votes is $C$, which is also the total number of classifiers. The larger the vote entropy, the more controversial the sample is.\\
+
+\textbf{Average KL Divergence:} The KL divergence increases as the difference between two distributions grows. The formula is expressed as:
+\begin{equation}
+    x_{KL}^{*} = argmax_{x}\frac{1}{C}\sum_{c=1}^{C}D_{KL}(P_{c}||\overline{P})
+\end{equation}
+Where,\\
+\begin{equation}
+    D_{KL}(P_{c}||\overline{P})=\sum_{}^{}iP_{c}(i)\text{log}\frac{P_{c}(i)}{\overline{P}(i)}
+\end{equation}
+$P_{c}$ is the prediction probability distribution of the $ith$ committee member, and $\overline{P}$ is the average prediction probability distribution of all members.\\
+
+It is noteworthy that Query-By-Committee (QBC) requires simultaneous operation of multiple models. Hence, one drawback of methods based on QBC is their slower speed, which is a factor of the committee's size \cite{bloodgood2018support}. Speed is paramount for active learning applications, but the trade-off with QBC is that annotators experience prolonged waiting times while the system identifies instances using QBC.\\
+
+\paragraph{Semantic-based diversity sampling:}~{}
+\\
+\noindent
+Peng, Hao, et al. \cite{peng2023query} introduced a semantic-based diversity sampling method that can be applied in text classification combined with active learning in this experiment. Distinct from the uncertainty sampling approach, the semantic-based diversity sampling method eliminates text sample redundancy semantically using the \emph{Euclidean distance}. This distance measure is frequently used across various domains, including data clustering and nearest neighbour search in embedding spaces. In machine learning, calculating a Euclidean distance from an embedding to a cluster centre can be achieved by computing a distance matrix for every embedding to every cluster centre, where ``$distances[i, j]$" represents the Euclidean distance from the $i$th embedding to the $j$th cluster centre \cite{bishop2006pattern}.\\
+
+To ensure that richer and less redundant samples are provided to the model (learner) in subsequent processes, this abstraction method employs the greedy k-centre clustering algorithm by Sener and Saveravarese (2017) \cite{sener2017active}. The dataset $D$ contains $n\times m$ unlabelled texts and divides $D$ into $n$ batches, with each sample set containing $m$ instances. It is the result of encoding the dataset. First, select $\alpha$ vectors from $Y_{i}^{*}$ to initialise the clusters $c_{i}^{0}$. Here examples will be considered as cluster centres. Then the k-centred algorithm searches $u_{i}^n$ from $\widetilde{c_{i}^0}$, which is a set that includes members that are not in $Y_{i}^{*}$. It is the furthest from the centre of all clusters. The algorithm chosen is formulated as follows:
+\begin{equation}
+\begin{aligned}
+u_i^0={\arg \max _{y_i^k \in \widetilde{c}_i^0}} {\min _{y_i^j \in c_i^0}} \left\|y_i^k-y_i^j\right\|_2^2 
+\\
+u_i^1=\arg \max _{y_i^k \in \widetilde{c}_i^1} \min _{y_i^j \in c_i^1}\left\|y_i^k-y_i^j\right\|_2^2
+\end{aligned}
+\end{equation}
+Where:
+\begin{equation}
+\begin{aligned}
+& \widetilde{c}_i^0=Y_i^* \backslash c_i^0 \\
+& c_i^1=c_i^0 \bigcup u_0
+\end{aligned}
+\end{equation}
+This is followed by updating the existing clusters to $c_{i}^{1}$ after a loop execution and merging the output into $P$. All text instances in $P$ converge into a core set that best represents and generalises the dataset $D$ in the semantic space. 
+
+\paragraph{Bayesian Active Learning by Disagreement}~{}
+\\
+\noindent
+Bayesian Active Learning by Disagreement (BALD) is an active learning strategy suitable for text classification problems, combining Bayesian inference with uncertainty measures to select information-rich samples. In BALD, uncertainty is measured by calculating the inconsistency in predictions for each sample's class probability distribution, as proposed by Houlsby, N. (2011) \cite{houlsby2011bayesian}. The learner (model) aims to maximise the uncertainty of the model parameters through the input $x$. $\mathrm{H}(y \mid x, D)$ represents the uncertainty of the target variable. The second term of the equation represents the expected uncertainty (entropy) of $\mathrm{H}[y \mid x, \theta]$, given that the parameter $\theta$ follows the posterior probability distribution $p(\theta \mid D)$ based on the training dataset $D$, measuring the average uncertainty.\\
+\begin{equation}
+x^*=\underset{x}{\arg \max } \mathrm{H}(y \mid x, D)-\mathrm{E}_{\theta \sim p(\theta \mid D)}[\mathrm{H}[y \mid x, \theta]] \mid
+\end{equation}\\
+
+To better calculate the inconsistency between predictions, Gal et al. proposed a specific sampling function in 2017 that utilises the Monte Carlo Dropout (MCD) method \cite{gal2017deep}. MCD is a regularisation technique during training, which, by randomly deactivating certain neurons, simulates the posterior distribution of Bayesian networks \cite{myojin2020detecting}. This allows for selecting samples with the highest uncertainty for labelling by making multiple predictions for each sample and calculating the inconsistency between the model's predictions.\\
+
+At its core, MCD is a regularisation method designed to prevent overfitting by probabilistically deactivating a subset of neurons. During the inference process, different results are produced during the prediction phase by inputting into the neural network a finite number of times (T times) and using dropout \cite{tsymbalov2018dropout}. Consequently, after quantifying the uncertainty from these varying prediction results, they can be used to estimate the model's uncertainty about unlabeled samples. This is then applied in the Bayesian Active Learning by Disagreement (BALD) sampling strategy to select the most uncertain unlabeled data. The inference results of MCD are derived in the following manner:
+\begin{equation}
+    \overline{y}(x)\approx \frac{1}{N_{mc}}\sum_{}^{N_{mc}}y_{drop}(x)
+\end{equation}
+Wherein, $y_{drop}$ represents the varying outputs from the dropout-enabled network, $x$ is the input to the network, and $N_{mc}$ is the number of samples required to obtain the distribution. Ultimately, BALD selects the samples with the highest informational gain by comparing each sample's BALD value. These samples are then labelled and added to the annotated training set. Moreover, BALD can be paired with the previously mentioned \emph{Least Confidence}, replacing the original entropy computation, to select samples for which the model prediction probabilities are most uniform (i.e., samples without a particularly high prediction probability for any category).\\
+
+\section{Small-Text Library}
+\label{section 2.4}
+The text classifier in this project tends to focus on a single model, potentially overlooking the applicability of other feasible models. However, the time-consuming of switching models and active learning strategies, coupled with code redundancy, would significantly impact the progress of the experiment. The Small-Text Library integrates commonly used libraries like scikit-learn, transformers, and PyTorch that can be applied within the Python environment \cite{schroder2021small}.\\
+
+The pool-based active learning framework for text classification bridges the interfaces of active learning strategies, classifiers, and stopping criteria. It provides an advanced active learning framework for text classification tasks and offers a range of classifier and acquisition function components. These can be combined in various permutations for experimental and applied active learning tasks, facilitating the implementation of active learning in the Python ecosystem. Compared to the popular ModAL library \cite{danka2018modal}, Small-Text offers more flexible customisation services, with the former focusing on model ensembles and strategy choices. Nonetheless, this all-encompassing approach might not necessarily enhance the performance of the ExpBERT-based project, as performance discrepancies can vary based on circumstances.\\
+
+\section{GPT Annotator}
+\label{section 2.5}
+GPT (Generative Pre-trained Transformer) is a pre-trained language model developed by the OpenAI team in 2018 \cite{azaria2022chatgpt}. Its key algorithm is the Transformer, a deep neural network structure based on the self-attention mechanism, boasting potent sequence modelling and representation learning capabilities \cite{lin2022survey}. This model can analyse and generate natural language text through pre-training and fine-tuning, proving beneficial in multiple scenarios such as automatic answering, intelligent customer support, and language translation. \\
+
+As a result, for a time-saving and efficient text classification system, this project will employ this model as an active learning annotator based on ExpBERT. The primary task is to generate appropriate explanations for ExpBERT and provide them to the model to enhance classification performance. In this configuration, active learning generates human-readable explanations for input text by leveraging GPT's robust generative model \cite{shi2023chatgraph}. \\
+
+A common approach involves using GPT to find keywords from the sampled text of a specific category, combine the keywords to form explanations, and then choose one or more to integrate into the original explanations. The combined text is then passed to the ExpBERT model. By analysing the sampled text in this manner, one can overcome deficiencies in human memory and the inadequacy of semantic similarity computation, ultimately identifying crucial feature words and phrases that best assist the model in understanding the intrinsic structure of the data.\\
+
+\section{Bayesian Neural Networks in Active Learning}
+\label{section 2.6}
+In modern machine learning and deep learning applications, Bayesian Neural Networks (BNNs) have emerged as key components due to their flexible inference mechanisms. BNNs offer a rich and adaptable modelling framework by introducing uncertainties in weights and predictions \cite{mackay1992practical}. This not only bolsters the model's reliability but also enhances its ability to generalise, adapt to noise, and handle outliers. Unlike traditional neural networks where weights are fixed, for BNNs, they are variable, as shown in Figure \ref{fig3}. The idea behind the model is to combine the strengths of neural networks with probabilistic modelling, providing probabilistic assurance for predictions \cite{mullachery2018bayesian}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figure/BNN.png}
+    \caption{Traditional Neural Networks vs. Bayesian Neural Networks}
+    \label{fig3}
+\end{figure}
+\\
+
+The weights in this context are inferred based on the observations we have, presenting an inverse probability problem solved through Bayes' theorem \cite{goan2020bayesian}. As shown in the equation, the weight $\omega$ represents latent variables for which the true distribution is unseen. Bayesian inference allows us to obtain the distribution of model parameters
+conditioned on the observed data, $p(\omega \mid D)$, known as the posterior distribution. 
+\begin{equation}
+    \pi(\omega \mid D) = \frac{p(\omega)p(D \mid \omega)}{\int_{}^{}p(\omega)p(D \mid \omega)d \omega}=\frac{p(\omega)p(D \mid \omega)}{p(D)}
+\end{equation}\\
+Additionally, the likelihood function $p(D \mid \omega)$ in multi-class problems combines the neural network's predictions (after a Log Softmax transformation) with the actual observed class labels to quantify their consistency. The posterior distribution can be computed using Bayesian theory after determining the likelihood and the prior distribution $p(\omega)$.\\
+
+After obtaining the posterior distribution, marginalisation methods will be used for prediction:
+\begin{equation}
+    \mathbb{E}[f]=\int_{}^{}f(\omega)\pi(\omega \mid D)d \text{ }\omega
+\end{equation}
+\\
+
+Bayesian Neural Networks provide a way to quantify uncertainty, enabling active learning systems to identify instances on which the model is least confident, subsequently selecting these instances for annotation. However, integrating the model parameters often requires computationally expensive operations, such as Markov Chain Monte Carlo (MCMC) sampling \cite{hastings1970monte}. This can become problematic when dealing with large-scale datasets, especially in the context of active learning, which typically requires multiple iterations and model updates. Therefore, actual implementation of BNNs may prolong the initialisation time of emergency systems \cite{neal2012bayesian}.\\
+
+% -----------------------------------------------------------------------------
+
+\chapter{Design}
+\label{chap:design}
+\noindent
+This chapter will provide an overview of the active learning framework in Section 3.1, followed by a detailed breakdown and design according to the sequence of tasks in active learning. Starting with pre-training the data in Section 3.2, we then discuss the design of classifier models that acquire embedded representations in Section 3.3. Section 3.4 presents the design of active learning strategies from multiple perspectives using the trained classifier model and analyses the implementation and effects of different acquisition functions. Finally, the design of the annotator's simulation functionality is covered in Section 3.5.\\
+
+\section{Structure Overview}
+The overall experimental framework is built upon the pool-based active learning technique discussed in Section \ref{section AL Process}. The system samples from a fixed pool of unannotated data using a trained model for sample assessment. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figure/structure.png}
+    \caption{The overall experimental framework}
+    \label{fig4}
+\end{figure}
+\\
+
+As depicted in Figure \ref{fig4}, in contrast to traditional active learning methods, this study revises the dataset requirements, introducing two distinct datasets: \textbf{one annotated with labels and explanations} (exp\_label\_dataset) and \textbf{another neither labelled nor explained} (no\_exp\_label\_dataset). The `exp\_label\_dataset' encompasses data for training, validation, and testing. However, during actual testing and validation, the model only accesses explanations and text embeddings without the corresponding labels. Both explanations and labels are essential during training. To harness the full capabilities of the pre-trained ExpBERT model, each annotation cycle not only provides labels but also appends new explanations to the default explanation set (Explanation.txt). \\
+
+Throughout the process, three main sets continuously engage in iterations within three primary modules until the evaluation score based on the \textbf{validation set} approaches or exceed the evaluation score for the full data volume.These modules are training, annotation, and updating:
+
+\paragraph{Training:} During the initial training phase, \textbf{18\%} of the entire data volume, which comes with labels and explanations, is used. Each sample in the `exp\_label\_dataset' is linked to 9 default explanations (label descriptions) for the first round of training. After the first round of training, the \textbf{trained model} and the `no\_exp\_label\_dataset' are used as input parameters for the active learning strategy. The ``information content" of each sample is then calculated from perspectives such as uncertainty or diversity. Samples with the highest ``information content" are subsequently selected for annotation.
+
+\paragraph{Annotation:} In each iteration, the annotator receives \textbf{4\%} of the samples. During the annotation process depicted in the figure, the annotator identifies key phrases in the text that \textbf{semantically resemble} the category description as explanations, and the system automatically provides the classification label for each text. Once samples are fully annotated, they are added to the `exp\_label\_dataset', forming the data set required for the next iteration.
+
+\paragraph{Dataset Update:} Subsequently, the annotated data, which constitutes \textbf{4\%} of the total data volume, is removed from the `no\_exp\_label\_dataset'. With each iteration, the size of the `exp\_label\_dataset' increases by \textbf{4\%}, and one or more explanations are added. After updating the `Explanation.txt', the total number of explanations will exceed the initial default set. All these data sets are pre-trained by the ExpBERT-based model before being fed into the neural network text classifier. \\
+
+\section{Pre-training}
+According to the framework design mentioned above, all datasets require a pre-training process before training the text classifier. As outlined in Chapter 2 about ExpBERT, pre-trained models are typically trained on a large volume of text data, capturing deep bidirectional language representations. As a result, they often achieve higher performance on specific tasks. In many text classification scenarios, using a pre-trained model as a foundation and fine-tuning it can significantly reduce the training time of the text classification model. \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figure/BERT2.png}
+    \caption{Overview of Pre-training Process}
+    \label{fig5}
+\end{figure}
+\\
+Text is typically input into the model to acquire its embedding representation. This embedding representation can then serve as the input for downstream text classifiers. However, the embedding size obtained from the original model is often too large, leading to extended computation times. Therefore, as illustrated in Figure \ref{fig5}, Natural Language Inference (NLI) is employed to fine-tune BERT, resulting in an embedding size of 3$*$E for each sample. To retain tweet information, after concatenating the text embedding representations, the size of a sample's embedding is only \textbf{768 plus 3$*$E}.\\
+
+In addition, it is assumed that the number of explanations corresponding to the annotated dataset will increase by `new\_exp' during the active learning iterations. Therefore, every time the iteration reaches the pre-training step, it is necessary to re-connect the updated training set, test set, and validation set texts with all the updated explanations as input to the pre-training model. As a result, each pre-training session will handle an additional \textbf{num\_tweets$*$new\_exp} amount of data. This aspect also contributes to the extended duration of the experiment implementation.\\
+
+For the unannotated dataset, to simulate real-world conditions, only the text data needs to be processed during pre-training. However, the trained neural network expects to receive input with the same dimensions as during training. Thus, for the embedding representation of unannotated data, the `F.pad(embedding, (0, pad\_amount))' method is used to ensure the tensor dimensions of the embedding match. Lastly, pre-training employs a pool-based approach to speed up the computation to enhance the computational efficiency of each iteration. The `Pool' class from Python's `multiprocessing' library is utilised to process data batches in parallel. Multiple batches can be processed simultaneously on multi-core machines, allowing for flexible process control and increased processing efficiency.\\
+
+\section{Classifier Model}
+This paper employs neural networks as the classifier model, taking the post-pre-training embeddings as input. The evaluation phase (Chapter 5) will compare the performance of conventional neural network classifiers and neural network classifiers with `dropout' in conjunction with active learning techniques. Structural modifications will be made to the traditional neural networks in this experiment. The final model structure will be built using PyTorch [citation].\\
+
+\subsection{Before Dropout}
+Regarding model architecture, the neural network in this study employs a single hidden layer and 100 neurons. The output feature count, or `output size', is 9 (number of labels). The forward propagation design can be represented by the following formula, where $W_{i}$ and $b_{i}$ are the weights and biases of the linear layer, respectively. After passing through an activation function, the model output $y$ is obtained. This study will use the $ReLU$ non-linear activation function, which induces network sparsity, alleviating overfitting issues.
+\begin{equation}
+    h = W_{i}x+b_{i},\quad a = ReLU(h),\quad y = W_{i+1}a+b_{i+1}
+\end{equation}
+Regarding training methods, the conventional neural network uses the standard loss computation method (cross-entropy [citation]). Additionally, the steps of forward propagation, loss computation, backward propagation, and optimisation are executed separately using PyTorch's standard methods.\\
+
+\subsection{After Dropout}
+This paper has improved the model structure by employing a dropout neural network model as a text classifier. Hinton mentioned that Dropout can prevent neurons from overly relying on other specific neurons in the network, thereby enhancing their independence and strengthening the model's generalisation capability [citation]. Applying dropout to neural networks is equivalent to having a ``sparse" network made up of units that have survived the dropout. A neural network with n units can have $2^n$ possible sub-network configurations. For each presented training instance, a new sparse network is sampled and trained [citation for dropout].
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figure/dropout.png}
+    \caption{Standard Neural Network and Dropout Neural Network}
+    \label{fig6}
+\end{figure}\\
+
+Dropout effectively approximates different neural network structures by randomly discarding units. The dropout process is illustrated in Figure \ref{fig6}, achieved by removing some neurons from the network and breaking their connections. In this paper, the `dropout\_prob' parameter is set to \textbf{0.2} during the initialisation of the neural network, meaning that the probability of a neuron being temporarily removed from the network during each forward propagation is 20\%. At this point, the forward propagation formula for the original neural network changes:
+\begin{equation}
+a = ReLU(h),\quad r = Bernoulli(p), \quad aDropout = r*a
+, \quad y = W_{i+1}aDropout+b_{i+1}
+\end{equation}
+$Bernoulli(p)$ represents a random variable following the Bernoulli distribution, used to generate a probability vector $r$, which randomly yields a vector of 0s and 1s. Consequently, some elements in vector $a$ are set to 0 based on this distribution.
+
+
+
+
+\chapter{Execution}
+{\bf A topic-specific chapter, roughly 30\% of the total page-count}
+\vspace{1cm} 
+
+\noindent
+This chapter is intended to describe what you did: the goal is to explain
+the primary activity or activities of any type which constituted your work 
+during the project.  The content is highly topic-specific. For some 
+projects it will make sense to split the content into two main sections or maybe even into two separate chapters: one 
+will discuss the design of something, including any rationale or decisions made, 
+and the other will discuss how this design was realised via some form of 
+implementation.  You could instead give this chapter the title ``Design and Implementation"; or you might split this content into two chapters, one titled ``Design" and the other ``Implementation".
+
+Note that it is common to include evidence of ``best practice'' project 
+management (e.g., use of version control, choice of programming language 
+and so on).  Rather than simply a rote list, make sure any such content 
+is valuable and informative in some way: for example, if there was a 
+decision to be made then explain the trade-offs and implications 
+involved.
+
+\section{Example Section}
+
+This is an example section; 
+the following content is auto-generated dummy text.
+\lipsum
+
+\subsection{Example Sub-section}
+
+\begin{figure}[t]
+\centering
+foo
+\caption{This is an example figure.}
+\label{fig}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|cc|c|}
+\hline
+foo      & bar      & baz      \\
+\hline
+$0     $ & $0     $ & $0     $ \\
+$1     $ & $1     $ & $1     $ \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+$9     $ & $9     $ & $9     $ \\
+\hline
+\end{tabular}
+\caption{This is an example table.}
+\label{tab}
+\end{table}
+
+\begin{algorithm}[t]
+\For{$i=0$ {\bf upto} $n$}{
+  $t_i \leftarrow 0$\;
+}
+\caption{This is an example algorithm.}
+\label{alg}
+\end{algorithm}
+
+\begin{lstlisting}[float={t},caption={This is an example listing.},label={lst},language=C]
+for( i = 0; i < n; i++ ) {
+  t[ i ] = 0;
+}
+\end{lstlisting}
+
+This is an example sub-section;
+the following content is auto-generated dummy text.
+Notice the examples in Figure~\ref{fig}, Table~\ref{tab}, Algorithm~\ref{alg}
+and Listing~\ref{lst}.
+\lipsum
+
+\subsubsection{Example Sub-sub-section}
+
+This is an example sub-sub-section;
+the following content is auto-generated dummy text.
+\lipsum
+
+\paragraph{Example paragraph.}
+
+This is an example paragraph; note the trailing full-stop in the title,
+which is intended to ensure it does not run into the text.
+
+% -----------------------------------------------------------------------------
+
+\chapter{Critical Evaluation}
+\label{chap:evaluation}
+
+{\bf A topic-specific chapter, roughly 30\% of the total page-count} 
+\vspace{1cm} 
+
+\noindent
+This chapter is intended to evaluate what you did.  The content is highly 
+topic-specific, but for many projects will have flavours of the following:
+
+\begin{enumerate}
+\item functional  testing, including analysis and explanation of failure 
+      cases,
+\item behavioural testing, often including analysis of any results that 
+      draw some form of conclusion wrt. the aims and objectives,
+      and
+\item evaluation of options and decisions within the project, and/or a
+      comparison with alternatives.
+\end{enumerate}
+
+\noindent
+This chapter often acts to differentiate project quality: even if the work
+completed is of a high technical quality, critical yet objective evaluation 
+and comparison of the outcomes is crucial.  In essence, the reader wants to
+learn something, so the worst examples amount to simple statements of fact 
+(e.g., ``graph X shows the result is Y''); the best examples are analytical 
+and exploratory (e.g., ``graph X shows the result is Y, which means Z; this 
+contradicts [1], which may be because I use a different assumption'').  As 
+such, both positive {\em and}\/ negative outcomes are valid {\em if} presented 
+in a suitable manner.
+
+% -----------------------------------------------------------------------------
+
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+{\bf A compulsory chapter,  roughly 10\% of the total page-count}
+\vspace{1cm} 
+
+\noindent
+The concluding chapter(s) of a dissertation are often underutilized because they're 
+too often left too close to the deadline: it is important to allocate enough time and 
+attention to closing off the story, the narrative, of your thesis.
+
+Again, there is no single correct way of closing a thesis. 
+
+One good way of doing this is to have a single chapter consisting of three parts:
+
+\begin{enumerate}
+\item (Re)summarise the main contributions and achievements, in essence
+      summing up the content.
+\item Clearly state the current project status (e.g., ``X is working, Y 
+      is not'') and evaluate what has been achieved with respect to the 
+      initial aims and objectives (e.g., ``I completed aim X outlined 
+      previously, the evidence for this is within Chapter Y'').  There 
+      is no problem including aims which were not completed, but it is 
+      important to evaluate and/or justify why this is the case.
+\item Outline any open problems or future plans.  Rather than treat this
+      only as an exercise in what you {\em could} have done given more 
+      time, try to focus on any unexplored options or interesting outcomes
+      (e.g., ``my experiment for X gave counter-intuitive results, this 
+      could be because Y and would form an interesting area for further 
+      study'' or ``users found feature Z of my software difficult to use,
+      which is obvious in hindsight but not during at design stage; to 
+      resolve this, I could clearly apply the technique of Bloggs {\em et al.}.
+\end{enumerate}
+
+Alternatively, you might want to divide this content into two chapters: a penultimate chapter with a title such as ``Further Work" and then a final chapter ``Conclusions". Again, there is no hard and fast rule, we trust you to make the right decision. 
+
+And this, the final paragraph of this thesis template, is just a bunch of citations, added to show how to generate a BibTeX bibliography. Sources that have been randomly chosen to be cited here include:
+
+
+
+
+
+% =============================================================================
+
+% Finally, after the main matter, the back matter is specified.  This is
+% typically populated with just the bibliography.  LaTeX deals with these
+% in one of two ways, namely
+%
+% - inline, which roughly means the author specifies entries using the 
+%   \bibitem macro and typesets them manually, or
+% - using BiBTeX, which means entries are contained in a separate file
+%   (which is essentially a database) then imported; this is the 
+%   approach used below, with the databased being dissertation.bib.
+%
+% Either way, the each entry has a key (or identifier) which can be used
+% in the main matter to cite it, e.g., \cite{X}, \cite[Chapter 2}{Y}.
+
+\backmatter
+
+\bibliography{sample_bibtex.bib}
+
+% -----------------------------------------------------------------------------
+
+% The dissertation concludes with a set of (optional) appendices; these are 
+% the same as chapters in a sense, but once signalled as being appendices via
+% the associated macro, LaTeX manages them appropriately.
+
+\appendix
+
+\chapter{An Example Appendix}
+\label{appx:example}
+
+Content which is not central to, but may enhance the dissertation can be 
+included in one or more appendices; examples include, but are not limited
+to
+
+\begin{itemize}
+\item lengthy mathematical proofs, numerical or graphical results which 
+      are summarised in the main body,
+\item sample or example calculations, 
+      and
+\item results of user studies or questionnaires.
+\end{itemize}
+
+\noindent
+Note that in line with most research conferences, the examiners are not
+obliged to read such appendices.
+
+% =============================================================================
+
+\end{document}
