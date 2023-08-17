@@ -409,3 +409,61 @@
 }
 
 
+@article{imambi2021pytorch,
+  title={PyTorch},
+  author={Imambi, Sagar and Prakash, Kolla Bhanu and Kanagachidambaresan, GR},
+  journal={Programming with TensorFlow: Solution for Edge Computing Applications},
+  pages={87--104},
+  year={2021},
+  publisher={Springer}
+}
+@article{sharma2017activation,
+  title={Activation functions in neural networks},
+  author={Sharma, Sagar and Sharma, Simone and Athaiya, Anidhya},
+  journal={Towards Data Sci},
+  volume={6},
+  number={12},
+  pages={310--316},
+  year={2017}
+}
+@article{de2005tutorial,
+  title={A tutorial on the cross-entropy method},
+  author={De Boer, Pieter-Tjerk and Kroese, Dirk P and Mannor, Shie and Rubinstein, Reuven Y},
+  journal={Annals of operations research},
+  volume={134},
+  pages={19--67},
+  year={2005},
+  publisher={Springer}
+}
+@article{hinton2012improving,
+  title={Improving neural networks by preventing co-adaptation of feature detectors},
+  author={Hinton, Geoffrey E and Srivastava, Nitish and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan R},
+  journal={arXiv preprint arXiv:1207.0580},
+  year={2012}
+}
+@article{srivastava2014dropout,
+  title={Dropout: a simple way to prevent neural networks from overfitting},
+  author={Srivastava, Nitish and Hinton, Geoffrey and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan},
+  journal={The journal of machine learning research},
+  volume={15},
+  number={1},
+  pages={1929--1958},
+  year={2014},
+  publisher={JMLR. org}
+}
+
+
+@inproceedings{gal2016dropout,
+  title={Dropout as a bayesian approximation: Representing model uncertainty in deep learning},
+  author={Gal, Yarin and Ghahramani, Zoubin},
+  booktitle={international conference on machine learning},
+  pages={1050--1059},
+  year={2016},
+  organization={PMLR}
+}
+@article{zhao2023chat,
+  title={Chat with the environment: Interactive multimodal perception using large language models},
+  author={Zhao, Xufeng and Li, Mengdi and Weber, Cornelius and Hafez, Muhammad Burhan and Wermter, Stefan},
+  journal={arXiv preprint arXiv:2303.08268},
+  year={2023}
+}

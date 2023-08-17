@@ -165,7 +165,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "uncertainty_add_1"
+        "uncertainty_add_1_LC"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -837,41 +837,6 @@ def least_confidence(prob_dist, sorted=False):
     num_labels = prob_dist.numel()  # number of labels
     normalized_least_conf = (1 - simple_least_conf) * (num_labels / (num_labels - 1))
     return normalized_least_conf.item()
-def entropy(prob_dist):
-    return -torch.sum(prob_dist * torch.log(prob_dist), dim=-1)
-
-def uncertainty_sampling_entropy(model, k,num):
-    # Preprocess the raw dataset
-    if t==0:
-        orgfile_path = "./unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
-        embeddings = torch.load(orgfile_path)
-    else:
-        orgfile_path = "./new_unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
-        embeddings = torch.load(orgfile_path)
-        print("uncertainty new embedding",len(embeddings))
-    target_shape = (len(embeddings), num*3)
-
-    pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
-
-    embeddings = F.pad(embeddings, (0, pad_amount))
-    print("uncertainty len embdedding", len(embeddings))
-    # Set the model to evaluation model
-    print(model)
-    model.eval()
-    with torch.no_grad():
-        # Make predictions using the model
-        logits = model(embeddings)  # Assuming the model returns logits
-        # Calculate the prediction probabilities
-        probs = torch.softmax(logits, dim=-1)
-        # Calculate the uncertainty scores using least confidence
-        uncertainty_scores = [entropy(prob_dist) for prob_dist in probs]
-        # Rank the samples based on the uncertainty scores
-        sorted_indices = np.argsort(uncertainty_scores)
-        # Select the top k least confident samples
-        least_confident_indices = sorted_indices[:k]
-    # Return the indices of the selected samples
-    return least_confident_indices.tolist()
-
 
 def uncertainty_sampling(model, k,num):
     # Preprocess the raw dataset
@@ -901,7 +866,7 @@ def uncertainty_sampling(model, k,num):
         # Rank the samples based on the uncertainty scores
         sorted_indices = np.argsort(uncertainty_scores)
         # Select the top k least confident samples
-        least_confident_indices = sorted_indices[:k]
+        least_confident_indices = sorted_indices[-k:]
     # Return the indices of the selected samples
     return least_confident_indices.tolist()
 
@@ -1375,17 +1340,12 @@ def main():
         )
 
         writer.close()
-        # after initialised the pre-trianed model and classifier we random select the data
-        # sampling and explanation generation:
+
         # begin uncertainty sampling
-        # if noexp_df.shape[0]>500:
-        #     sampled_indices = uncertainty_sampling(model_NN, 500,num)
-        # else:
-        #     sampled_indices = uncertainty_sampling(model_NN, noexp_df.shape[0],num)
-        if noexp_df.shape[0]>500:
-            sampled_indices = uncertainty_sampling_entropy(model_NN, 500,num)
+        if noexp_df.shape[0] > 500:
+            sampled_indices = uncertainty_sampling(model_NN, 500, num)
         else:
-            sampled_indices = uncertainty_sampling_entropy(model_NN, noexp_df.shape[0],num)
+            sampled_indices = uncertainty_sampling(model_NN, noexp_df.shape[0], num)
 
         # add data and delete data  from default explanation dataset and explained dataset
         addOrDelete(sampled_indices,raw_dataset_noexp)

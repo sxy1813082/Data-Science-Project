@@ -786,9 +786,9 @@ def mc_dropout_sampling(model, k, num):
     target_shape = (len(embeddings), num * 3)
 
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
-    # 0.145
     embeddings = F.pad(embeddings, (0, pad_amount))
     dropout = torch.nn.Dropout(p=0.1)
+
     model.train()  # Set the model to training mode
     num_samples = 50
     # Initialize a list to store the selected indices
@@ -804,8 +804,6 @@ def mc_dropout_sampling(model, k, num):
                 predictions.append(probabilities)
 
             # Calculate average prediction probabilities
-            if(i==2):
-                print(predictions)
             avg_probabilities = torch.mean(torch.stack(predictions), dim=0)
             # entropy = -torch.sum(avg_probabilities * torch.log(avg_probabilities), dim=1)
             bald_score = -torch.max(avg_probabilities, dim=1).values.item()
@@ -816,7 +814,7 @@ def mc_dropout_sampling(model, k, num):
     # Select the top k samples with the highest BALD scores
     selected_indices.sort(key=lambda x: x[1], reverse=True)
     selected_indices = [idx for idx, _ in selected_indices[:k]]
-    print(selected_indices)
+    # print(selected_indices)
 
     return selected_indices
 
