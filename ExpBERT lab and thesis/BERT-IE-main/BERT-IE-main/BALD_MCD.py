@@ -504,68 +504,6 @@ class BALDModel(nn.Module):
         x = F.dropout(x, p=self.dropout_prob, training=self.training)  # Apply dropout
         x = self.l2(x)
         return x
-    #
-    # def model(self, x_data, y_data):
-    #     # First layer weight distribution priors
-    #     w1_prior = dist.Normal(loc=torch.zeros_like(self.l1.weight), scale=torch.ones_like(self.l1.weight)).to_event(2)
-    #     # First layer bias distribution priors
-    #     b1_prior = dist.Normal(loc=torch.zeros_like(self.l1.bias), scale=torch.ones_like(self.l1.bias)).to_event(1)
-    #
-    #     w2_prior = dist.Normal(loc=torch.zeros_like(self.l2.weight), scale=torch.ones_like(self.l2.weight)).to_event(2)
-    #     b2_prior = dist.Normal(loc=torch.zeros_like(self.l2.bias), scale=torch.ones_like(self.l2.bias)).to_event(1)
-    #
-    #     priors = {
-    #         "l1.weight": w1_prior,
-    #         "l1.bias": b1_prior,
-    #         "l2.weight": w2_prior,
-    #         "l2.bias": b2_prior
-    #     }
-    #     lifted_module = pyro.random_module("module", self, priors)
-    #     lifted_reg_model = lifted_module()
-    #     lhat = F.log_softmax(lifted_reg_model(x_data))
-    #     with pyro.plate("data", len(x_data)):
-    #         pyro.sample("obs", dist.Categorical(logits=lhat), obs=y_data)
-        # pyro.sample("obs", dist.Categorical(logits=lhat), obs=y_data)
-
-    # def guide(self, x_data, y_data):
-    #     # First layer weight distribution priors
-    #     fc1w_mu = torch.randn_like(self.l1.weight)
-    #     fc1w_sigma = torch.randn_like(self.l1.weight)
-    #     fc1w_mu_param = pyro.param("fc1w_mu", fc1w_mu)
-    #     fc1w_sigma_param = F.softplus(pyro.param("fc1w_sigma", fc1w_sigma))
-    #     fc1w_prior = dist.Normal(loc=fc1w_mu_param, scale=fc1w_sigma_param).to_event(2)
-    #
-    #     # First layer bias distribution priors
-    #     fc1b_mu = torch.randn_like(self.l1.bias)
-    #     fc1b_sigma = torch.randn_like(self.l1.bias)
-    #     fc1b_mu_param = pyro.param("fc1b_mu", fc1b_mu)
-    #     fc1b_sigma_param = F.softplus(pyro.param("fc1b_sigma", fc1b_sigma))
-    #     fc1b_prior = dist.Normal(loc=fc1b_mu_param, scale=fc1b_sigma_param).to_event(1)
-    #
-    #     # Output layer weight distribution priors
-    #     outw_mu = torch.randn_like(self.l2.weight)
-    #     outw_sigma = torch.randn_like(self.l2.weight)
-    #     outw_mu_param = pyro.param("outw_mu", outw_mu)
-    #     outw_sigma_param = F.softplus(pyro.param("outw_sigma", outw_sigma))
-    #     outw_prior = dist.Normal(loc=outw_mu_param, scale=outw_sigma_param).to_event(2)
-    #
-    #     # Output layer bias distribution priors
-    #     outb_mu = torch.randn_like(self.l2.bias)
-    #     outb_sigma = torch.randn_like(self.l2.bias)
-    #     outb_mu_param = pyro.param("outb_mu", outb_mu)
-    #     outb_sigma_param = F.softplus(pyro.param("outb_sigma", outb_sigma))
-    #     outb_prior = dist.Normal(loc=outb_mu_param, scale=outb_sigma_param).to_event(1)
-    #
-    #     priors = {
-    #         'l1.weight': fc1w_prior,
-    #         'l1.bias': fc1b_prior,
-    #         'l2.weight': outw_prior,
-    #         'l2.bias': outb_prior
-    #     }
-    #
-    #     lifted_module = pyro.random_module("module", self, priors)
-    #
-    #     return lifted_module()
 
 def generate_explanations(sampled_data):
 
@@ -787,7 +725,7 @@ def mc_dropout_sampling(model, k, num):
 
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
     embeddings = F.pad(embeddings, (0, pad_amount))
-    dropout = torch.nn.Dropout(p=0.1)
+    dropout = torch.nn.Dropout(p=0.2)
 
     model.train()  # Set the model to training mode
     num_samples = 50

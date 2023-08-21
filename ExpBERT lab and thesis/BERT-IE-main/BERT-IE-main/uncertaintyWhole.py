@@ -165,7 +165,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "uncertainty_add_1_LC"
+        "us_add_1_LC"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -520,88 +520,7 @@ def generate_explanations(sampled_data):
     return string_array
 
 def generate_explanations_chat(sampled_data):
-    # explanations = [
-    # "dead",
-    # "injured",
-    # "casualties",
-    # "missing",
-    # "trapped",
-    # "found or rescued",
-    # "displaced",
-    # "shelters",
-    # "evacuated and relocated",
-    # "damage",
-    # "no electricity",
-    # "water restored",
-    # "donations",
-    # "offering to help",
-    # "volunteering",
-    # "be warned",
-    # "asked to be careful",
-    # "tips and guidance",
-    # "praying",
-    # "emotional support",
-    # "not related"
-    # ]
-    # labels = {
-    #     "injured_or_dead_people": 0,
-    #     "missing_trapped_or_found_people": 1,
-    #     "displaced_people_and_evacuations": 2,
-    #     "infrastructure_and_utilities_damage": 3,
-    #     "donation_needs_or_offers_or_volunteering_services": 4,
-    #     "caution_and_advice": 5,
-    #     "sympathy_and_emotional_support": 6,
-    #     "other_useful_information": 7,
-    #     "not_related_or_irrelevant": 8,
-    # }
-
-    # Create the completion prompt
-    # prompt = "give the key words for this tweet that will be used in ExpBERT model use feature importance: "+param \
-    #          + "\n and the options are:\n" + "\n".join(explanations)+"\nkey words:"
-    #
-    # openai.api_key = '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'
-    # response = openai.Completion.create(
-    #     engine="text-ada-001",  # Choose the appropriate OpenAI engine
-    #     prompt=prompt,
-    #     max_tokens=10,
-    #     n=1,
-    #     stop=None,
-    #     temperature=0.5,
-    #     top_p=1.0,
-    #     frequency_penalty=0.5,
-    #     # presence_penalty=0.0
-    # )
-    # explanation = str(response.choices[0].text.strip())
-    # print("explanation:",explanation)
-
-    # Find the closest matching explanation from the list
-    # closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
-    # print("OpenAI explanation is: " + closest_explanation+" over")
     strings = []  # 用于存储输入字符串的列表
-    # print("tweet is: ", param)
-    # print("label is ",label)
-    # for i in range(5):
-    #     user_input = input("give the key words about this tweet:")
-    #     strings.append(user_input)
-    # if label == 0:
-    #     strings = ['kill','dead','death','die','injure']
-    # elif label == 1:
-    #     strings = ['missing','trapped','found missing','was were found','missing found']
-    # elif label == 3:
-    #     strings = ['damage infrastructure','infrastructure utilities damage','broke infrastructure damage','down broke damage off','homes been damage lost home']
-    # elif label == 3:
-    #     strings = ['displaced evacuat','shelter provid','shelter set up evacuated','shelter','displaced']
-    # elif label == 4:
-    #     strings = ['donate','please donation','government give rise money $ generously contribute','vulnerable','volunteer']
-    # elif label == 5:
-    #     strings = ['warning','take care','caution suggest recommend propose rule','advice give','attention note look out']
-    # elif label == 6:
-    #     strings = ['pray','lord prayers folded hands god bless','deep condolence','God','keep safe pray go out fine ok']
-    # elif label == 8:
-    #     strings = ['no content', 'no relavent', 'not related', 'irrelevant', 'not related']
-    # else:
-    #     strings = ['ready to help other useful information', 'useful information', 'help usedful information', 'information useful help and by', 'useful information to help']
-
     labels = [data["labels"] for data in sampled_data]
 
     # Count the occurrences of each label
@@ -701,7 +620,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
 
     # default explained data can be passed through the pre-trained model
     # each subset is created and then saved
-    # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
     num = len(explanations) + num_des
     nums = num * 30*3
     subset_1 = df_exp[:]
@@ -1205,19 +1123,6 @@ def main():
         # pre train  test dataset----------------------------------------------------
         test_dataframes = []
         explanations = read_explanations("explanations.txt")
-        # filepaths = obtain_filepaths("./test_data/")
-        # # cleans the data from each disaster individually
-        # for file in filepaths:
-        #     df = clean_individual_dataset(file)
-        #     test_dataframes.append(df)
-        # # concatenates the tweets from each disaster to form one dataset
-        # test_df_concat = pd.concat(test_dataframes)
-        # # renames the columns
-        # test_df_concat.rename(columns={"tweet_text": "text"}, inplace=True)
-        # test_df_concat.rename(columns={"label": "labels"}, inplace=True)
-        # # duplicate tweets are dropped
-        # test_noexp_all = test_df_concat.drop_duplicates(subset=["text"], inplace=False)
-        # test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
         data_noexp = load_dataset("csv", data_files="./test_data/dataset_noexp.csv")
         directory = "./testdata/"
         for filename in os.listdir(directory):

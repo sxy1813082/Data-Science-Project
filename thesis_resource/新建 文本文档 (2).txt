@@ -467,3 +467,40 @@
   journal={arXiv preprint arXiv:2303.08268},
   year={2023}
 }
+
+@article{kadiyala2017applications,
+  title={Applications of Python to evaluate environmental data science problems},
+  author={Kadiyala, Akhil and Kumar, Ashok},
+  journal={Environmental Progress \& Sustainable Energy},
+  volume={36},
+  number={6},
+  pages={1580--1586},
+  year={2017},
+  publisher={Wiley Online Library}
+}
+@article{paszke2019pytorch,
+  title={Pytorch: An imperative style, high-performance deep learning library},
+  author={Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and others},
+  journal={Advances in neural information processing systems},
+  volume={32},
+  year={2019}
+}
+@article{imran2016twitter,
+  title={Twitter as a lifeline: Human-annotated twitter corpora for NLP of crisis-related messages},
+  author={Imran, Muhammad and Mitra, Prasenjit and Castillo, Carlos},
+  journal={arXiv preprint arXiv:1605.05894},
+  year={2016}
+}
+@article{grandini2020metrics,
+  title={Metrics for multi-class classification: an overview},
+  author={Grandini, Margherita and Bagli, Enrico and Visani, Giorgio},
+  journal={arXiv preprint arXiv:2008.05756},
+  year={2020}
+}
+@inproceedings{laws2008stopping,
+  title={Stopping criteria for active learning of named entity recognition},
+  author={Laws, Florian and Sch{\"u}tze, Hinrich},
+  booktitle={Proceedings of the 22nd International Conference on Computational Linguistics (Coling 2008)},
+  pages={465--472},
+  year={2008}
+}

@@ -584,18 +584,18 @@ It can be observed that using this model can analyse texts, selecting keywords t
 \chapter{Implementation}
 \noindent
 \label{chap:Implementation}
-This chapter primarily discusses the setup required to conduct the experiment. Section 4.1 introduces the fundamental environment in which the experiment is conducted, and Section 4.2 details the preparation and splitting of the dataset used in the experiment. Additionally, the performance metrics used in the evaluation in Chapter 5 and the rationale behind their selection are explained. Lastly, the stopping criteria adopted for the experiment (Section 4.3) and the operational modules (Section 4.4) are specified.\\
+This chapter primarily discusses the setup required to conduct the experiment. Section \ref{section 4.1} introduces the fundamental environment in which the experiment is conducted, and Section \ref{section 4.2} details the preparation and splitting of the dataset used in the experiment. Additionally, the performance metrics (Section \ref{section 4.3}) used in the evaluation in Chapter \ref{chap:evaluation} and the rationale behind their selection are explained. Lastly, the stopping criteria adopted for the experiment (Section \ref{section 4.4}) and the execution modules (Section \ref{section 4.5}) are specified.\\
 
 \section{Experimental Environment}
 \label{section 4.1}
-This experiment employs Python 3.9 as the primary development language for natural language processing tasks. Being highly suitable for natural language processing tasks, Python boasts a plethora of data science and machine learning libraries. This study utilised the capabilities provided by libraries such as PyTorch, Pandas, and Numpy for data analysis, pre-processing, and machine learning [Reference]. Python's high compatibility facilitates the connection to remote High Performance Computing Systems (HPC) within the context of this study using PyCharm, or running through Google Colab in conjunction with Google Drive. This research integrates PyTorch with Python to construct dynamic neural networks. By leveraging PyTorch's automatic gradient computation, the features of Dynamic Computational Graph, and the capability of CUDA for accelerated computation, a high level of flexibility and accuracy is maintained in the neural network model [Reference].\\
+This experiment employs \textbf{Python 3.9} as the primary development language for natural language processing tasks. Being highly suitable for natural language processing tasks, Python boasts a plethora of data science and machine learning libraries \cite{kadiyala2017applications}. This study utilised the capabilities provided by libraries such as PyTorch, Pandas, and Numpy for data analysis, pre-processing, and machine learning [Reference]. Python's high compatibility facilitates the connection to remote High-Performance Computing Systems (HPC) within the context of this study using PyCharm, or running through Google Colab in conjunction with Google Drive. This research integrates \textbf{PyTorch} with Python to construct dynamic neural networks. By leveraging PyTorch's automatic gradient computation, the features of Dynamic Computational Graph, and the capability of CUDA for accelerated computation, a high level of flexibility and accuracy is maintained in the neural network model \cite{paszke2019pytorch}.\\
 
 \section{Dataset}
 \label{section 4.2}
 The dataset used in this experiment simulates the text distribution of social media in emergencies. The dataset is prepared and split according to the framework described in section \ref{section 3.1} to meet the training requirements with a small amount of data in active learning.\\
 
 \subsection{CrisisNLP}
-In this experiment, the CrisisNLP dataset is utilised, which comprises data IDs, textual information, and descriptions of their corresponding categories. There are nearly 16,000 entries in total. This dataset requires preprocessing, splitting, pre-training, and classification. CrisisNLP is an open-source resource designed explicitly for humanitarian emergency and crisis response related natural language processing (NLP) research and development [ref]. The dataset contains interaction information from various large social media platforms, covering multiple crisis events, such as typhoons, earthquakes, and other events that require timely responses from relevant departments. The nature of the information can be divided into nine categories. The descriptions of these labels and their distribution are shown in the  Table \ref{tab2}.\\
+In this experiment, the CrisisNLP dataset is utilised, which comprises data IDs, textual information, and descriptions of their corresponding categories. There are nearly 16,000 entries in total. This dataset requires preprocessing, splitting, pre-training, and classification. CrisisNLP is an open-source resource designed explicitly for humanitarian emergency and crisis response related natural language processing (NLP) research and development \cite{imran2016twitter}. The dataset contains interaction information from various large social media platforms, covering multiple crisis events, such as typhoons, earthquakes, and other events that require timely responses from relevant departments. The nature of the information can be divided into nine categories. The descriptions of these labels and their distribution are shown in the  Table \ref{tab2}.\\
 
 \begin{table}[t]
 \centering
@@ -622,10 +622,10 @@ According to the distribution in Table \ref{tab2}, it is evident that the data p
 \subsection{Data Preparation}
 \label{section 4.2.2}
 \paragraph{Preprocessing:}
-Before feeding into the pre-trained model, preprocessing the tweets in the dataset is a critical step. The goal is to minimise the noise in the text and enhance the model's learning efficiency. Firstly, internet slang is standardised, converting informal abbreviations or colloquialisms into their standard forms and splitting camel-case named words. Subsequently, emojis in tweets are replaced with their textual counterparts using the emoji library, enabling the model to understand these symbols' meanings better. Lastly, website links, usernames, and ``$\#$” tags in tweets are cleaned or replaced since these elements typically don't contribute much to the model's learning. Such preprocessing steps help in reducing noise in tweets, thereby enhancing the model's learning efficiency and performance.
+Before feeding into the pre-trained model, preprocessing the tweets in the dataset is a critical step. The goal is to minimise the noise in the text and enhance the model's learning efficiency. Firstly, internet slang is standardised, converting informal abbreviations or colloquialisms into their standard forms and splitting camel-case named words. Subsequently, emojis in tweets are replaced with their textual counterparts using the emoji library, enabling the model to better understand these symbols' meanings. Lastly, website links, usernames, and ``$\#$” tags in tweets are cleaned or replaced since these elements typically don't contribute much to the model's learning. Such preprocessing steps help in reducing noise in tweets, thereby enhancing the model's learning efficiency and performance.
 
 \paragraph{Dataset Splitting:}
-For active learning tasks, splitting the dataset into unannotated and annotated datasets is essential. At the same time, the annotated dataset will be further split into training, validation, and testing sets. Active learning requires adding or removing data in each iteration. However, to ensure that the model's performance on unseen data can be tested fairly in each active learning iteration, the number of test samples must \textbf{remain constant}. Thus, the test set, unannotated and annotated datasets must be split \textbf{outside of the active learning loop}. The \textbf{training and validation sets will expand} with each iteration as the dataset grows, but their relative proportions remain unchanged. Since the data corresponding to label 1 only account for about 2\% of the total dataset, to ensure that all data subsets contain data corresponding to label 1, we use the 'StratifiedShuffleSplit' mechanism from the scikit-learn library to maintain the original data's class distribution. Compared to random splitting, this method provides a more accurate assessment of the classifier's performance.
+For active learning tasks, splitting the dataset into unannotated and annotated datasets is essential. At the same time, the annotated dataset will be further split into training, validation, and testing sets. Active learning requires adding or removing data in each iteration. However, to ensure that the model's performance on unseen data can be tested fairly in each active learning iteration, the number of test samples must \textbf{remain constant}. Thus, the test set, unannotated and annotated datasets must be split \textbf{outside of the active learning loop}. The \textbf{training and validation sets will expand} with each iteration as the dataset grows, but their relative proportions remain unchanged. Since the data corresponding to label 1 only account for about 2\% of the total dataset, to ensure that all data subsets contain data corresponding to label 1, we use the `StratifiedShuffleSplit' mechanism from the scikit-learn library to maintain the original data's class distribution. Compared to random splitting, this method provides a more accurate assessment of the classifier's performance.
 \begin{table}[h]
 \centering
 \begin{tabular}{lllc}
@@ -645,53 +645,154 @@ Unannotated Data & \multicolumn{2}{l}{11241} & 70\% \\
 \label{tab3}
 \end{table}
 
-To meet the criteria of active learning, which achieves high performance with a small amount of training data, the number of annotated data in the first iteration of active learning is not the total data. As shown in Table \ref{tab3} above, the total is \textbf{only 30\%} of the entire dataset, with a length of 4827. The size of the unannotated dataset is set to \textbf{11241}. \\
+To meet the criteria of active learning, which achieves high performance with a small amount of training data, the number of annotated data in the first iteration of active learning is not the total data. As shown in Table \ref{tab3} above, the total is \textbf{only 30\%} of the entire dataset, with a length of 4827. Therefore, the size of the training set is no longer the most significant component, with the training set representing only \textbf{18\%} of the total data for the active learning strategy and the size is set to 2890. The size of the unannotated dataset is set to \textbf{11241}, which accounts for 70\% of the total dataset. The unannotated dataset becomes the most significant component compared with other datasets.\\
 
 When training with the \textbf{full dataset} (with the training set having the highest proportion), the combined length of the training and validation datasets in the annotated data will be 12845. The number of the test set remains unchanged both in the full dataset and in the amount of data required for active learning, with a length of 1606. 4\% of the data is sampled for annotation in each cycle. In the subsequent evaluation chapter, it was found that after 9 iterations, the model performance approached the model's performance corresponding to the validation set under the full data. At this time, the length of the unannotated dataset remains 6741.\\
 
 \section{Performance Metrics}
+\label{section 4.3}
 The setting of performance metrics can significantly influence the effectiveness of active learning projects. Proper evaluation criteria can measure and compare the impacts of different active learning strategies and model frameworks on emergency systems in human learning. This, in turn, determines the choices of models, active learning strategies, and parameters. To assess the performance of active learning, the data is first partitioned according to the standards in Section \ref{section 4.2.2}. Then, the training begins on the training set. After each pool-based active learning iteration round, the trained model is evaluated on the test and validation sets using the predefined performance metrics. After each iteration, learning curves are plotted based on the performance metrics.\\
 
-To comprehensively assess the performance of the model, the experiment utilizes two performance metrics: \textbf{accuracy and F1 score}. Accuracy measures the proportion of instances that the model correctly predicts relative to the total number of instances, and it can be a biased evaluation criterion. In contrast, the F1 score is the harmonic mean of precision and recall. Compared to accuracy, it eliminates bias and is more commonly used in multi-class problems [reference].\\
+To comprehensively assess the model's performance, the experiment utilises two performance metrics: \textbf{accuracy and F1 score}. Accuracy measures the proportion of instances that the model correctly predicts relative to the total number of instances, and it can be a biased evaluation criterion. In contrast, the F1 score is the harmonic mean of precision and recall. Compared to accuracy, it eliminates bias and is more commonly used in multi-class problems \cite{grandini2020metrics}.\\
 \begin{equation}
     F1\_score = \frac{2 }{(1/Precision + 1/Recall)}
 \end{equation}
-Where, Precision is the proportion of positive instances correctly predicted by the model out of all instances predicted as positive, and Recall is the proportion of actual positive instances that are correctly predicted by the model as positive. When dealing with imbalanced datasets like CrisisNLP, the F1 score can provide a more comprehensive measure of performance.\\
+Precision is the proportion of positive instances correctly predicted by the model out of all instances predicted as positive, and Recall is the proportion of actual positive instances that the model correctly predicts as positive. When dealing with imbalanced datasets like CrisisNLP, the F1 score can provide a more comprehensive measure of performance.\\
 
-In addition, the \textbf{learning curve} can also serve as a performance evaluation criterion. By observing the changes in the learning curve, we can gain a deeper understanding of the model's learning capacity and stability. Tensorboard is used to record the learning curve during the active learning iteration process. The learning curve depicts the relationship between the model's performance and the number of samples used for training (number of active learning iterations), evaluating whether increasing the number of annotated datasets can effectively enhance the model's performance. Moreover, the experiment also logs the performance of the neural network classifier for each epoch during each training process through Tensorboard, ensuring the model achieves the best performance without overfitting after each active learning iteration.\\
+In addition, the \textbf{learning curve} can also serve as a performance evaluation criterion. By observing the changes in the learning curve, we can better understand the model's learning capacity and stability. Tensorboard records the learning curve during the active learning iteration process. The learning curve depicts the relationship between the model's performance and the number of samples used for training (number of active learning iterations), evaluating whether increasing the number of annotated datasets can effectively enhance the model's performance. Moreover, the experiment also logs the performance of the neural network classifier for each epoch during each training process through Tensorboard, ensuring the model achieves the best performance without overfitting after each active learning iteration.\\
+
+\section{Stopping Strategy}
+\label{section 4.4}
+Within the active learning framework, the Stopping strategy is used to determine when to halt the learning process or no longer request new data from annotators \cite{laws2008stopping}. The design of the Stopping strategy directly affects the cost of annotation, time consumption, and the final performance of the model. Although the Stopping strategy is somewhat akin to a model's hyperparameters, it doesn't directly influence the model's training process. Instead, its primary objective is to reduce annotation costs and save time while maintaining optimised performance. This strategy aims to balance time efficiency and performance output to achieve a learning process that is both efficient and high-performing.\\
+
+For the training of neural network models, the configuration of hyperparameters directly impacts the training process and model performance. In early research, there have been studies that meticulously explored and determined various hyperparameters. Here, we referenced these studies and selected hyperparameters suitable for neural network training, namely using a batch size of 8 and a learning rate of 5e-5.\\
+
+When devising the stopping strategy for the active learning experiment, monitoring whether the model performance has reached saturation is essential. For this experiment, the primary focus is on the average F1 score of the model on the \textbf{validation set}. Specifically, we aim to observe when the model, based on a random sampling strategy, can surpass the performance of the model trained on the entire dataset or when the rate of performance growth begins to decelerate. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figure/stopping.png}
+    \caption{Average F1 score of full-data and random sampling strategies under validation dataset}
+    \label{fig7}
+\end{figure}
+
+Figure \ref{fig7} reflects the performance comparison between the models trained under the \textbf{random sampling} and \textbf{full-data} training strategies. By the 8th iteration, the model's performance based on random sampling had already exceeded that of the model trained on the full data. However, this performance improvement was inconsistent, so we continued iterating. After the \textbf{9th iteration}, the growth in model performance began to slow down. Considering that further iterations would increase time and annotation costs, we terminated the experiment after the 9th iteration. This strategy allows for \textbf{achieving optimal performance at minimal costs}.
+
+\section{Execution Module}
+\label{section 4.5}
+In this study, we conducted text classification by implementing a series of active learning strategies. The experiment is run either by connecting to a remote environment through PyCharm or locally. In most cases, an explanation is added in each iteration, with a total of 9 iterations being performed. At the conclusion of these iterations, the experiment for each active learning strategy took a total of \textbf{36 hours}. Using the MCD combined with the BALD active learning strategy, the time taken approaches 37 hours. The experimental execution module is primarily segmented based on active learning strategies. As the evaluation in Chapter \ref{chap:evaluation} found that diversity sampling performed the best, different explanation annotation methods were employed to further explore the impact of explanations on performance.
+
+\begin{itemize}
+    \item Random Sampling: Implemented through the ``Whole\_train.py" script, processing both full data mode and active learning mode.
+    \item Senmatic-based Diversity Sampling: Based on the ``diversity\_sampling\_whole.py" script, this method employs three different explanation annotation methods: preset explanations, manual input, and explanations generated by the OpenAI model (\textbf{an API key for OpenAI is required}).
+    \item Uncertainty Sampling: Using the ``uncertaintyWhole.py" script, the aim of this strategy is to select data points that present the most uncertainty or challenge for model classification by calculating the minimum confidence level.
+    \item MCD-based BALD Strategy: Executed via the ``BALD\_MCD.py" script, it combines dropout neural networks with the Bayesian Active Learning by Disagreement (BALD) strategy, specifically seeking high uncertainty data points in model predictions through minimum confidence.
+\end{itemize}
+
+The primary focus of the experimental execution is to conduct a deep evaluation of the performance of various strategies in text classification tasks. This aims to ascertain which strategy and explanation annotation method is best suited to enhance the model's learning efficiency.
 
 % -----------------------------------------------------------------------------
 
 \chapter{Critical Evaluation}
 \label{chap:evaluation}
+This chapter first sets out the expectations and framework for evaluation (Section 5.1). Based on five expectations, combined with the evaluation framework and the performance metrics provided in Section \ref{section 4.3}, the evaluation is carried out (Sections 5.2, 5.3, 5.4, 5.5, and 5.6). Results corresponding to each expectation are presented, and the evaluation results are analysed to see if the outcomes align with the preset expectations. Lastly, Section 5.7 provides a summary of the evaluation results.\\
 
-{\bf A topic-specific chapter, roughly 30\% of the total page-count} 
-\vspace{1cm} 
+\section{Expectations and Evaluation Framework}
+\label{section 5.1}
+Initially, there are several preset expectations for the Human-in-the-loop framework. 
 
-\noindent
-This chapter is intended to evaluate what you did.  The content is highly 
-topic-specific, but for many projects, will have flavours of the following:
+\begin{itemize}
+    \item Pool-based active learning can effectively enhance model performance (on both test and validation sets) by increasing the size of the annotated dataset.
+    \item The addition of explanation annotations during the annotating process has a greater impact than using data with label-only annotations.
+    \item Most strategies can surpass the baseline (random sampling) while exceeding or approaching the full-data dataset's performance before implementing the stopping strategy.
+    \item We can identify the best active learning strategy, explanation annotation strategy, and model architectural strategy to quickly achieve high performance with a minimal amount of training data.
+    \item The number and quality of the explanations provided greatly influence model performance.
+\end{itemize}
 
-\begin{enumerate}
-\item functional  testing, including analysis and explanation of the failure 
-      cases,
-\item behavioural testing, often including analysis of any results that 
-      draw some form of conclusion wrt. the aims and objectives,
-      and
-\item evaluation of options and decisions within the project and/or a
-      comparison with alternatives.
-\end{enumerate}
+Notably, the full-data dataset refers to the annotated dataset (with nine default explanations linked), where the training set makes up 72\% of the data distribution, and the remaining percentage is divided between the validation and test sets. However, the training set share in active learning is 18\%.\\
 
-\noindent
-This chapter often acts to differentiate project quality: even if the work
-completed is of high technical quality, critical yet objective evaluation 
-and comparison of the outcomes is crucial.  In essence, the reader wants to
-learn something, so the worst examples amount to simple statements of fact 
-(e.g., ``graph X shows the result is Y''); the best examples are analytical 
-and exploratory (e.g., ``graph X shows the result is Y, which means Z; this 
-contradicts [1], which may be because I use a different assumption'').  As 
-such, both positive {\em and}\/ negative outcomes are valid {\em if} presented 
-in a suitable manner.
+Based on these expectations, an evaluation framework is established in Table \ref{tab4}, which will be applied to both the test and validation sets using F1 score and accuracy as the performance metrics:\\
+\begin{table}[h]
+\centering
+\begin{tabular}{lllll}
+\hline
+ID  &Model structure  & Dataset     & AL strategy & annotation method \\
+\hline
+1      & No dropout &full-data dataset & None &without explanation \\
+2      & No dropout &AL-based datasets & Random sampling &without explanation \\
+3      & No dropout &AL-based datasets & Random sampling &explanation-NoOpenAI \\
+4      & No dropout &AL-based datasets & Uncertainty sampling &explanation-NoOpenAI \\
+5      & No dropout &AL-based datasets & Diversity sampling &explanation-NoOpenAI \\
+6      & No dropout &AL-based datasets & Diversity sampling &explanation-WithOpenAI \\
+7      & With dropout &AL-based datasets & BALD &explanation-NoOpenAI \\
+8      & No dropout &AL-based datasets & Diversity sampling &two explanations each iteration \\
+\hline
+\end{tabular}
+\caption{Evaluation structure.}
+\label{tab4}
+\end{table}\\
+
+\section{Expectation One}
+\label{section 5.2}
+According to the expectations set in Section \ref{section 5.1}, a point-by-point evaluation is carried out. For the first expectation, it's necessary to observe whether active learning, by increasing the annotated dataset, can effectively enhance the model's performance. Hence, the learning curve mentioned in Section \ref{section 4.3} needs to be inspected. The expectation is that within the learning curve, the model's performance consistently rises as the number of annotated instances increases. To reduce computational time, a representative evaluation method was chosen, specifically the one with \textbf{evaluation ID 2} from the evaluation framework (Table \ref{tab4}) in Section \ref{section 5.1}, employing a random sampling strategy. In each round, only the corresponding classification label is annotated without adding new explanations, instead using the default nine explanations.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figure/Expectation1.png}
+    \caption{Random sampling only annotates labels}
+    \label{fig8}
+\end{figure}\\
+
+The evaluation results are illustrated in figure \ref{fig8}. The solid line represents the average accuracy for the validation and test sets, while the dashed line represents the average F1 score. By setting a linear trendline, it's evident that the learning curve's trajectory \textbf{aligns with the first expectation}. Simultaneously, the data's performance on the validation set is generally \textbf{better} than on the test set.\\
+
+This is due to active learning, as mentioned in section \ref{section 2.3}, continuously supplying a portion of the annotated dataset to the original dataset for training. As a result, with the increase in input data volume, the classifier can learn more effectively from the abundant data and enhance its generalisation ability. The reason the performance on the validation set is better than that on the test set is evident from Table \ref{tab3}, which shows that the overall quantity of the validation set is smaller. Hence, there is less noise and fewer outliers. To simulate real-world scenarios, the test set is larger and noisier, leading to slightly lower overall performance.\\
+
+In summary, this Human-in-the-loop pool-based active learning framework indeed effectively boosts the model's performance, whether on the test set or the validation set.\\
+
+\section{Expectation Two}
+\label{section 5.3}
+In Section \ref{section 5.1}, the second expectation investigates the effectiveness of the Human-in-the-loop framework when based on ExpBERT. It explores whether, during the annotation process, adding explanations in addition to labels can lead to higher performance. Thus, we utilise the evaluation methods corresponding to \textbf{evaluation IDs 2 and 3} from Table \ref{tab4} for a comparative experiment. We examine whether the results of evaluation ID 3 \textbf{(with added explanations)} are superior to those of evaluation ID 2 \textbf{(with only added labels)}. In the evaluation process for ID 3, the number of explanations increased by one in each round. Here, the evaluation results use the average F1 scores and average accuracy scores for the validation and test sets. The performance from the final iteration is displayed in Table \ref{tab5}.\\
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\hline
+ & \textbf{Average F1 score} & \textbf{Average accuracy score} \\
+\hline
+ Evaluation 2 for validation set &  $0.6159$ & $0.599$ \\
+ Evaluation 3 for validation set & \underline{\textbf{$0.625$}} & \underline{\textbf{$0.6131$}} \\
+ Evaluation 2 for test set & $0.4489$ & $0.5761$\\
+ Evaluation 3 for test set & \underline{\textbf{$0.5056$}} & \underline{\textbf{$0.6216$}}\\
+\hline
+\end{tabular}
+\caption{Results of evaluation ID 2 and evaluation ID 3}
+\label{tab5}
+\end{table}
+
+From Table \ref{tab5}, it is evident that all evaluation results for ID 3 (where explanations were added along with label annotations) are \textbf{higher} than those for ID 2 (where only labels were annotated). This is because, as mentioned in Section \ref{section background}, \textbf{explanations} include keywords and sentences related to classification information. Adding these explanation links allows the model to learn from a deeper semantic level. After pre-training with the ExpBERT mechanism, the received embeddings enhance the classifier's generalisation ability. Therefore, the model's performance is higher in the evaluation framework for ID 3.\\
+
+Thus, annotating with not just labels but also adding explanation annotations can effectively enhance the classification model's performance. The conclusion is that the second expectation has been met.\\
+
+\section{}
+\label{section 5.4}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 % -----------------------------------------------------------------------------
@@ -712,7 +813,7 @@ Again, there is no single correct way of closing a thesis.
 One good way of doing this is to have a single chapter consisting of three parts:
 
 \begin{enumerate}
-\item (Re)summarise the main contributions and achievements, in essence
+\item (Re) summarises the main contributions and achievements, in essence
       summing up the content.
 \item Clearly state the current project status (e.g., ``X is working, Y 
       is not'') and evaluate what has been achieved with respect to the 

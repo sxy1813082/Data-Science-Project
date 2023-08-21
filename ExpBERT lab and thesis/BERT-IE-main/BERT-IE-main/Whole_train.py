@@ -519,35 +519,6 @@ def generate_explanations(sampled_data):
     string_array = [string.strip() for string in strings]
     return string_array
 
-
-# def generate_explanations_chat(sampled_data):
-
-
-    # Create the completion prompt
-    # prompt = "give the key words for this tweet that will be used in ExpBERT model use feature importance: "+param \
-    #          + "\n and the options are:\n" + "\n".join(explanations)+"\nkey words:"
-    #
-    # openai.api_key = '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'
-    # response = openai.Completion.create(
-    #     engine="text-ada-001",  # Choose the appropriate OpenAI engine
-    #     prompt=prompt,
-    #     max_tokens=10,
-    #     n=1,
-    #     stop=None,
-    #     temperature=0.5,
-    #     top_p=1.0,
-    #     frequency_penalty=0.5,
-    #     # presence_penalty=0.0
-    # )
-    # explanation = str(response.choices[0].text.strip())
-    # print("explanation:",explanation)
-
-    # Find the closest matching explanation from the list
-    # closest_explanation = min(explanations, key=lambda x: abs(len(x) - len(explanation)))
-    # print("OpenAI explanation is: " + closest_explanation+" over")
-
-    # return explanation
-
 # add or delete explained data
 def addOrDelete(sampled_indices,raw_dataset_noexp):
     sampled_data = [raw_dataset_noexp['train'][i] for i in sampled_indices]
