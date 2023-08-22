@@ -1,23 +1,8 @@
 import math
 import os
-# os.chdir("/user/home/yl22361/BERT-IE-main/")
 from random import random
 import random
-
-from pyro.infer.autoguide import AutoDiagonalNormal
-from pyro.optim import Adam
-from pyro.optim import ClippedAdam
-from pyro.distributions import Normal
-from pyro.distributions import Categorical
-from pyro.infer import SVI, Trace_ELBO, NUTS, MCMC
 import pyro
-from pyro.optim import PyroOptim
-from pyro import clear_param_store
-import pyro.distributions as dist
-from pyro.infer import Predictive
-# from torchbnn.layers import BayesianLinear
-from scipy.spatial.distance import euclidean
-from sklearn.cluster import KMeans
 from sklearn.model_selection import StratifiedShuffleSplit
 from collections import Counter
 import pandas as pd
@@ -178,7 +163,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "MCD_BALD_sampling_20epoch"
+        "BALD_add_1_818"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
@@ -206,47 +191,24 @@ class Dataset(torch.utils.data.Dataset):
         else:
             return self.embeddings_IDs[index], self.labels[index]
 
-class MyCustomDataset:
-    def __init__(self, text, labels, exp_and_td):
-        self.text = text
-        self.labels = labels
-        self.exp_and_td = exp_and_td
-
-    def __len__(self):
-        return len(self.text)
-
-    def __getitem__(self, index):
-        return self.text[index], self.labels[index], self.exp_and_td[index]
-
-class MyCustomDatasetNo:
-    def __init__(self, text, labels):
-        self.text = text
-        self.labels = labels
-
-    def __len__(self):
-        return len(self.text)
-
-    def __getitem__(self, index):
-        return self.text[index], self.labels[index]
-
-
 # Retrieves the embeddings from the given file path and splits dataset into training, validation and test --------------------
 def get_datasets(originlen,addlen):
     with torch.no_grad():
         orgfile_path = "./embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
         embeddings = torch.load(orgfile_path)
+
         raw_dataset = load_from_disk("./data/no/")
         labels = np.array(raw_dataset["train"]["labels"])
 
         # give the index of train and validation dataset
         idx = np.arange(0, len(embeddings), dtype=np.intc)
+
         embeddings = embeddings[idx]
         labels = labels[idx]
 
         # load test dataset
         test_raw_dataset = load_from_disk("./testdata/")
         test_labels = test_raw_dataset["train"]["labels"]
-        # print("test dataset embedding begin ", len(test_labels))
         test_file_path = "./test_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
         test_embedding = torch.load(test_file_path)
         dataset = Dataset(test_embedding, test_labels)
@@ -254,14 +216,19 @@ def get_datasets(originlen,addlen):
             dataset[:][0],
             dataset[:][1]
         )
+        # load val dataset
+        val_raw_dataset = load_from_disk("./valdata/")
+        val_labels = val_raw_dataset["train"]["labels"]
+        val_file_path = "./val_embeddings/NEW_bertie_embeddings_textattack/" + "bert-base-uncased-MNLI_subset_1.pt"
+        val_embedding = torch.load(val_file_path)
+        dataset = Dataset(val_embedding, val_labels)
+        val_dataset = Dataset(
+            dataset[:][0],
+            dataset[:][1]
+        )
 
-    # Split the dataset into train, validation, and test sets
-    train_indices, val_indices = train_test_split(idx, test_size=0.1, stratify=labels, random_state=42)
-    # Create the train, validation, and test datasets
-    train_dataset = Dataset(embeddings[train_indices], labels[train_indices])
-    val_dataset = Dataset(embeddings[val_indices], labels[val_indices])
+    train_dataset = Dataset(embeddings[idx], labels[idx])
     return train_dataset, val_dataset, test_dataset
-
 
 # Calculates the performance metrics using the sk-learn library, given predicted and true labels --------------------
 def get_metrics(y_preds, y_true):
@@ -295,16 +262,6 @@ def get_metrics(y_preds, y_true):
     }
 
     return results, f1_weighted, f1_macro
-# def normalize(x):
-#     return (x - x.min()) / (x.max() - x.min())
-# def predict(model,guide,n_samples,x,lables=None):
-#     sampled_models = [guide(None, None) for _ in range(n_samples)]
-#     yhats = [model(x).data for model in sampled_models]
-#     mean = torch.mean(torch.stack(yhats), 0)
-#     x =  np.argmax(mean.numpy(), axis=1)
-#     # print(x)
-#     return x
-
 
 # Trainer class, the main part of classifying tweets --------------------
 class Trainer:
@@ -582,8 +539,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
     df_exp, num_des = create_explanations_dataset(df_noexp, explanations)
 
     # default explained data can be passed through the pre-trained model
-    # each subset is created and then saved
-    # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
     num = len(explanations) + num_des
     nums = num * 30*3
     subset_1 = df_exp[:]
@@ -655,13 +610,6 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
         torch.save(filtered_embeddings, new_path)
 
     # Find the indices that are not in sampled_indices
-    # indices_to_keep = [i for i in range(len(unexp_embeddings)) if i not in sampled_indices]
-    #
-    # # Select the embeddings that correspond to the indices to keep
-    # filtered_embeddings = unexp_embeddings[indices_to_keep]
-
-    # Save the filtered embeddings to orgfile_path
-    # torch.save(filtered_embeddings, orgfile_path)
     sampled_data_no = [data for i, data in enumerate(raw_dataset_noexp['train']) if i not in sampled_indices]
     data_no_exp_new = []
     for data in sampled_data_no:
@@ -719,7 +667,7 @@ def mc_dropout_sampling(model, k, num):
     else:
         orgfile_path = "./new_unexp_embeddings/NEW_bertie_embeddings_textattack/unexp.pt"
         embeddings = torch.load(orgfile_path)
-        print("mc dropout new embedding", len(embeddings))
+        print("mc dropout begin")
 
     target_shape = (len(embeddings), num * 3)
 
@@ -752,7 +700,6 @@ def mc_dropout_sampling(model, k, num):
     # Select the top k samples with the highest BALD scores
     selected_indices.sort(key=lambda x: x[1], reverse=True)
     selected_indices = [idx for idx, _ in selected_indices[:k]]
-    # print(selected_indices)
 
     return selected_indices
 
@@ -780,7 +727,6 @@ def preprocess_samples_unxep(raw_dataset_noexp):
     embeddings = torch.tensor(emb)
 
     target_shape = (len(embeddings), 27)
-    print(len(embeddings))
     pad_amount = max(target_shape[1] - embeddings.shape[1], 0)
     padded_embeddings = F.pad(embeddings, (0, pad_amount))
     print(padded_embeddings.shape)
@@ -813,7 +759,6 @@ def preprocess_samples(raw_dataset_noexp,num):
     # embeddings = torch.reshape(embeddings, (total_samples, num * 3))
     total_samples = int(embeddings.shape[0] * embeddings.shape[1] / (num * 3))
     embeddings = torch.reshape(embeddings, (total_samples, num * 3))
-    print("uncertainty shape:", embeddings.shape[0])
     return embeddings
 
 def main():
@@ -840,24 +785,35 @@ def main():
     # duplicate tweets are dropped
     df_noexp_all = df_concat.drop_duplicates(subset=["text"], inplace=False)
 
-    # split noexp into two part one part will be explained properly and one part use default explanations
     X = df_noexp_all.drop('labels', axis=1)
     y = df_noexp_all['labels']
-
-    # Use StratifiedShuffleSplit for stratified sampling
     split = StratifiedShuffleSplit(n_splits=1, test_size=0.8, random_state=42)
     train_index, other_index = next(split.split(X, y))
     split = StratifiedShuffleSplit(n_splits=1, test_size=0.875, random_state=42)
     val_index, test_index = next(split.split(X.iloc[other_index], y.iloc[other_index]))
     val_index = other_index[val_index]
     test_index = other_index[test_index]
+    print("len test:", len(val_index))
+    print("len train and val", len(train_index))
+    print("len unannotated set ", len(test_index))
+    split = StratifiedShuffleSplit(n_splits=1, test_size=0.25, random_state=42)
+    trn_index, validation_index = next(split.split(X.iloc[train_index], y.iloc[train_index]))
+    print("len train", len(trn_index))
+    print("len val", len(validation_index))
 
-
-    # Split the data into two parts based on the indices
-    df_noexp = df_noexp_all.iloc[train_index]
+    # Split the data into four parts based on the indices
+    # train (annotated dataset)
+    df_noexp = df_noexp_all.iloc[trn_index]
+    # unannotated dataset
     df_noexp_two = df_noexp_all.iloc[test_index]
+    # test dataset
     test_noexp_all = df_noexp_all.iloc[val_index]
+    # validation dataset
+    val_noexp_all = df_noexp_all.iloc[validation_index]
+
+    # test and validation dataset
     test_noexp_all.to_csv("./test_data/dataset_noexp.csv", index=False)
+    val_noexp_all.to_csv("./val_data/dataset_noexp.csv", index=False)
 
     # saves the unexplained dataset to a dataset directory
     df_noexp_two.to_csv("./data/dataset_noexp.csv", index=False)
@@ -880,7 +836,6 @@ def main():
     data_noexp_one = load_dataset("csv", data_files="./data/dataset_noexp_no.csv")
     data_noexp_one.save_to_disk("./data/no/")
     originlen = len(data_noexp_one["train"]["labels"])
-    # print("originlen: ", originlen)
 
     # reads in explanations and concatenates to the tweets to form an expanded dataset (to initial the pretrained model)
     explanations = read_explanations("explanations.txt")
@@ -897,14 +852,11 @@ def main():
     raw_dataset_noexp = load_from_disk(temp_path_noexp)
     datanoexp_path = "./data/dataset_noexp.csv"
     noexp_df = pd.read_csv(datanoexp_path)
-    # without loop
-    # x = without_loop()
 
     # human in the loop
     global t
     addlen = 0
     while noexp_df.shape[0] > 0 and t<10:
-        print("noexp_df.shape[0] last", noexp_df.shape[0])
         temp_path_noexp = "./data/org/"
         raw_dataset_noexp = load_from_disk(temp_path_noexp)
         datanoexp_path = "./data/dataset_noexp.csv"
@@ -915,11 +867,8 @@ def main():
 
         # default explained data can be passed through the pre-trained model
         # each subset is created and then saved
-        # subset_1 = df_exp[0:(len(df_exp) // 360) * 360]
         num = len(explanations) + 9
         nums = num * 30 * 3
-        print("unexplained dataset length is:")
-        print(noexp_df.shape[0])
 
         #pre train train validation and test dataset ------------------------------------------------------
         model = AutoModelForSequenceClassification.from_pretrained("textattack/bert-base-uncased-MNLI")
@@ -945,7 +894,6 @@ def main():
         emb = []
         temp_path = "./data/exp/subset_1"
         raw_dataset = load_from_disk(temp_path)
-        print("trian and val dataset length: ",len(raw_dataset["train"]["labels"]))
         train_dataloader = DataLoader(raw_dataset["train"], batch_size=10)
         model.eval()
 
@@ -975,24 +923,13 @@ def main():
             else:
                 # If the array is already of the desired size, no padding is needed
                 padded_emb.append(element)
-        # desired_size = 30
-        # padded_emb = [np.pad(element.flatten(), (0, max(0, desired_size - element.size)), mode='constant') for element
-        #               in emb]
         emb = np.array(padded_emb)
         # Convert the list of 1D padded arrays to a 2D numpy array
         emb = np.vstack(emb)
-
-        # emb = np.vstack(emb)
-
         embeddings = torch.tensor(emb)
-        print(embeddings.shape)
-        print(embeddings.shape[0] / (num))
         total_samples = int(embeddings.shape[0]*embeddings.shape[1] / (num*3))
         embeddings = torch.reshape(embeddings, (total_samples, num * 3))
 
-        print(embeddings.shape)
-
-        # creates a filename using the passed in arguments
         # and then saves the embedding with this name
 
         save_filename = (
@@ -1004,7 +941,7 @@ def main():
                 + "subset_1"
                 + ".pt"
         )
-        print(save_filename)
+
         save_directory = "./embeddings/NEW_bertie_embeddings_textattack"
         # Create the directory if it doesn't exist
         if not os.path.exists(save_directory):
@@ -1028,7 +965,7 @@ def main():
         data_noexp.save_to_disk("./testdata/")
 
         test_exp, num_texdes = create_explanations_dataset(test_noexp_all, explanations)
-        print("test len", len(test_exp))
+
         # subset_test = test_exp[0:(len(test_exp) // 360) * 360]
         subset_test = test_exp[0:(len(test_exp) // nums) * nums]
         subset_test.to_csv("./data/dataset_exp_subset_test.csv", index=False)
@@ -1056,18 +993,56 @@ def main():
                 + "subset_1"
                 + ".pt"
         )
-        print(save_filename)
+
         save_directory = "./test_embeddings/NEW_bertie_embeddings_textattack"
         # Create the directory if it doesn't exist
         if not os.path.exists(save_directory):
             os.makedirs(save_directory)
         torch.save(test_embedding, save_filename)
 
+        # -----------------------------pretrain validation dataset--------------------
+        explanations = read_explanations("explanations.txt")
+        data_noexp = load_dataset("csv", data_files="./val_data/dataset_noexp.csv")
+        directory = "./valdata/"
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        data_noexp.save_to_disk("./valdata/")
+
+        val_exp, num_texdes = create_explanations_dataset(val_noexp_all, explanations)
+        subset_val = val_exp[0:(len(val_exp) // nums) * nums]
+        subset_val.to_csv("./data/dataset_exp_subset_val.csv", index=False)
+        subset_val_dict = load_dataset("csv", data_files="./data/dataset_exp_subset_val.csv")
+        directory = "./data/exp/subset_val"
+        for filename in os.listdir(directory):
+            file_path = os.path.join(directory, filename)
+            if os.path.isfile(file_path):
+                # Remove the file
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                # Remove the subdirectory and its contents recursively
+                shutil.rmtree(file_path)
+        # Save the DatasetDict to disk
+        subset_val_dict.save_to_disk("./data/exp/subset_val")
+        val_raw_dataset = load_from_disk("./data/exp/subset_val")
+        val_embedding = preprocess_samples(val_raw_dataset, num)
+        save_filename = ("./val_embeddings/NEW_bertie_embeddings_textattack/bert-base-uncased-MNLI_subset_1.pt")
+        save_directory = "./val_embeddings/NEW_bertie_embeddings_textattack"
+        # Create the directory if it doesn't exist
+        if not os.path.exists(save_directory):
+            os.makedirs(save_directory)
+        torch.save(val_embedding, save_filename)
+
         #classifiy the tweets---------------------------------------------------
         print("classify begin")
         data_noexp_one = load_from_disk("./data/no/")
         originlen = len(data_noexp_one["train"]["labels"])
-        print(originlen)
         train_dataset, val_dataset, test_dataset = get_datasets(originlen,addlen)
 
         # DataLoader splits the datasets into batches
@@ -1107,9 +1082,6 @@ def main():
         class_count = 9
 
         torch.manual_seed("37")
-        # learning_rates = [1e-3,5e-4,1e-4, 5e-5, 1e-5]
-        #val_acc : 0.20 0.28 0.3651 0.2457 0.2127
-        # val_f1_score :0.20  0.12 0.1974 0.1078 0.1146
 
         # initialises the model and hyperparameters taking into account the passed in arguments
         model_NN = BALDModel(feature_count, int("100"), class_count,0.2)
@@ -1155,7 +1127,7 @@ def main():
         noexp_df = pd.read_csv(datanoexp_path)
 
         t = t+1
-        print("t is :",t)
+        print("iteration t is :",t)
         addlen = addlen + 500
         print("addlen is: ",addlen)
 

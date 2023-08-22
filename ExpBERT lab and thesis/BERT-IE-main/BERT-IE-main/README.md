@@ -1,16 +1,13 @@
-# BERT-IE
-Using the code in this repository, the CrisisNLP dataset can be classified using three methods: NoExp, ExpBERT and BERT-IE.
+The lab is for applying pool-based active learning in the ExpBERT-based classification tasks. Include four basic active learning strategies with three alternative annotator simulation processes.
 
-- NoExp is a traditional transfer learning model. 
-- ExpBERT was proposed by Murty et al., and uses explanations to improve performance over NoExp. 
-- BERT-IE builds off ExpBERT and uses Natural Language Inference. This method was proposed as part of a Master's Thesis for a MEng Computer Science degree at the University of Bristol.
+Please run the example.sh script:
 
-The CrisisNLP dataset used was published in the following paper:
-> Muhammad Imran, Prasenjit Mitra, Carlos Castillo: Twitter as a Lifeline: Human-annotated Twitter Corpora for NLP of Crisis-related Messages. In Proceedings of the 10th Language Resources and Evaluation Conference (LREC), pp. 1638-1643. May 2016, Portorož, Slovenia.
+# BALD_MCD.py is for dropout NN use BALD sampling through the MCD
+python BALD_MCD.py
 
-and ExpBERT was proposed in the following paper:
-> Shikhar Murty, Pang Wei Koh, Percy Liang
->
-> [ExpBERT: Representation Engineering with Natural Language Explanations]
+# The dataset to run: active-dataset, full-data
+# annotator type: preset, human, openai
+# active learning strategies type: rs (random sampling), us (uncertainty sampling), ds (diversity sampling)
+python Active Learning Strategies Whole.py --dataset active-dataset --annotator preset --strategy --rs
 
-This code has been built from code developed as part of a previous MEng Computer Science degree at the University of Bristol.
+
