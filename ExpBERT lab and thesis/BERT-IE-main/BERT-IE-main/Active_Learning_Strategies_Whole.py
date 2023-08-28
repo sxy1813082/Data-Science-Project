@@ -41,6 +41,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import openai
 
+random.seed(42)
 
 # iteration steps global t
 t = 0
@@ -519,7 +520,7 @@ def generate_explanations(sampled_data):
 
     strings = []
     global t
-    with open("annator.txt", 'r') as file:
+    with open("annotator.txt", 'r') as file:
         lines = file.readlines()
     start_line = t * 1
     end_line = (t + 1) * 1
@@ -544,9 +545,13 @@ def generate_explanations_human(sampled_data):
     for text in target_texts:
         print(text)
 
-    user_input = input("please input a key explanation for the texts")
+    user_input = input("please input a key explanation for the texts ")
     strings.append(str(user_input))
-    print("explanation is: "+strings)
+
+    # Convert list to string for printing
+    explanations = ', '.join(strings)
+    print("explanation is: "+explanations)
+    strings.append(str(explanations))
 
     return strings
 
@@ -581,7 +586,7 @@ def generate_explanations_AI(sampled_data):
     print(long_text)
 
     # Ask OpenAI model for an explanation
-    openai.api_key = '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'
+    openai.api_key = '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'
     response = openai.Completion.create(
         engine="text-davinci-003",  # Use the Ada engine
         prompt=long_text,
@@ -640,7 +645,7 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             extracted_explanations = file.readlines()[:]
             for extracted_explanation in extracted_explanations:
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
-        with open("GPTuseExp.txt", "r") as file:
+        with open("DefaultuseExp.txt", "r") as file:
             extracted_explanations = file.readlines()[:]
             for extracted_explanation in extracted_explanations:
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
@@ -852,7 +857,8 @@ def semantic_diversity_sampling(model, k, num):
         logits = model(embeddings)  # Assuming the model returns logits
         # Calculate the prediction probabilities
         probs = torch.softmax(logits, dim=-1)
-        # Initialize cluster centers by selecting α vectors from Yi∗
+        # Initialize cluster centers by selecting α vectors from Yi 4% each iteration∗
+        # please change alpha according to your data size
         alpha = 0.2
         embeddings = embeddings.numpy()
         cluster_centers = embeddings[np.random.choice(len(embeddings), int(alpha * len(embeddings)), replace=False)]
@@ -1281,7 +1287,7 @@ def main():
 
         # calls train to start the training, validating and testing process
         trainer.train(
-            int("20"),
+            int("30"),
             print_frequency=1,
         )
 

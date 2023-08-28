@@ -1,0 +1,978 @@
+
+(venv) PS D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main> E:\Git\bin\bash.exe "D:/Bristol course/Data Science Dissertation/ExpBERT lab and thesis/BERT-IE-main/BERT-IE-main/example.sh"
+ds_add_exp_openai_dataset_active-dataset
+len test: 1605
+len train and val 3211
+len unannotated set  11241
+len train 2408
+len val 803
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-48bd1a63766320c1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  3.07it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-48bd1a63766320c1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  9.12it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-2f58d1bfba7c823f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-2f58d1bfba7c823f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 64.06it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-82eaa70f7d58a2eb/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 142.63it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-82eaa70f7d58a2eb/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 90.62it/s] 
+embedding begin                                                                                                                                                                 
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2000.14it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 818.24it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 52.26it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-2c7a4bd3005e66b6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 64.00it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-2c7a4bd3005e66b6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples annotated set begin ...                                                                                                                                     
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2003.01it/s]
+Extracting data files: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1005.35it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 64.50it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-e797afc44880661d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 142.88it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-e797afc44880661d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 90.87it/s] 
+preprocess_samples annotated set begin ...
+classify begin
+  0%|                                                                                                                                                   | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+255it [00:06, 108.14it/s]ds_add_exp_openai_dataset_active-dataset                                                                                                              
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+572it [00:20, 62.81it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+586it [00:31, 62.81it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+874it [00:34, 90.45it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1157it [00:48, 55.85it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1172it [01:01, 55.85it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1415it [01:02, 46.57it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1712it [01:15, 51.28it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2009it [01:27, 51.59it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2309it [01:41, 48.73it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2344it [01:51, 48.73it/s]ds_add_exp_openai_dataset_active-dataset
+2345it [01:53, 11.56it/s]ds_add_exp_openai_dataset_active-dataset
+2619it [01:53, 66.68it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2913it [02:06, 53.09it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3218it [02:18, 54.18it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3514it [02:31, 52.25it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3786it [02:46, 42.53it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4065it [02:59, 44.22it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4102it [03:11, 44.22it/s]ds_add_exp_openai_dataset_active-dataset
+4103it [03:12, 10.45it/s]ds_add_exp_openai_dataset_active-dataset
+4354it [03:13, 72.49it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4667it [03:27, 62.03it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4972it [03:41, 58.06it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5234it [03:55, 43.33it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5550it [04:09, 58.37it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5567it [04:21, 58.37it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5832it [04:23, 59.09it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5860it [04:41, 59.09it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 0
+test epoch results {'accuracy': 0.4666666666666667, 'f1_weighted': 0.38275704654023945, 'f1_macro': 0.2584988681096172, 'f1': array([0.77806789, 0.        , 0.        , 0.08333333, 0.01843318,
+       0.        , 0.40715884, 0.56652361, 0.47297297]), 'precision': array([0.79255319, 0.        , 0.        , 0.3       , 0.66666667,
+       0.        , 0.33333333, 0.41860465, 0.7       ]), 'recall': array([0.76410256, 0.        , 0.        , 0.0483871 , 0.00934579,
+       0.        , 0.52298851, 0.87610619, 0.35714286])}
+val epoch results {'accuracy': 0.5805555555555556, 'f1_weighted': 0.49955475314849, 'f1_macro': 0.27442047508934514, 'f1': array([0.8115942 , 0.        , 0.        , 0.04878049, 0.05555556,
+       0.        , 0.5       , 0.68176101, 0.37209302]), 'precision': array([0.82352941, 0.        , 0.        , 0.4       , 1.        ,
+       0.        , 0.52173913, 0.53557312, 0.64864865]), 'recall': array([0.8       , 0.        , 0.        , 0.02597403, 0.02857143,
+       0.        , 0.48      , 0.93771626, 0.26086957])}
+5860it [04:45, 20.53it/s]
+Label: 0
+generate a string that only contains the words in the text that are only semantically equal to hurt or dead: 
+
+Awful. At least 688 dead in Nepal, according to police. Another 20 killed in India, 6 in Tibet and 2 in Bangladesh. http MGN-AFRICA» Landslides, Flooding Kill 109 In Nepal, Nor
+thern India http » http Flooding in eastern India kills 45 people in the last week. A further 300,000 people are forced to evacuate their homes. almost 5000 people died in Nepal...please do something to help Many dead in Nepal and India floods.
+
+
+AI Explanation: Hurting, dead, killed.
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-a7f9524fc33e2b60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1864.14it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 142.16it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-a7f9524fc33e2b60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 71.43it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-1219480e7abd7826/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 132.51it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-1219480e7abd7826/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 71.49it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-cab5d1f72909c860/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1022.25it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 111.35it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-cab5d1f72909c860/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 90.83it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-503f28364ea6d318/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 134.17it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-503f28364ea6d318/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 79.99it/s] 
+iteration step t is : 1
+addlen is:  500
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 83.33it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-ff575be0a00b57c6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2049.00it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 142.86it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-ff575be0a00b57c6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 73.75it/s] 
+preprocess_samples annotated set begin ...                                                                                                                                     
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 73.74it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-fbb26ddffc46931e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 118.10it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-fbb26ddffc46931e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 86.96it/s] 
+preprocess_samples annotated set begin ...                                                                                                                                      
+classify begin
+  0%|                                                                                                                                                   | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+538it [00:15, 151.04it/s]ds_add_exp_openai_dataset_active-dataset                                                                                                              
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1098it [00:29, 135.25it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1660it [00:44, 126.38it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2286it [00:58, 170.05it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2819it [01:12, 126.98it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2870it [01:23, 126.98it/s]ds_add_exp_openai_dataset_active-dataset
+3413it [01:26, 175.95it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3988it [01:39, 141.21it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4555it [01:53, 133.27it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4592it [02:03, 133.27it/s]ds_add_exp_openai_dataset_active-dataset
+5130it [02:07, 171.86it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5683it [02:21, 130.99it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5740it [02:33, 130.99it/s]ds_add_exp_openai_dataset_active-dataset
+6266it [02:35, 166.74it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+6823it [02:49, 133.29it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7392it [03:03, 135.95it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7462it [03:13, 135.95it/s]ds_add_exp_openai_dataset_active-dataset
+8030it [03:17, 202.81it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+8558it [03:31, 133.50it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+8610it [03:43, 133.50it/s]ds_add_exp_openai_dataset_active-dataset
+9168it [03:45, 181.57it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+9674it [03:58, 106.55it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10312it [04:12, 178.42it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10332it [04:23, 178.42it/s]ds_add_exp_openai_dataset_active-dataset
+10870it [04:26, 169.21it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+11465it [04:40, 168.04it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+11480it [04:53, 168.04it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 1
+test epoch results {'accuracy': 0.4803921568627451, 'f1_weighted': 0.41073901229815, 'f1_macro': 0.28719206766093097, 'f1': array([0.82793017, 0.        , 0.04      , 0.15384615, 0.12851406,
+       0.        , 0.39150943, 0.56995582, 0.47297297]), 'precision': array([0.80582524, 0.        , 1.        , 0.375     , 0.45714286,
+       0.        , 0.332     , 0.42715232, 0.7       ]), 'recall': array([0.85128205, 0.        , 0.02040816, 0.09677419, 0.07476636,
+       0.        , 0.47701149, 0.85619469, 0.35714286])}
+val epoch results {'accuracy': 0.5805555555555556, 'f1_weighted': 0.5093147267560323, 'f1_macro': 0.28553544734040454, 'f1': array([0.8       , 0.        , 0.        , 0.09195402, 0.08888889,
+       0.        , 0.49295775, 0.68380463, 0.41221374]), 'precision': array([0.8       , 0.        , 0.        , 0.4       , 0.2       ,
+       0.        , 0.52238806, 0.54396728, 0.69230769]), 'recall': array([0.8       , 0.        , 0.        , 0.05194805, 0.05714286,
+       0.        , 0.46666667, 0.92041522, 0.29347826])}
+11480it [04:56, 38.66it/s]
+Label: 1
+generate a string that only contains the words in the text that are only semantically equal to missing or trapped or found: 
+
+Kashmir Floods Accurate warnings issued by Flood Control Dept of Jammu in 2010 ignored by 'secular' Congress and NC http Northern California earthquake wipes out power to tens 
+of thousands http http 2.9 lakh people in 294 villages remain marooned in flood waters in Odisha ETTN Monsoon floods hit north India, 1,500 villages under water: Thousands were marooned in villages in UP, wh... http FREEMALAYSIATODAY: Chili sauce to the rescue: Malaysians stranded in Kashmir floods used chili sauce to attrac... http.
+
+
+AI Explanation: "Missing Trapped Found Flood Marooned Villages Stranded"
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-7b85a66bf05b8b92/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 111.18it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-7b85a66bf05b8b92/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 69.16it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-49bbb9e533b6a94a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2002.05it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 117.56it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-49bbb9e533b6a94a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 83.47it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-137636f77a4d18f8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 126.81it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-137636f77a4d18f8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 92.16it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-720bf180e0dec87b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 135.20it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-720bf180e0dec87b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 86.63it/s] 
+iteration step t is : 2
+addlen is:  1000
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+███████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 110.88it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-953d56cb02988e15/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 76.94it/s]
+preprocess_samples annotated set begin ...
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 998.88it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-5e622383b5dbeb5c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 114.20it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-5e622383b5dbeb5c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 94.35it/s]
+preprocess_samples annotated set begin ...                                      
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+773it [00:09, 401.43it/s]ds_add_exp_openai_dataset_active-dataset               
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1572it [00:23, 305.71it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2389it [00:37, 319.47it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2397it [00:49, 319.47it/s]ds_add_exp_openai_dataset_active-dataset
+3127it [00:50, 315.05it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3923it [01:04, 302.15it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4730it [01:18, 314.40it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4794it [01:29, 314.40it/s]ds_add_exp_openai_dataset_active-dataset
+5514it [01:32, 310.99it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+6327it [01:45, 309.44it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7122it [01:59, 305.47it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7920it [02:13, 274.63it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+8774it [02:26, 321.70it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+8789it [02:39, 321.70it/s]ds_add_exp_openai_dataset_active-dataset
+9520it [02:40, 316.38it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10348it [02:54, 322.07it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+11140it [03:07, 269.20it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+11186it [03:19, 269.20it/s]ds_add_exp_openai_dataset_active-dataset
+11939it [03:21, 360.24it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+12746it [03:35, 315.15it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13548it [03:49, 310.69it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13583it [03:59, 310.69it/s]ds_add_exp_openai_dataset_active-dataset
+14378it [04:02, 340.30it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15103it [04:16, 218.23it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15953it [04:30, 313.07it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 2
+test epoch results {'accuracy': 0.5529411764705883, 'f1_weighted': 0.514979693936
+4012, 'f1_macro': 0.39487233337377675, 'f1': array([0.84261501, 0.        , 0.25      , 0.28723404, 0.57613169,
+       0.        , 0.47407407, 0.58475336, 0.53904282]), 'precision': array([0.79816514, 0.        , 0.53333333, 0.421875  , 0.51470588,
+       0.        , 0.66666667, 0.49170437, 0.53233831]), 'recall': array([0.89230769, 0.        , 0.16326531, 0.21774194, 0.65420561,
+       0.        , 0.36781609, 0.72123894, 0.54591837])}
+val epoch results {'accuracy': 0.6041666666666666, 'f1_weighted': 0.5671489764152
+56, 'f1_macro': 0.40497772383226355, 'f1': array([0.8372093 , 0.        , 0.42857143, 0.26446281, 0.49462366,
+       0.        , 0.45714286, 0.69653179, 0.46625767]), 'precision': array([0.81818182, 0.        , 0.75      , 0.36363636, 0.39655172,
+       0.        , 0.8       , 0.59801489, 0.53521127]), 'recall': array([0.85714286, 0.        , 0.3       , 0.20779221, 0.65714286,
+       0.        , 0.32      , 0.83391003, 0.41304348])}
+15980it [04:44, 56.09it/s]
+Label: 2
+generate a string that only contains the words in the text that are only semantically equal to displaced and evacuations:
+
+Pakistan Floods affect more than one million  http http Residents, Tourists Sent 
+to Shelters as Hurricane Odile Makes Landfall - ABC News: ABC NewsResidents, Tour
+ists... http Hagupit Oxfam rapid assessment teams to survey immediate needs of ev
+acuees http Philippines http Communities mobilize for relief as Super Typhoon Hag
+upit roars toward Philippines http Ruby P H Chile - Residents of Iquique spend th
+e night on the street after a second major quake hit the region in as many days http.
+
+
+AI Explanation: "Displaced evacuees Residents Shelters Hurricane Odile Landfall evacuees Communities mobilize relief Super Typhoon Hagupit
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-11b8fe97d4ed3ca6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 124.98it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-11b8fe97d4ed3ca6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 87.76it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a3f3a42a0d851361/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 147.27it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a3f3a42a0d851361/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.93it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-26d9758b8803cf2f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 37.76it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-26d9758b8803cf2f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.86it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a60945ce5cc07558/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.62it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a60945ce5cc07558/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 91.05it/s] 
+iteration step t is : 3                                                          
+addlen is:  1500
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 392.91it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-7cd78ccf25ce57bd/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 107.46it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-7cd78ccf25ce57bd/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 79.01it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 999.83it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-76cf83d9183d2e3e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 125.59it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-76cf83d9183d2e3e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.93it/s] 
+preprocess_samples annotated set begin ...                                      
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+957it [00:09, 595.37it/s]ds_add_exp_openai_dataset_active-dataset               
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+979it [00:21, 595.37it/s]ds_add_exp_openai_dataset_active-dataset
+1881it [00:23, 456.48it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2849it [00:37, 417.07it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3912it [00:51, 499.32it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4835it [01:05, 328.01it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5874it [01:20, 518.33it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5874it [01:31, 518.33it/s]ds_add_exp_openai_dataset_active-dataset
+6835it [01:34, 517.18it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7787it [01:47, 462.88it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+8754it [02:01, 427.49it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+9746it [02:16, 423.09it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10737it [02:29, 433.98it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10769it [02:41, 433.98it/s]ds_add_exp_openai_dataset_active-dataset
+11744it [02:43, 495.62it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+12711it [02:57, 407.53it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13632it [03:11, 396.24it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13706it [03:21, 396.24it/s]ds_add_exp_openai_dataset_active-dataset
+14662it [03:25, 525.53it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15646it [03:39, 519.88it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15664it [03:51, 519.88it/s]ds_add_exp_openai_dataset_active-dataset
+16638it [03:53, 502.85it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+17576it [04:07, 422.20it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+18540it [04:21, 464.36it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+18601it [04:31, 464.36it/s]ds_add_exp_openai_dataset_active-dataset
+19549it [04:35, 499.25it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 3
+test epoch results {'accuracy': 0.5777777777777777, 'f1_weighted': 0.543603556396
+0369, 'f1_macro': 0.4354326681200796, 'f1': array([0.87064677, 0.        , 0.44186047, 0.24852071, 0.58924731,
+       0.04347826, 0.56375839, 0.60068847, 0.56069364]), 'precision': array([0.84541063, 0.        , 0.51351351, 0.46666667, 0.54581673,
+       0.66666667, 0.67741935, 0.4915493 , 0.64666667]), 'recall': array([0.8974359 , 0.        , 0.3877551 , 0.16935484, 0.64018692,
+       0.02247191, 0.48275862, 0.77212389, 0.49489796])}
+val epoch results {'accuracy': 0.6055555555555555, 'f1_weighted': 0.5591554158815
+898, 'f1_macro': 0.41062455576569595, 'f1': array([0.82464455, 0.        , 0.625     , 0.13861386, 0.43956044,
+       0.        , 0.49122807, 0.70360111, 0.47297297]), 'precision': array([0.82075472, 0.        , 0.83333333, 0.29166667, 0.35714286,
+       0.        , 0.71794872, 0.58660508, 0.625     ]), 'recall': array([0.82857143, 0.        , 0.5       , 0.09090909, 0.57142857,
+       0.        , 0.37333333, 0.87889273, 0.38043478])}
+19580it [04:49, 67.69it/s]
+Label: 3
+generate a string that only contains the words in the text that are only semantically equal to infrastructure or utilities damage:
+
+A Path of Hurricane Odile's Destruction, Seen Through Instagram: Hurricane Odile 
+came ashore… http Give Aid to Victims of Disastrous Cyclone http Fortunately, Gal
+lery 1870 in Yountville, Ca only incurred minor damage during Sunday's Napa Valle
+y earthquake,... http ( +1 849-846-0679 ) Scores Killed in Flooding in Nepal and 
+India: More than 11,000 homes have been damaged and r...  (( Papiiz_ Chulò )) My 
+husband snapped a pic of damage through a window. So sad to see a beautiful  suffer so much damage Odile ht….
+
+
+AI Explanation: "Hurricane Odile minor damage Sunday's Napa Valley earthquake flooding Nepal India damaged homes suffer damage Odile"
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-f7608b200df04171/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 154.13it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-f7608b200df04171/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 79.99it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-e2f63dd3f30177ab/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 117.89it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-e2f63dd3f30177ab/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 79.21it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-c2a8c578be24d34c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 139.62it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-c2a8c578be24d34c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.94it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-4b8f43ba6d405d92/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 124.93it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-4b8f43ba6d405d92/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 81.44it/s] 
+iteration step t is : 4
+addlen is:  2000
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 333.07it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-570ec2124c6df1a6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 133.31it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-570ec2124c6df1a6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 86.39it/s] 
+preprocess_samples annotated set begin ...                                                                                                                                      
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1027.51it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-3442bb93e8a9b673/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 2135.59it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 133.33it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-3442bb93e8a9b673/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 99.96it/s] 
+preprocess_samples annotated set begin ...
+classify begin
+  0%|                                                                                                                                                   | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1108it [00:09, 690.12it/s]ds_add_exp_openai_dataset_active-dataset                                                                                                             
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2199it [00:23, 515.60it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+2250it [00:36, 515.60it/s]ds_add_exp_openai_dataset_active-dataset
+3315it [00:37, 576.74it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4458it [00:52, 575.94it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+5583it [01:06, 548.31it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+6750it [01:20, 614.33it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7793it [01:35, 486.74it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7875it [01:46, 486.74it/s]ds_add_exp_openai_dataset_active-dataset
+8952it [01:49, 594.52it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+10073it [02:03, 554.95it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+11194it [02:17, 562.19it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+12326it [02:31, 556.93it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13435it [02:45, 550.46it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13500it [02:56, 550.46it/s]ds_add_exp_openai_dataset_active-dataset
+14604it [03:00, 620.04it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15729it [03:14, 575.29it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+15750it [03:26, 575.29it/s]ds_add_exp_openai_dataset_active-dataset
+16849it [03:28, 624.01it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+17965it [03:42, 585.20it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+19070it [03:56, 562.06it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+20196it [04:10, 549.15it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+21330it [04:24, 567.96it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+21375it [04:36, 567.96it/s]ds_add_exp_openai_dataset_active-dataset
+22482it [04:38, 631.06it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 4
+test epoch results {'accuracy': 0.5993464052287582, 'f1_weighted': 0.5728065344249937, 'f1_macro': 0.4850592986829634, 'f1': array([0.86934673, 0.13636364, 0.53763441, 0.35555556, 0.64719101,
+       0.08      , 0.57704918, 0.61538462, 0.54700855]), 'precision': array([0.85221675, 0.42857143, 0.56818182, 0.57142857, 0.62337662,
+       0.36363636, 0.67175573, 0.50867052, 0.61935484]), 'recall': array([0.88717949, 0.08108108, 0.51020408, 0.25806452, 0.6728972 ,
+       0.04494382, 0.50574713, 0.77876106, 0.48979592])}
+val epoch results {'accuracy': 0.6125, 'f1_weighted': 0.5721615694803119, 'f1_macro': 0.422916476390784, 'f1': array([0.83412322, 0.        , 0.58823529, 0.27027027, 0.47191011,
+       0.        , 0.49122807, 0.70292887, 0.44755245]), 'precision': array([0.83018868, 0.        , 0.71428571, 0.44117647, 0.38888889,
+       0.        , 0.71794872, 0.58878505, 0.62745098]), 'recall': array([0.83809524, 0.        , 0.5       , 0.19480519, 0.6       ,
+       0.        , 0.37333333, 0.87197232, 0.34782609])}
+22500it [04:53, 76.55it/s]
+Label: 4
+generate a string that only contains the words in the text that are only semantically equal to donation or offers or volunteering: 
+
+India sends planes with rescuers, essentials to Kathmandu http http (photo via Please help spread the word. Vanuatu needs our help. No one knows what happened. http India offer
+ed $1 Billion loan help $10+ Mil as aid  US offer $1M as aid  + Army of Missionaries   Soul Vultures  http £5 can provide a family with clean water for a month. Text DEC to 70000 to donate £5 Nepal Quake http Jammu and Kashmir floods: Army has given medical aid to over 53,000 victims http -via.
+
+
+AI Explanation: "India offered $1 Billion loan help $10+ Mil as aid US offer $1M as aid donate to DEC to
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-2c843615f2e2a953/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 133.26it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-2c843615f2e2a953/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 86.92it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-a39f48ef163c5a17/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 120.04it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-a39f48ef163c5a17/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 60.41it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-dad7acef64f02dbc/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 126.64it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-dad7acef64f02dbc/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 80.01it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-07b5bf9a1a4ba46d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 1032.83it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 123.95it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-07b5bf9a1a4ba46d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 83.36it/s] 
+iteration step t is : 5                                                                                                                                                        
+addlen is:  2500
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-d070439785c56cb5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 500.16it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-7519a5ee354ce561/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 82.95it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-7519a5ee354ce561/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 66.56it/s] 
+preprocess_samples annotated set begin ...
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-1fcc357cc4fd693c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 502.31it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-290b2ef004691549/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 124.86it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-290b2ef004691549/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 55.55it/s] 
+preprocess_samples annotated set begin ...                                                                                                                                      
+classify begin
+  0%|                                                                                                                                                   | 0/20 [00:00<?, ?it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1231it [00:10, 721.04it/s]ds_add_exp_openai_dataset_active-dataset                                                                                                             
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+1238it [00:21, 721.04it/s]ds_add_exp_openai_dataset_active-dataset
+2404it [00:24, 660.35it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+3641it [00:38, 644.28it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+4871it [00:52, 633.59it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+6164it [01:07, 660.10it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7427it [01:21, 653.69it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+7428it [01:31, 653.69it/s]ds_add_exp_openai_dataset_active-dataset
+8619it [01:35, 674.89it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+9884it [01:50, 660.76it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+9904it [02:01, 660.76it/s]ds_add_exp_openai_dataset_active-dataset
+11078it [02:04, 593.75it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+12374it [02:18, 668.11it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+13548it [02:32, 607.52it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+14846it [02:47, 693.41it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+16036it [03:01, 616.23it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+16094it [03:11, 616.23it/s]ds_add_exp_openai_dataset_active-dataset
+17326it [03:15, 679.21it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+18509it [03:29, 619.11it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+18570it [03:41, 619.11it/s]ds_add_exp_openai_dataset_active-dataset
+19765it [03:44, 671.10it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+20995it [03:58, 674.53it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+22204it [04:12, 617.97it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+23490it [04:26, 636.44it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+24673it [04:40, 604.33it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+epoch number 19
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+24760it [04:51, 604.33it/s]ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+global t is : 5
+test epoch results {'accuracy': 0.5934640522875817, 'f1_weighted': 0.5673397359239285, 'f1_macro': 0.4778686968888333, 'f1': array([0.87594937, 0.12765957, 0.52083333, 0.29761905, 0.64383562,
+       0.07920792, 0.59942363, 0.60276498, 0.5535248 ]), 'precision': array([0.865     , 0.3       , 0.53191489, 0.56818182, 0.62946429,
+       0.33333333, 0.60115607, 0.51658768, 0.56684492]), 'recall': array([0.88717949, 0.08108108, 0.51020408, 0.2016129 , 0.6588785 ,
+       0.04494382, 0.59770115, 0.72345133, 0.54081633])}
+val epoch results {'accuracy': 0.6319444444444444, 'f1_weighted': 0.5920626086482965, 'f1_macro': 0.44678219620964454, 'f1': array([0.83962264, 0.        , 0.63157895, 0.21568627, 0.55813953,
+       0.        , 0.58015267, 0.72150072, 0.47435897]), 'precision': array([0.8317757 , 0.        , 0.66666667, 0.44      , 0.47058824,
+       0.        , 0.67857143, 0.61881188, 0.578125  ]), 'recall': array([0.84761905, 0.        , 0.6       , 0.14285714, 0.68571429,
+       0.        , 0.50666667, 0.8650519 , 0.40217391])}
+24760it [04:55, 83.83it/s]
+Label: 5
+generate a string that only contains the words in the text that are only semantically equal to caution and advice: 
+
+Tsunami warning is now in effect for Chile and Peru, following the 7.8 quake on Wednesday http nussa! "Climate change is intensifying the risks for hundreds of millions of peop
+le" -  Ban http Pam http "@htTweets: Chile: Massive 8.2 earthquake hits the coast; sparks tsunami http Hagupit is now a Super Typhoon and looks to reach maximum potential intensity. Philippines: prepare for landfall &amp; focu… Thanks partly to developing El Niño, Typhoon Hagupit will be weaker than Hayan at Philippine landfall.  http.
+
+
+AI Explanation: 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-95296cbbf04a04a7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 152.22it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-95296cbbf04a04a7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 90.66it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-bd8e06e96af5a5d7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 153.80it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-bd8e06e96af5a5d7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 74.09it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-a0b0a83461ecaf27/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 104.90it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-a0b0a83461ecaf27/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 90.57it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingface/datasets/csv/default-9f87638dd2fcf4bf/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 92.27it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-9f87638dd2fcf4bf/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 83.06it/s] 
+iteration step t is : 6
+addlen is:  3000
+embedding begin
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset
+ds_add_exp_openai_dataset_active-dataset

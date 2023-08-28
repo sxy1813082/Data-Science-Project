@@ -1,0 +1,2130 @@
+Windows PowerShell
+版权所有（C） Microsoft Corporation。保留所有权利。
+
+安装最新的 PowerShell，了解新功能和改进！https://aka.ms/PSWindows
+
+(venv) PS D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main> E:\Git\bin\bash.exe "D:/Bristol course/Data Science Dissertation/ExpBERT lab and thesis/BERT-IE-main/BERT-IE-main/example.sh"
+ds_add_1_823
+len test: 1605
+len train and val 3211
+len unannotated set  11241
+Extracting data files: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  8.85it/s]
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-ece6e13bb2926b47/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00, 26.66it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-7783a55ca46622e0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2000.14it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 83.33it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-7783a55ca46622e0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 74.07it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-14c0c0025b177320/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-14c0c0025b177320/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+unannotated dataset last 11241                                                   
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.99it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-694da0287930730a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-694da0287930730a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.86it/s] 
+preprocess_samples annotated set begin ...                                       
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 998.41it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 83.32it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-29849564084620b6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-29849564084620b6/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 53.92it/s] 
+preprocess_samples annotated set begin ...
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+282it [00:04, 123.42it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+549it [00:13, 51.91it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+793it [00:22, 43.63it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+880it [00:31, 20.81it/s]ds_add_1_823
+1119it [00:32, 58.13it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1380it [00:41, 47.19it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1696it [00:50, 54.40it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1988it [01:00, 56.28it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2299it [01:09, 58.42it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2631it [01:19, 61.93it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2927it [01:29, 56.08it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3172it [01:39, 42.46it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3506it [01:48, 57.83it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3757it [01:57, 45.04it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4023it [02:07, 44.44it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4103it [02:16, 21.18it/s]ds_add_1_823
+4339it [02:16, 57.02it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4671it [02:25, 63.87it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4914it [02:34, 45.86it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5242it [02:43, 59.68it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5551it [02:53, 57.71it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5791it [03:03, 42.82it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+5860it [03:14, 42.82it/s]ds_add_1_823
+ds_add_1_823
+global t is : 0
+test epoch results {'accuracy': 0.4666666666666667, 'f1_weighted': 0.382757046540
+23945, 'f1_macro': 0.2584988681096172, 'f1': array([0.77806789, 0.        , 0.        , 0.08333333, 0.01843318,
+       0.        , 0.40715884, 0.56652361, 0.47297297]), 'precision': array([0.79255319, 0.        , 0.        , 0.3       , 0.66666667,
+       0.        , 0.33333333, 0.41860465, 0.7       ]), 'recall': array([0.76410256, 0.        , 0.        , 0.0483871 , 0.00934579,
+       0.        , 0.52298851, 0.87610619, 0.35714286])}
+val epoch results {'accuracy': 0.5805555555555556, 'f1_weighted': 0.4995547531484
+9, 'f1_macro': 0.27442047508934514, 'f1': array([0.8115942 , 0.        , 0.        , 0.04878049, 0.05555556,
+       0.        , 0.5       , 0.68176101, 0.37209302]), 'precision': array([0.82352941, 0.        , 0.        , 0.4       , 1.        ,
+       0.        , 0.52173913, 0.53557312, 0.64864865]), 'recall': array([0.8       , 0.        , 0.        , 0.02597403, 0.02857143,
+       0.        , 0.48      , 0.93771626, 0.26086957])}
+5860it [03:18, 29.50it/s]
+['someone is confirm dead death die or killed injured or hurt\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-53f23bcce8406e54/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 21.13it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-53f23bcce8406e54/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.00it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-8901c736db8b860a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 132.52it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-8901c736db8b860a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 86.68it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-ef82ff25a2438444/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 36.74it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-ef82ff25a2438444/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-cea574bd62fb7966/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 10.03it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-cea574bd62fb7966/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 31.82it/s] 
+iteration step t is : 1
+addlen is:  500
+unannotated dataset last 10741
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.02it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a92ab7ccd6334f97/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.32it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a92ab7ccd6334f97/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 50.87it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.92it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-84760749780ad6a0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-84760749780ad6a0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples annotated set begin ...                                      
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+360it [00:08, 108.02it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+635it [00:21, 39.44it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1080it [00:34, 66.85it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1080it [00:45, 66.85it/s]ds_add_1_823
+1355it [00:47, 49.56it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1737it [00:59, 53.41it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2095it [01:13, 50.52it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2160it [01:25, 50.52it/s]ds_add_1_823
+2505it [01:26, 67.28it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2841it [01:39, 48.82it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3174it [01:52, 46.41it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3240it [02:05, 46.41it/s]ds_add_1_823
+3567it [02:05, 63.34it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3940it [02:19, 53.40it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4304it [02:32, 50.84it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4640it [02:45, 49.66it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4981it [02:58, 48.04it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5346it [03:11, 49.91it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5695it [03:24, 49.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5760it [03:35, 49.88it/s]ds_add_1_823
+6094it [03:37, 63.34it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6427it [03:50, 49.17it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6774it [04:04, 47.37it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6840it [04:15, 47.37it/s]ds_add_1_823
+7178it [04:17, 63.74it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+global t is : 1
+test epoch results {'accuracy': 0.48169934640522877, 'f1_weighted': 0.41066993402
+585245, 'f1_macro': 0.2812232709326238, 'f1': array([0.80412371, 0.        , 0.        , 0.09395973, 0.17004049,
+       0.        , 0.41882353, 0.57019438, 0.4738676 ]), 'precision': array([0.80829016, 0.        , 0.        , 0.28      , 0.63636364,
+       0.        , 0.35458167, 0.4226254 , 0.74725275]), 'recall': array([0.8       , 0.        , 0.        , 0.05645161, 0.09813084,
+       0.        , 0.51149425, 0.87610619, 0.34693878])}
+val epoch results {'accuracy': 0.5819444444444445, 'f1_weighted': 0.5087125255366
+78, 'f1_macro': 0.2916473662154676, 'f1': array([0.8115942 , 0.        , 0.        , 0.07142857, 0.18181818,
+       0.        , 0.48920863, 0.68015171, 0.390625  ]), 'precision': array([0.82352941, 0.        , 0.        , 0.42857143, 0.44444444,
+       0.        , 0.53125   , 0.53585657, 0.69444444]), 'recall': array([0.8       , 0.        , 0.        , 0.03896104, 0.11428571,
+       0.        , 0.45333333, 0.93079585, 0.27173913])}
+7200it [04:32, 26.44it/s]
+['missing or lost or trapped was found or rescued stranded stuck\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-98de1f45f06e4e90/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.99it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-98de1f45f06e4e90/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.58it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-263ae5d9e2b182b7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-263ae5d9e2b182b7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.21it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-6a7dbcf8fa24753c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1855.89it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 117.67it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-6a7dbcf8fa24753c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 104.79it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-e5779fe41a00a329/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00,  9.10it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-e5779fe41a00a329/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 62.13it/s] 
+iteration step t is : 2                                                          
+addlen is:  1000
+unannotated dataset last 10241
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-35eb7beb83a91f52/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.04it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-35eb7beb83a91f52/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.72it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-18ea0f59e09567b7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 132.82it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-18ea0f59e09567b7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 110.38it/s] 
+preprocess_samples annotated set begin ...
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+355it [00:08, 106.24it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+814it [00:21, 79.95it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+834it [00:31, 79.95it/s]ds_add_1_823
+1193it [00:34, 72.49it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1649it [00:47, 76.45it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2020it [01:00, 55.59it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2085it [01:11, 55.59it/s]ds_add_1_823
+2419it [01:13, 65.08it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2901it [01:27, 93.04it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3315it [01:40, 71.31it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3336it [01:52, 71.31it/s]ds_add_1_823
+3679it [01:53, 68.47it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4110it [02:06, 72.31it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4565it [02:19, 76.11it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4587it [02:32, 76.11it/s]ds_add_1_823
+4934it [02:32, 71.03it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5372it [02:45, 75.50it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5819it [02:58, 75.34it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6205it [03:12, 68.16it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6629it [03:25, 70.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7032it [03:38, 67.22it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7469it [03:52, 72.86it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7506it [04:02, 72.86it/s]ds_add_1_823
+7835it [04:05, 68.09it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8258it [04:18, 71.63it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+8340it [04:32, 71.63it/s]ds_add_1_823
+ds_add_1_823
+global t is : 2
+test epoch results {'accuracy': 0.530718954248366, 'f1_weighted': 0.4832492173642
+3293, 'f1_macro': 0.35133011042740037, 'f1': array([0.825     , 0.        , 0.11538462, 0.14379085, 0.47849462,
+       0.        , 0.47222222, 0.58414239, 0.54293629]), 'precision': array([0.80487805, 0.        , 1.        , 0.37931034, 0.56329114,
+       0.        , 0.45698925, 0.46045918, 0.59393939]), 'recall': array([0.84615385, 0.        , 0.06122449, 0.08870968, 0.41588785,
+       0.        , 0.48850575, 0.79867257, 0.5       ])}
+val epoch results {'accuracy': 0.6208333333333333, 'f1_weighted': 0.5616118829068
+493, 'f1_macro': 0.3527263110335063, 'f1': array([0.82407407, 0.        , 0.        , 0.11764706, 0.46376812,
+       0.        , 0.58015267, 0.70889488, 0.48      ]), 'precision': array([0.8018018 , 0.        , 0.        , 0.625     , 0.47058824,
+       0.        , 0.67857143, 0.58057395, 0.62068966]), 'recall': array([0.84761905, 0.        , 0.        , 0.06493506, 0.45714286,
+       0.        , 0.50666667, 0.9100346 , 0.39130435])}
+8340it [04:32, 30.58it/s]
+['people were displaced sent to shelters evacuated and relocated temporary\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-0cd607af1d103dd4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.34it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-0cd607af1d103dd4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 100.00it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-6d33c436e98dcd5f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 63.99it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-6d33c436e98dcd5f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.76it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-52c9a00c31b36753/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2000.14it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 117.14it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-52c9a00c31b36753/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 84.23it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-8d028cc2888516fb/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00,  9.61it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-8d028cc2888516fb/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.73it/s] 
+iteration step t is : 3
+addlen is:  1500
+unannotated dataset last 9741
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 966.21it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-3345db3379de3f25/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 52.83it/s] /csv/default-3345db3379de3f25/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets/csv/default-3345db3379de3f25/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.57it/s] 
+preprocess_samples annotated set begin ...
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-5b93c864d08afd67/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.04it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-5b93c864d08afd67/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 99.55it/s] 
+preprocess_samples annotated set begin ...                                       
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+468it [00:08, 189.03it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+484it [00:18, 189.03it/s]ds_add_1_823
+906it [00:21, 104.14it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1409it [00:35, 99.16it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1934it [00:48, 109.36it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1936it [00:58, 109.36it/s]ds_add_1_823
+2381it [01:01, 103.50it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2844it [01:14, 83.33it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3313it [01:27, 79.27it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3388it [01:38, 79.27it/s]ds_add_1_823
+3846it [01:40, 108.11it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4323it [01:54, 95.18it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4800it [02:07, 93.00it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4840it [02:18, 93.00it/s]ds_add_1_823
+5296it [02:21, 128.00it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5804it [02:34, 120.70it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6222it [02:48, 75.53it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6292it [02:58, 75.53it/s]ds_add_1_823
+6756it [03:01, 103.61it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7255it [03:14, 101.84it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7735it [03:27, 100.20it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7744it [03:38, 100.20it/s]ds_add_1_823
+8157it [03:40, 96.53it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8691it [03:53, 107.52it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9183it [04:07, 96.91it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9196it [04:18, 96.91it/s]ds_add_1_823
+9640it [04:20, 118.66it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+global t is : 3
+test epoch results {'accuracy': 0.5372549019607843, 'f1_weighted': 0.500829993163
+6565, 'f1_macro': 0.3812409281049513, 'f1': array([0.8337469 , 0.        , 0.25316456, 0.21348315, 0.52068127,
+       0.        , 0.48024316, 0.57958478, 0.55026455]), 'precision': array([0.80769231, 0.        , 0.33333333, 0.35185185, 0.54314721,
+       0.        , 0.50967742, 0.47585227, 0.57142857]), 'recall': array([0.86153846, 0.        , 0.20408163, 0.15322581, 0.5       ,
+       0.        , 0.45402299, 0.74115044, 0.53061224])}
+val epoch results {'accuracy': 0.6305555555555555, 'f1_weighted': 0.5820054720255
+82, 'f1_macro': 0.4011972200436301, 'f1': array([0.84545455, 0.        , 0.33333333, 0.17821782, 0.47887324,
+       0.        , 0.52713178, 0.72144847, 0.52631579]), 'precision': array([0.80869565, 0.        , 1.        , 0.375     , 0.47222222,
+       0.        , 0.62962963, 0.6037296 , 0.66666667]), 'recall': array([0.88571429, 0.        , 0.2       , 0.11688312, 0.48571429,
+       0.        , 0.45333333, 0.89619377, 0.43478261])}
+9680it [04:35, 35.14it/s]
+['people are praying god bless folded hands lord in their thoughts\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-78af4808056f6712/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-78af4808056f6712/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-476ec67b5e28ee49/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 141.92it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-476ec67b5e28ee49/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 61.11it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-25f55b16f5dbcdaa/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 99.92it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-25f55b16f5dbcdaa/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.05it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-40f0c2c19d2a617b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-40f0c2c19d2a617b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 61.97it/s] 
+iteration step t is : 4
+addlen is:  2000
+unannotated dataset last 9241
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 994.38it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-c0eb1c45d1833b47/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 137.36it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-c0eb1c45d1833b47/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 87.63it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 500.04it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-064173849e1257fd/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.85it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-064173849e1257fd/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.91it/s] 
+preprocess_samples annotated set begin ...                                       
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+468it [00:08, 190.77it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1072it [00:22, 151.11it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1601it [00:35, 109.28it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1620it [00:47, 109.28it/s]ds_add_1_823
+2149it [00:48, 142.65it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2696it [01:02, 110.96it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3223it [01:15, 106.53it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3240it [01:27, 106.53it/s]ds_add_1_823
+3768it [01:29, 143.07it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4278it [01:42, 104.32it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4837it [01:56, 132.19it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4860it [02:07, 132.19it/s]ds_add_1_823
+5338it [02:09, 133.54it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5896it [02:23, 135.80it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6419it [02:36, 109.48it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6480it [02:47, 109.48it/s]ds_add_1_823
+6979it [02:50, 136.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7510it [03:03, 109.14it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8055it [03:16, 108.23it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8100it [03:27, 108.23it/s]ds_add_1_823
+8600it [03:30, 137.43it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9099it [03:43, 103.06it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9651it [03:56, 133.81it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9720it [04:07, 133.81it/s]ds_add_1_823
+10195it [04:10, 137.78it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10710it [04:23, 108.11it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10800it [04:37, 108.11it/s]global t is : 4
+test epoch results {'accuracy': 0.5607843137254902, 'f1_weighted': 0.526805600479
+9725, 'f1_macro': 0.41918666170457797, 'f1': array([0.85221675, 0.        , 0.42696629, 0.25668449, 0.5440806 ,
+       0.        , 0.57142857, 0.59157352, 0.52972973]), 'precision': array([0.81990521, 0.        , 0.475     , 0.38095238, 0.59016393,
+       0.        , 0.62162162, 0.4838256 , 0.56321839]), 'recall': array([0.88717949, 0.        , 0.3877551 , 0.19354839, 0.5046729 ,
+       0.        , 0.52873563, 0.76106195, 0.5       ])}
+val epoch results {'accuracy': 0.6347222222222222, 'f1_weighted': 0.5883161899257
+753, 'f1_macro': 0.4301207577790022, 'f1': array([0.85087719, 0.        , 0.5       , 0.18367347, 0.51282051,
+       0.        , 0.62015504, 0.71022727, 0.49333333]), 'precision': array([0.78861789, 0.        , 0.66666667, 0.42857143, 0.46511628,
+       0.        , 0.74074074, 0.60240964, 0.63793103]), 'recall': array([0.92380952, 0.        , 0.4       , 0.11688312, 0.57142857,
+       0.        , 0.53333333, 0.8650519 , 0.40217391])}
+10800it [04:38, 38.82it/s]
+['there is significant damage homes losses no electricity water has been restored\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-f7bfb1681d5af668/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2000.14it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 143.49it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-f7bfb1681d5af668/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 99.99it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-e23c45dc58bdb0fe/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.35it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-e23c45dc58bdb0fe/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.91it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-64f0c2c79408c93a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 47.61it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-64f0c2c79408c93a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 83.89it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-009f9ea9d376d91b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 111.04it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-009f9ea9d376d91b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.89it/s] 
+iteration step t is : 5                                                         
+addlen is:  2500
+unannotated dataset last 8741
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 62.32it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-1440c532236e98b4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.06it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-1440c532236e98b4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.99it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 69.26it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-b7ef311f65ea2d9f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.40it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-b7ef311f65ea2d9f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 68.99it/s] 
+preprocess_samples annotated set begin ...
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+594it [00:16, 189.30it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1211it [00:31, 186.26it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1808it [00:45, 170.13it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2387it [01:00, 158.83it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2975it [01:14, 159.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3040it [01:25, 159.88it/s]ds_add_1_823
+3627it [01:29, 209.89it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4221it [01:44, 176.02it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4256it [01:55, 176.02it/s]ds_add_1_823
+4859it [02:00, 205.38it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5460it [02:14, 168.14it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5472it [02:25, 168.14it/s]ds_add_1_823
+6067it [02:28, 206.72it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6681it [02:43, 198.15it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6688it [02:55, 198.15it/s]ds_add_1_823
+7228it [02:57, 176.44it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7899it [03:10, 194.57it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8483it [03:24, 142.93it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8512it [03:35, 142.93it/s]ds_add_1_823
+9075it [03:37, 179.96it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9718it [03:51, 181.80it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10277it [04:05, 136.96it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10336it [04:15, 136.96it/s]ds_add_1_823
+10893it [04:18, 164.08it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11532it [04:33, 179.41it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11552it [04:45, 179.41it/s]ds_add_1_823
+12124it [04:46, 186.38it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+global t is : 5
+test epoch results {'accuracy': 0.5771241830065359, 'f1_weighted': 0.541219950531
+2228, 'f1_macro': 0.41639911239374494, 'f1': array([0.84577114, 0.        , 0.24390244, 0.27710843, 0.58295964,
+       0.02197802, 0.60465116, 0.60683761, 0.56438356]), 'precision': array([0.82125604, 0.        , 0.3030303 , 0.54761905, 0.56034483,
+       0.5       , 0.71653543, 0.49442897, 0.60946746]), 'recall': array([0.87179487, 0.        , 0.20408163, 0.18548387, 0.60747664,
+       0.01123596, 0.52298851, 0.78539823, 0.5255102 ])}
+val epoch results {'accuracy': 0.6388888888888888, 'f1_weighted': 0.5878041335024
+922, 'f1_macro': 0.42778695329229793, 'f1': array([0.86238532, 0.        , 0.53333333, 0.15384615, 0.50666667,
+       0.        , 0.58267717, 0.72399445, 0.48717949]), 'precision': array([0.83185841, 0.        , 0.8       , 0.5       , 0.475     ,
+       0.        , 0.71153846, 0.60416667, 0.59375   ]), 'recall': array([0.8952381 , 0.        , 0.4       , 0.09090909, 0.54285714,
+       0.        , 0.49333333, 0.90311419, 0.41304348])}
+12160it [05:01, 40.37it/s]
+['people are offering to help volunteering donate donations give $ money generously\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-617a2b554f0fc9db/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 105.26it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-617a2b554f0fc9db/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 95.18it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-58ae94333840bcbe/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2018.43it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 117.65it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-58ae94333840bcbe/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 79.77it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-341851e2bf34aed2/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1999.19it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.32it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-341851e2bf34aed2/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-d9ecca1da2892a0a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-d9ecca1da2892a0a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+iteration step t is : 6                                                         
+addlen is:  3000
+unannotated dataset last 8241
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 250.02it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-019ca7ba1d98c3d8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████| 1/1 [00:00<00:00, 999.83it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 111.11it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-019ca7ba1d98c3d8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 47.62it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|███████████████████████████████████████████| 1/1 [00:00<00:00, 1000.07it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-8429db51768dd345/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 125.41it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-8429db51768dd345/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 71.14it/s] 
+preprocess_samples annotated set begin ...                                       
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+622it [00:09, 308.20it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+675it [00:19, 308.20it/s]ds_add_1_823
+1292it [00:23, 205.36it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2010it [00:36, 206.29it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2698it [00:50, 294.40it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3307it [01:04, 152.04it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4024it [01:18, 201.29it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4050it [01:29, 201.29it/s]ds_add_1_823
+4668it [01:31, 200.80it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5374it [01:45, 199.84it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6034it [01:59, 184.61it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6075it [02:09, 184.61it/s]ds_add_1_823
+6705it [02:12, 235.91it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7351it [02:26, 187.43it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7425it [02:39, 187.43it/s]ds_add_1_823
+8022it [02:40, 196.56it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8733it [02:54, 200.01it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9439it [03:07, 201.57it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9450it [03:19, 201.57it/s]ds_add_1_823
+10070it [03:22, 330.71it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10776it [03:36, 245.23it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11468it [03:50, 260.15it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12123it [04:05, 239.33it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12150it [04:19, 239.33it/s]ds_add_1_823
+12799it [04:21, 246.72it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+13489it [04:36, 210.38it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+13500it [04:49, 210.38it/s]ds_add_1_823
+ds_add_1_823
+global t is : 6
+test epoch results {'accuracy': 0.5849673202614379, 'f1_weighted': 0.551476094413
+618, 'f1_macro': 0.43457218683953125, 'f1': array([0.84367246, 0.        , 0.3373494 , 0.28070175, 0.58165548,
+       0.04347826, 0.6375    , 0.60947274, 0.57731959]), 'precision': array([0.81730769, 0.        , 0.41176471, 0.5106383 , 0.55793991,
+       0.66666667, 0.69863014, 0.51124438, 0.58333333]), 'recall': array([0.87179487, 0.        , 0.28571429, 0.19354839, 0.60747664,
+       0.02247191, 0.5862069 , 0.75442478, 0.57142857])}
+val epoch results {'accuracy': 0.6513888888888889, 'f1_weighted': 0.6044666460515
+002, 'f1_macro': 0.4535557151535065, 'f1': array([0.85321101, 0.        , 0.625     , 0.13483146, 0.5060241 ,
+       0.        , 0.67669173, 0.72182596, 0.56441718]), 'precision': array([0.82300885, 0.        , 0.83333333, 0.5       , 0.4375    ,
+       0.        , 0.77586207, 0.61407767, 0.64788732]), 'recall': array([0.88571429, 0.        , 0.5       , 0.07792208, 0.6       ,
+       0.        , 0.6       , 0.87543253, 0.5       ])}
+13500it [04:51, 46.34it/s]
+['advice warning to be careful tips and can give guidance alert Watches\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-27959f483fb3312c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.31it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-27959f483fb3312c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 87.01it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-7969defff0ba2b95/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 110.52it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-7969defff0ba2b95/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 66.67it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-9cb027cb1b701300/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|████████████████████| 1/1 [00:00<00:00, 989.46it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 100.00it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-9cb027cb1b701300/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 83.26it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-33224c306e2b8f66/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 111.05it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-33224c306e2b8f66/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 84.26it/s] 
+iteration step t is : 7
+addlen is:  3500
+unannotated dataset last 7741
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-1fa3e884e04b3362/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-1fa3e884e04b3362/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 62.24it/s] 
+preprocess_samples annotated set begin ...                                       
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-ab8fef37bbf94d91/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-ab8fef37bbf94d91/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples annotated set begin ...                                      
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+665it [00:09, 333.91it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1459it [00:23, 299.90it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2104it [00:37, 163.17it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2909it [00:50, 262.07it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3644it [01:04, 212.16it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4322it [01:18, 186.79it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5086it [01:32, 245.90it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5124it [01:43, 245.90it/s]ds_add_1_823
+5777it [01:46, 238.00it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6556it [02:00, 261.57it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7270it [02:13, 197.16it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7992it [02:27, 211.71it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8707it [02:41, 207.70it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+9429it [02:54, 209.60it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10204it [03:08, 258.26it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10944it [03:22, 239.99it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10980it [03:33, 239.99it/s]ds_add_1_823
+11700it [03:36, 290.34it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12431it [03:49, 234.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+13153it [04:03, 207.16it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+13176it [04:13, 207.16it/s]ds_add_1_823
+13865it [04:17, 263.51it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+14573it [04:30, 207.22it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+14640it [04:43, 207.22it/s]ds_add_1_823
+ds_add_1_823
+global t is : 7
+test epoch results {'accuracy': 0.5941176470588235, 'f1_weighted': 0.559426186848
+919, 'f1_macro': 0.43688546589666816, 'f1': array([0.8556962 , 0.        , 0.31168831, 0.26900585, 0.62167689,
+       0.02197802, 0.64451827, 0.61187215, 0.5955335 ]), 'precision': array([0.845     , 0.        , 0.42857143, 0.4893617 , 0.55272727,
+       0.5       , 0.76377953, 0.52099533, 0.57971014]), 'recall': array([0.86666667, 0.        , 0.24489796, 0.18548387, 0.71028037,
+       0.01123596, 0.55747126, 0.74115044, 0.6122449 ])}
+val epoch results {'accuracy': 0.6638888888888889, 'f1_weighted': 0.6252329292222
+33, 'f1_macro': 0.47719526600241846, 'f1': array([0.86384977, 0.        , 0.66666667, 0.26804124, 0.55172414,
+       0.        , 0.67669173, 0.73837209, 0.52941176]), 'precision': array([0.85185185, 0.        , 1.        , 0.65      , 0.46153846,
+       0.        , 0.77586207, 0.63659148, 0.57692308]), 'recall': array([0.87619048, 0.        , 0.5       , 0.16883117, 0.68571429,
+       0.        , 0.6       , 0.87889273, 0.48913043])}
+14640it [04:45, 51.34it/s]
+['contains useful information helps to understand the situation is important\n']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-99abfb28dbf606e4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 63.97it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-99abfb28dbf606e4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.63it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-f2fc8bed9f052eed/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 63.81it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-f2fc8bed9f052eed/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 61.35it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-e14600bec06d0017/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-e14600bec06d0017/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 86.98it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-4451eddc812baa62/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-4451eddc812baa62/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.41it/s] 
+iteration step t is : 8
+addlen is:  4000
+unannotated dataset last 7241
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.71it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-4ed2c60a047c7258/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-4ed2c60a047c7258/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples annotated set begin ...                                      
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 80.16it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-943db1523a26a9c0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.11it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-943db1523a26a9c0/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.98it/s] 
+preprocess_samples annotated set begin ...                                       
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+726it [00:16, 276.34it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1550it [00:30, 310.88it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2351it [00:44, 265.06it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+2397it [00:55, 265.06it/s]ds_add_1_823
+3168it [00:57, 330.81it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3967it [01:11, 271.75it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4761it [01:25, 265.30it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5551it [01:38, 266.59it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6327it [01:52, 257.48it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+6392it [02:05, 257.48it/s]ds_add_1_823
+7144it [02:06, 314.68it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7961it [02:20, 309.33it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8766it [02:34, 291.99it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8789it [02:45, 291.99it/s]ds_add_1_823
+9552it [02:48, 321.35it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10360it [03:01, 276.01it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11173it [03:15, 270.36it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11906it [03:28, 212.70it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12717it [03:42, 273.19it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+13501it [03:55, 326.81it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+14381it [04:09, 372.08it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+15124it [04:23, 303.79it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+15181it [04:35, 303.79it/s]ds_add_1_823
+15918it [04:37, 315.61it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+global t is : 8
+test epoch results {'accuracy': 0.5986928104575163, 'f1_weighted': 0.567218100026
+0501, 'f1_macro': 0.458831930197779, 'f1': array([0.85213033, 0.09302326, 0.375     , 0.29761905, 0.59707724,
+       0.04395604, 0.66881029, 0.62238399, 0.57948718]), 'precision': array([0.83333333, 0.33333333, 0.48387097, 0.56818182, 0.53962264,
+       1.        , 0.75912409, 0.52859351, 0.58247423]), 'recall': array([0.87179487, 0.05405405, 0.30612245, 0.2016129 , 0.6682243 ,
+       0.02247191, 0.59770115, 0.75663717, 0.57653061])}
+val epoch results {'accuracy': 0.6569444444444444, 'f1_weighted': 0.6121152097465
+347, 'f1_macro': 0.447078762794636, 'f1': array([0.87155963, 0.        , 0.5       , 0.21276596, 0.51764706,
+       0.        , 0.66666667, 0.73219373, 0.52287582]), 'precision': array([0.84070796, 0.        , 0.66666667, 0.58823529, 0.44      ,
+       0.        , 0.75      , 0.62227603, 0.6557377 ]), 'recall': array([0.9047619 , 0.        , 0.4       , 0.12987013, 0.62857143,
+       0.        , 0.6       , 0.88927336, 0.43478261])}
+15980it [04:52, 54.64it/s]
+['irrelevant not related']
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-071bb84ad8fcbe9a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-071bb84ad8fcbe9a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-464ce08d54715919/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.84it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-464ce08d54715919/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 57.07it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-5a5cc36d281da060/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1963.63it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.18it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-5a5cc36d281da060/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 83.33it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a0a4d38f5044edd8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a0a4d38f5044edd8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.02it/s] 
+iteration step t is : 9
+addlen is:  4500
+unannotated dataset last 6741
+embedding begin
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+b00e30a150c4163e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 54.05it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a9af1f73d9cc6001/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a9af1f73d9cc6001/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples annotated set begin ...                                      
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+ec6f0582219c63d4/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.67it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-4a25cd6611298fcf/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.34it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-4a25cd6611298fcf/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 83.31it/s] 
+preprocess_samples annotated set begin ...                                       
+classify begin
+  0%|                                                    | 0/20 [00:00<?, ?it/s]ds_add_1_823
+ds_add_1_823
+807it [00:10, 428.92it/s]ds_add_1_823                                           
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1656it [00:24, 326.84it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+1710it [00:34, 326.84it/s]ds_add_1_823
+2490it [00:38, 376.63it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+3340it [00:51, 290.20it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+4224it [01:05, 346.64it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5119it [01:18, 343.80it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5933it [01:32, 277.74it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+5985it [01:44, 277.74it/s]ds_add_1_823
+6776it [01:46, 365.68it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+7640it [02:00, 367.99it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8505it [02:14, 369.65it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+8550it [02:24, 369.65it/s]ds_add_1_823
+9358it [02:28, 343.60it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+10240it [02:42, 334.71it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11085it [02:55, 337.04it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+11940it [03:09, 340.39it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12819it [03:23, 320.43it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+12825it [03:34, 320.43it/s]ds_add_1_823
+13628it [03:36, 418.21it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+14505it [03:51, 372.41it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+15374it [04:05, 374.73it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+16229it [04:19, 364.36it/s]ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+ds_add_1_823
+17080it [04:32, 326.49it/s]ds_add_1_823
+ds_add_1_823
+epoch number 19
+ds_add_1_823
+ds_add_1_823
+17100it [04:44, 326.49it/s]ds_add_1_823
+ds_add_1_823
+global t is : 9
+test epoch results {'accuracy': 0.6006535947712418, 'f1_weighted': 0.571152783730
+1211, 'f1_macro': 0.4683044509739093, 'f1': array([0.84422111, 0.05      , 0.47727273, 0.33898305, 0.61598441,
+       0.04347826, 0.64686469, 0.62082139, 0.57711443]), 'precision': array([0.82758621, 0.33333333, 0.53846154, 0.56603774, 0.52842809,
+       0.66666667, 0.75968992, 0.54621849, 0.5631068 ]), 'recall': array([0.86153846, 0.02702703, 0.42857143, 0.24193548, 0.73831776,
+       0.02247191, 0.56321839, 0.71902655, 0.59183673])}
+val epoch results {'accuracy': 0.6569444444444444, 'f1_weighted': 0.6208184234352
+447, 'f1_macro': 0.46830366739587137, 'f1': array([0.87962963, 0.        , 0.625     , 0.26923077, 0.50526316,
+       0.        , 0.66666667, 0.7270073 , 0.54193548]), 'precision': array([0.85585586, 0.        , 0.83333333, 0.51851852, 0.4       ,
+       0.        , 0.77192982, 0.62878788, 0.66666667]), 'recall': array([0.9047619 , 0.        , 0.5       , 0.18181818, 0.68571429,
+       0.        , 0.58666667, 0.8615917 , 0.45652174])}
+17100it [04:47, 59.44it/s]
+[]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-a7e826122557cd8c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 63.83it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-a7e826122557cd8c/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 95.27it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-b921e8fb431ffe60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-b921e8fb431ffe60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.98it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-44571d1e79641f60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1880.85it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 125.30it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-44571d1e79641f60/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.91it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-0858cb928b391a78/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 125.19it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-0858cb928b391a78/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 91.00it/s] 
+iteration step t is : 10
+addlen is:  5000
+BALD_add_1_818
+len test: 1605
+len train and val 3211
+len unannotated set  11241
+len train 2408
+len val 803
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-02a5d4bb79e51c41/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00,  9.14it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-02a5d4bb79e51c41/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 20.37it/s] 
+torch.Size([11241, 27])
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-1b995fc7f0b2a7ec/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 60.33it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-1b995fc7f0b2a7ec/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 99.96it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-f705dbb309ebcea1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.09it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-f705dbb309ebcea1/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.99it/s] 
+embedding begin                                                                  
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-cdea8bb0d5856a2b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1787.09it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.52it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-cdea8bb0d5856a2b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 87.09it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-1473457773d57f55/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2002.05it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 133.38it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-1473457773d57f55/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 74.06it/s] 
+preprocess_samples begin ...                                                     
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-59d6023a304e96be/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-59d6023a304e96be/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.77it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-b51c039c8a2fa6e8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-b51c039c8a2fa6e8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+preprocess_samples begin ...                                                    
+classify begin
+  0%|                                                    | 0/30 [00:00<?, ?it/s]BALD_add_1_818
+BALD_add_1_818
+275it [00:04, 135.80it/s]BALD_add_1_818                                         
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+586it [00:14, 65.97it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+828it [00:24, 43.11it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1098it [00:33, 48.40it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1173it [00:43, 19.10it/s]BALD_add_1_818
+1391it [00:43, 55.30it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1466it [00:52, 20.69it/s]BALD_add_1_818
+1708it [00:52, 62.13it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2026it [01:02, 63.47it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2279it [01:11, 46.02it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2574it [01:21, 53.09it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2638it [01:30, 19.26it/s]BALD_add_1_818
+2927it [01:31, 75.31it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3150it [01:40, 42.92it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3224it [01:49, 18.74it/s]BALD_add_1_818
+3505it [01:50, 70.67it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3731it [02:00, 42.27it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4083it [02:09, 66.87it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4342it [02:19, 51.61it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4666it [02:29, 59.83it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4930it [02:38, 47.40it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+5251it [02:47, 57.82it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+5501it [02:57, 44.63it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+5568it [03:06, 19.62it/s]BALD_add_1_818
+5807it [03:06, 56.98it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6144it [03:16, 63.67it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6373it [03:25, 41.76it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6683it [03:35, 53.10it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6994it [03:45, 57.44it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7308it [03:54, 58.40it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7550it [04:04, 43.15it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7866it [04:14, 54.53it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8128it [04:24, 44.44it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8205it [04:33, 20.63it/s]BALD_add_1_818
+8426it [04:33, 54.32it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8498it [04:42, 20.69it/s]BALD_add_1_818
+8722it [04:42, 58.28it/s]BALD_add_1_818
+BALD_add_1_818
+global t is : 0
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+test epoch results {'accuracy': 0.49673202614379086, 'f1_weighted': 0.42902937371
+9929, 'f1_macro': 0.3091720897367313, 'f1': array([0.81025641, 0.        , 0.14545455, 0.10810811, 0.17073171,
+       0.        , 0.4587156 , 0.57824143, 0.51104101]), 'precision': array([0.81025641, 0.        , 0.66666667, 0.33333333, 0.65625   ,
+       0.        , 0.38167939, 0.43595506, 0.66942149]), 'recall': array([0.81025641, 0.        , 0.08163265, 0.06451613, 0.09813084,
+       0.        , 0.57471264, 0.85840708, 0.41326531])}
+val epoch results {'accuracy': 0.6041666666666666, 'f1_weighted': 0.5384408945297
+493, 'f1_macro': 0.35246646988257513, 'f1': array([0.83809524, 0.        , 0.33333333, 0.11494253, 0.23809524,
+       0.        , 0.54166667, 0.69430052, 0.41176471]), 'precision': array([0.83809524, 0.        , 1.        , 0.5       , 0.71428571,
+       0.        , 0.56521739, 0.55486542, 0.63636364]), 'recall': array([0.83809524, 0.        , 0.2       , 0.06493506, 0.14285714,
+       0.        , 0.52      , 0.92733564, 0.30434783])}
+8790it [04:57, 29.55it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-7ca89800ebc837b8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 63.73it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-7ca89800ebc837b8/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 63.75it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-9f49b87176ee50d5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-9f49b87176ee50d5/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-67957acfc6fe448d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 110.93it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-67957acfc6fe448d/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 76.92it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-539e7e365702a79e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00,  9.14it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-539e7e365702a79e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 21.34it/s] 
+iteration t is : 1
+addlen is:  500
+embedding begin
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+cdea8bb0d5856a2b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-dfac15e68f761953/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.10it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-dfac15e68f761953/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 79.99it/s] 
+preprocess_samples begin ...                                                     
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+59d6023a304e96be/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-1c82b8cc6e21e59f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 64.17it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-1c82b8cc6e21e59f/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|████████████████████████████████████████████| 1/1 [00:00<00:00, 104.88it/s] 
+preprocess_samples begin ...                                                     
+classify begin
+  0%|                                                    | 0/30 [00:00<?, ?it/s]BALD_add_1_818
+BALD_add_1_818
+344it [00:08, 100.79it/s]BALD_add_1_818                                         
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+689it [00:21, 53.09it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+720it [00:32, 53.09it/s]BALD_add_1_818
+1055it [00:35, 63.34it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1403it [00:48, 50.56it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1767it [01:01, 51.48it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+1800it [01:12, 51.48it/s]BALD_add_1_818
+2142it [01:14, 65.89it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2502it [01:27, 53.34it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2849it [01:41, 47.64it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+2880it [01:52, 47.64it/s]BALD_add_1_818
+3178it [01:54, 57.52it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3591it [02:07, 65.65it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3925it [02:21, 49.06it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+3960it [02:32, 49.06it/s]BALD_add_1_818
+4297it [02:34, 63.54it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4650it [02:47, 50.91it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+4999it [03:01, 48.93it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+5040it [03:12, 48.93it/s]BALD_add_1_818
+5369it [03:14, 63.15it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+5709it [03:27, 49.72it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6118it [03:40, 63.53it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6120it [03:52, 63.53it/s]BALD_add_1_818
+6464it [03:53, 65.63it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+6787it [04:07, 47.45it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7134it [04:20, 47.71it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7200it [04:32, 47.71it/s]BALD_add_1_818
+7553it [04:33, 76.68it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+7897it [04:47, 51.88it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8243it [05:00, 49.06it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8280it [05:12, 49.06it/s]BALD_add_1_818
+8619it [05:13, 63.60it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+8966it [05:26, 50.41it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+9305it [05:40, 46.72it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+9643it [05:53, 46.22it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+10062it [06:06, 63.39it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+10419it [06:19, 51.73it/s]BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+10787it [06:33, 58.98it/s]BALD_add_1_818
+BALD_add_1_818
+global t is : 1
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+test epoch results {'accuracy': 0.5176470588235295, 'f1_weighted': 0.467565116094
+68304, 'f1_macro': 0.3477450418803669, 'f1': array([0.83636364, 0.        , 0.21428571, 0.1509434 , 0.37254902,
+       0.        , 0.46786632, 0.58103062, 0.50666667]), 'precision': array([0.84736842, 0.        , 0.85714286, 0.34285714, 0.61956522,
+       0.        , 0.42325581, 0.43855693, 0.73076923]), 'recall': array([0.82564103, 0.        , 0.12244898, 0.09677419, 0.26635514,
+       0.        , 0.52298851, 0.86061947, 0.3877551 ])}
+val epoch results {'accuracy': 0.6027777777777777, 'f1_weighted': 0.5450864864708
+066, 'f1_macro': 0.3709215167548501, 'f1': array([0.82857143, 0.        , 0.33333333, 0.15555556, 0.38596491,
+       0.        , 0.54135338, 0.6875    , 0.40601504]), 'precision': array([0.82857143, 0.        , 1.        , 0.53846154, 0.5       ,
+       0.        , 0.62068966, 0.55114823, 0.65853659]), 'recall': array([0.82857143, 0.        , 0.2       , 0.09090909, 0.31428571,
+       0.        , 0.48      , 0.91349481, 0.29347826])}
+10800it [06:47, 26.48it/s]
+mc dropout begin
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-01c03b9142dd7ae7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 142.41it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-01c03b9142dd7ae7/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 62.45it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-dd47ec95f7970b2e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 1966.39it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 152.94it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-dd47ec95f7970b2e/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.47it/s] 
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-477953e885d1c429/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|███████████████████| 1/1 [00:00<00:00, 2028.19it/s]
+Extracting data files: 100%|█████████████████████| 1/1 [00:00<00:00, 116.64it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-477953e885d1c429/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 90.82it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-2cc5c4a64f55383b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████| 1/1 [00:00<00:00, 10.65it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-2cc5c4a64f55383b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 31.99it/s] 
+iteration t is : 2
+addlen is:  1000
+embedding begin
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+BALD_add_1_818
+Found cached dataset csv (C:/Users/admin/.cache/huggingface/datasets/csv/default-
+cdea8bb0d5856a2b/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1)
+100%|█████████████████████████████████████████████████████| 1/1 [00:00<?, ?it/s]
+Downloading and preparing dataset csv/default to C:/Users/admin/.cache/huggingfac
+e/datasets/csv/default-97f8db13e91d5f6a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1...
+Downloading data files: 100%|█████████████████████████████| 1/1 [00:00<?, ?it/s]
+Extracting data files: 100%|██████████████████████████████| 1/1 [00:00<?, ?it/s] 
+Dataset csv downloaded and prepared to C:/Users/admin/.cache/huggingface/datasets
+/csv/default-97f8db13e91d5f6a/0.0.0/6954658bab30a358235fa864b05cf819af0e179325c740e4bc853bcc7ec513e1. Subsequent calls will reuse this data.
+100%|█████████████████████████████████████████████| 1/1 [00:00<00:00, 64.06it/s] 
+preprocess_samples begin ...                                                     
+Traceback (most recent call last):
+  File "D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main\BALD_MCD.py", line 1136, in <module>
+    main()
+  File "D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main\BALD_MCD.py", line 986, in main
+    test_embedding = preprocess_samples(test_raw_dataset,num)
+  File "D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main\BALD_MCD.py", line 746, in preprocess_samples
+    model_outputs = model(**tokenized_train)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bert\modeling_bert.py", line 1562, in forward
+    outputs = self.bert(
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bert\modeling_bert.py", line 1020, in forward
+    encoder_outputs = self.encoder(
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bert\modeling_bert.py", line 610, in forward
+    layer_outputs = layer_module(
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bert\modeling_bert.py", line 495, in forward
+    self_attention_outputs = self.attention(
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bert\modeling_bert.py", line 425, in forward
+    self_outputs = self.self(
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\torch\nn\modules\moduleine 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "E:\Desktop\大三上\人工智能\venv\lib\site-packages\transformers\models\bering_bert.py", line 323, in forward
+    attention_scores = torch.matmul(query_layer, key_layer.transpose(-1, -2))    -IE-main\BERT-IE-main>
+KeyboardInterrupt
+(venv) PS D:\Bristol course\Data Science Dissertation\ExpBERT lab and thesis\BERT-IE-main\BERT-IE-main>

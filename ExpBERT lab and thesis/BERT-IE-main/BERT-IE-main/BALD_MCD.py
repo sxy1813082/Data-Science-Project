@@ -463,10 +463,9 @@ class BALDModel(nn.Module):
         return x
 
 def generate_explanations(sampled_data):
-
     strings = []
     global t
-    with open("annator.txt", 'r') as file:
+    with open("annotator.txt", 'r') as file:
         lines = file.readlines()
     start_line = t * 1
     end_line = (t + 1) * 1
@@ -507,7 +506,7 @@ def addOrDelete(sampled_indices,raw_dataset_noexp):
             extracted_explanations = file.readlines()[:]
             for extracted_explanation in extracted_explanations:
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
-        with open("GPTuseExp.txt", "r") as file:
+        with open("DefaultuseExp.txt", "r") as file:
             extracted_explanations = file.readlines()[:]
             for extracted_explanation in extracted_explanations:
                 new_data.append({"text": tweet, "labels": label, "exp_and_td": extracted_explanation.strip()})
