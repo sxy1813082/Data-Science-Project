@@ -1,15 +1,22 @@
-## The lab is for applying pool-based active learning in the ExpBERT-based classification tasks. Include four basic active learning strategies with three alternative annotator simulation processes.
+# ExpBERT-based Active Learning Lab
 
-#### Please run the example.sh script:
+This lab focuses on the application of pool-based active learning in ExpBERT-based classification tasks. It includes four basic active learning strategies, along with three alternative annotator simulation processes.
 
+## Quick Start
+
+To run the provided examples, execute the following commands:
+
+```bash
 python BALD_MCD.py
+python Active_Learning_Strategies_Whole.py --dataset active-dataset --annotator preset --strategy rs
+```
 
-python Active Learning Strategies Whole.py --dataset active-dataset --annotator preset --strategy rs
-
-## PS:
-##### BALD_MCD.py is for dropout NN use BALD sampling through the MCD
-##### The dataset to run: active-dataset, full-data
-##### annotator type: preset, human, openai
-##### active learning strategies type: rs (random sampling), us (uncertainty sampling), ds (diversity sampling)
-
+## Notes
+- **BALD_MCD.py**: For neural networks using dropout, implements BALD sampling through MCD.
+- **Available Datasets**: `active-dataset`, `full-data`
+- **Annotator Options**: `preset`, `human`, `openai`
+- **Active Learning Strategies**:
+  - `rs`: Random Sampling
+  - `us`: Uncertainty Sampling
+  - `ds`: Diversity Sampling
 
