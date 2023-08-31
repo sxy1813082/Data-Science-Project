@@ -19,4 +19,7 @@ python Active_Learning_Strategies_Whole.py --dataset active-dataset --annotator 
   - `rs`: Random Sampling
   - `us`: Uncertainty Sampling
   - `ds`: Diversity Sampling
+  
+## Data
 
+The data is stored in the 'data' folder with a '.tsv' extension.
