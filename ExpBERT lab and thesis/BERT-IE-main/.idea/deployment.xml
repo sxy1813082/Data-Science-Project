@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="bp1-login.acrc.bris.ac.uk." remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="bp1-login.acrc.bris.ac.uk.">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/BERT-IE-main" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yl22361@bp1-login.acrc.bris.ac.uk.:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/BERT-IE-main" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yl22361@bp1-login.acrc.bris.ac.uk.:22 password (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/user/home/yl22361/" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
+  </component>
+</project>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="bp1-login.acrc.bris.ac.uk." id="2a4402f5-1242-471c-a840-d4f19908a804" port="22" nameFormat="DESCRIPTIVE" username="yl22361" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
