@@ -163,7 +163,7 @@ def read_explanations(explanation_file):
 torch.multiprocessing.set_sharing_strategy("file_system")
 # Setting up the tensorboard for visualising results --------------------
 tensorboard_filepath = (
-        "BALD_add_1_818"
+        "BALD_add_1"
 )
 print(tensorboard_filepath)
 writer = SummaryWriter(tensorboard_filepath, flush_secs=5)
